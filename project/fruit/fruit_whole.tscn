@@ -1,0 +1,3 @@
+[gd_scene format=3 uid="uid://b6ij25dlry14y"]
+
+[node name="FruitWhole" type="RigidBody2D"]
