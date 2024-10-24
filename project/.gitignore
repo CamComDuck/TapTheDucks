@@ -1,3 +1,7 @@
 # Godot 4+ specific ignores
 .godot/
 /android/
+/duck/graphics
+/fruit/graphics
+/level/graphics
+/player/graphics

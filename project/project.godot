@@ -25,9 +25,12 @@ window/stretch/mode="canvas_items"
 
 folder_colors={
 "res://duck/": "green",
+"res://duck/graphics/": "red",
 "res://fruit/": "green",
 "res://level/": "orange",
+"res://level/graphics/": "red",
 "res://player/": "yellow",
+"res://player/graphics/": "red",
 "res://title/": "orange"
 }
 
