@@ -22,4 +22,5 @@ func _ready() -> void:
 
 
 func _on_player_lane_changed(new_lane: int) -> void:
-	player.global_position = _lane_positions[new_lane - 1].global_position
+	var tween = get_tree().create_tween()
+	tween.tween_property(player, "global_position",_lane_positions[new_lane - 1].global_position, 0.1).set_ease(Tween.EASE_OUT)
