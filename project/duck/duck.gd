@@ -5,6 +5,7 @@ var _grid_square := 50
 var _is_fast_type : bool
 
 @onready var move_timer: Timer = $MoveTimer
+@onready var base_duck_sprite: AnimatedSprite2D = $BaseDuckSprite
 
 func print_name(new_name : String):
 	print(new_name)

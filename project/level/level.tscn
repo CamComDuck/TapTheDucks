@@ -929,19 +929,19 @@ position = Vector2(250, 594.28)
 gizmo_extents = 50.0
 
 [node name="DuckPosition1" type="Marker2D" parent="."]
-position = Vector2(1350, 30)
+position = Vector2(1250, 30)
 gizmo_extents = 50.0
 
 [node name="DuckPosition2" type="Marker2D" parent="."]
-position = Vector2(1350, 214.28)
+position = Vector2(1250, 214.28)
 gizmo_extents = 50.0
 
 [node name="DuckPosition3" type="Marker2D" parent="."]
-position = Vector2(1350, 409.375)
+position = Vector2(1250, 409.375)
 gizmo_extents = 50.0
 
 [node name="DuckPosition4" type="Marker2D" parent="."]
-position = Vector2(1350, 594.28)
+position = Vector2(1250, 594.28)
 gizmo_extents = 50.0
 
 [node name="Player" parent="." instance=ExtResource("2_8qaat")]

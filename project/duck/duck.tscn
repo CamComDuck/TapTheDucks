@@ -1,10 +1,13 @@
-[gd_scene load_steps=41 format=3 uid="uid://dty1uqxcrrd5x"]
+[gd_scene load_steps=45 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
 [ext_resource type="Texture2D" uid="uid://dvblgtjsjy2d6" path="res://duck/graphics/duck_basic_TEMP.png" id="1_ql3ak"]
 [ext_resource type="Texture2D" uid="uid://dgxvgtw5xqk77" path="res://duck/graphics/duck_fast_TEMP.png" id="2_d33gf"]
 [ext_resource type="Texture2D" uid="uid://skint60hc72d" path="res://duck/graphics/duck_hungry_TEMP.png" id="3_10cpf"]
 [ext_resource type="Texture2D" uid="uid://drj0ahi44i8jh" path="res://duck/graphics/duck_angry_TEMP.png" id="4_jhg8h"]
+[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/duck_1.png" id="6_v2shv"]
+[ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/duck_2.png" id="7_3xdwr"]
+[ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/duck_3.png" id="8_3tc27"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or6kn"]
 
@@ -255,6 +258,26 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_22ymi"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_v2shv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3xdwr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_3tc27")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3xdwr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Duck" type="CharacterBody2D"]
 script = ExtResource("1_edn5t")
 
@@ -290,5 +313,12 @@ frame_progress = 0.825817
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 2.0
+
+[node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_22ymi")
+autoplay = "default"
+frame = 3
+frame_progress = 0.354941
+flip_h = true
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

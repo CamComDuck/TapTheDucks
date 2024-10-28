@@ -10,4 +10,5 @@ func _ready() -> void:
 	move_timer.wait_time = randf_range(2.1, 3)
 	move_timer.start()
 	print_name("hungry duck")
-	sprite_hungry.show()
+	#sprite_hungry.show()
+	base_duck_sprite.modulate = Color(Color.GREEN)
