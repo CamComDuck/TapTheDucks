@@ -47,3 +47,13 @@ func _ready() -> void:
 func _on_player_lane_changed(new_lane: int) -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(player, "global_position",_player_positions[new_lane - 1].global_position, 0.1).set_ease(Tween.EASE_OUT)
+
+
+func _on_duck_barrier_left_body_entered(body: Node2D) -> void:
+	if body.is_in_group("duck"):
+		body.queue_free()
+
+
+func _on_duck_barrier_right_body_entered(body: Node2D) -> void:
+	if body.is_in_group("duck"):
+		body.queue_free()

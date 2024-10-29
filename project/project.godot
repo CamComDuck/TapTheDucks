@@ -34,6 +34,10 @@ folder_colors={
 "res://title/": "orange"
 }
 
+[global_group]
+
+duck=""
+
 [input]
 
 move_up={
