@@ -1,6 +1,6 @@
 extends Duck # Moves faster
 
-@onready var sprite_fast: AnimatedSprite2D = %SpriteFast
+@onready var sprite_fast := %SpriteFast
 
 func _ready() -> void:
 	print_name("Fast Duck")

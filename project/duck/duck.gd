@@ -5,9 +5,9 @@ var _grid_square := 50
 var _is_fast_type : bool
 var _is_full := false
 
-@onready var move_timer: Timer = $MoveTimer
-@onready var base_duck_sprite: AnimatedSprite2D = $BaseDuckSprite
-@onready var full_timer_testing: Timer = $FullTimerTESTING
+@onready var move_timer := $MoveTimer
+@onready var base_duck_sprite := $BaseDuckSprite
+@onready var full_timer_testing := $FullTimerTESTING
 
 func _physics_process(delta: float) -> void:
 	if _is_full:
@@ -33,7 +33,7 @@ func _on_move_timer_timeout() -> void:
 func _on_full_timer_testing_timeout() -> void:
 	# Replace with counting hunger to turn is_full to true
 	
-	#pass
-	_is_full = true
-	move_timer.stop()
-	base_duck_sprite.flip_h = not base_duck_sprite.flip_h
+	pass
+	#_is_full = true
+	#move_timer.stop()
+	#base_duck_sprite.flip_h = not base_duck_sprite.flip_h
