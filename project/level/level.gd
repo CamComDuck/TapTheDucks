@@ -5,8 +5,13 @@ var _duck_positions : Array[Marker2D] = []
 
 var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
+
 var _round_max_ducks := 10
 var _round_current_ducks := 0
+
+var _percent_chance_basic_duck := 40
+var _percent_chance_fast_duck := 30
+var _percent_chance_hungry_duck := 20
 
 @onready var player_position_1 := $PlayerPosition1
 @onready var player_position_2 := $PlayerPosition2
@@ -41,15 +46,21 @@ func _ready() -> void:
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck : Duck = load("res://duck/duck.tscn").instantiate()
-	var new_duck_type := randi_range(0, 3)
-	if new_duck_type == 0:
+	var new_duck_type := randi_range(1, 100)
+	
+	
+	if new_duck_type <= _percent_chance_basic_duck:
+		# Spawn Basic Duck
 		new_duck.set_script(load("res://duck/duck_basic.gd"))
-	elif new_duck_type == 1:
-		new_duck.set_script(load("res://duck/duck_angry.gd"))
-	elif new_duck_type == 2:
-		new_duck.set_script(load("res://duck/duck_hungry.gd"))
-	elif new_duck_type == 3:
+	elif new_duck_type <= (_percent_chance_basic_duck + _percent_chance_fast_duck):
+		# Spawn Fast Duck
 		new_duck.set_script(load("res://duck/duck_fast.gd"))
+	elif new_duck_type <= (_percent_chance_basic_duck + _percent_chance_fast_duck + _percent_chance_hungry_duck):
+		# Spawn Hungry Duck
+		new_duck.set_script(load("res://duck/duck_hungry.gd"))
+	else:
+		# Spawn Angry Duck
+		new_duck.set_script(load("res://duck/duck_angry.gd"))
 	get_parent().add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
