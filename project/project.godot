@@ -17,8 +17,8 @@ config/icon="res://duck/duck_1.png"
 
 [display]
 
-window/size/viewport_width=1280
-window/size/viewport_height=720
+window/size/viewport_width=768
+window/size/viewport_height=768
 window/stretch/mode="canvas_items"
 
 [file_customization]

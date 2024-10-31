@@ -280,7 +280,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Duck" type="CharacterBody2D" groups=["duck"]]
+[node name="Duck" type="CharacterBody2D"]
 collision_mask = 60
 motion_mode = 1
 script = ExtResource("1_edn5t")

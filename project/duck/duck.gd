@@ -1,7 +1,7 @@
 class_name Duck
 extends CharacterBody2D
 
-var _grid_square := 50
+var _grid_square := 48
 var _is_fast_type : bool
 var _is_full := false
 
