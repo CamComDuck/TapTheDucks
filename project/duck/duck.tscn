@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/duck_3.png" id="8_3tc27"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or6kn"]
+radius = 21.0
+height = 46.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oubyf"]
 atlas = ExtResource("1_ql3ak")
@@ -279,7 +281,7 @@ animations = [{
 }]
 
 [node name="Duck" type="CharacterBody2D" groups=["duck"]]
-collision_mask = 2
+collision_mask = 60
 motion_mode = 1
 script = ExtResource("1_edn5t")
 

@@ -13,18 +13,18 @@ var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
 
-@onready var player_position_1 := $PlayerPosition1
-@onready var player_position_2 := $PlayerPosition2
-@onready var player_position_3 := $PlayerPosition3
-@onready var player_position_4 := $PlayerPosition4
-@onready var player := $Player
+@onready var player_position_1 : Marker2D = $PlayerPosition1
+@onready var player_position_2 : Marker2D = $PlayerPosition2
+@onready var player_position_3 : Marker2D = $PlayerPosition3
+@onready var player_position_4 : Marker2D = $PlayerPosition4
+@onready var player : Player = $Player
 
-@onready var duck_position_1 := $DuckPosition1
-@onready var duck_position_2 := $DuckPosition2
-@onready var duck_position_3 := $DuckPosition3
-@onready var duck_position_4 := $DuckPosition4
+@onready var duck_position_1 : Marker2D = $DuckPosition1
+@onready var duck_position_2 : Marker2D = $DuckPosition2
+@onready var duck_position_3 : Marker2D = $DuckPosition3
+@onready var duck_position_4 : Marker2D = $DuckPosition4
 
-@onready var duck_spawn_timer := $DuckSpawnTimer
+@onready var duck_spawn_timer : Timer = $DuckSpawnTimer
 
 func _ready() -> void:
 	_player_positions.append(player_position_1)

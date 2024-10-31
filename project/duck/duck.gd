@@ -5,9 +5,9 @@ var _grid_square := 50
 var _is_fast_type : bool
 var _is_full := false
 
-@onready var move_timer := $MoveTimer
-@onready var base_duck_sprite := $BaseDuckSprite
-@onready var full_timer_testing := $FullTimerTESTING
+@onready var move_timer : Timer = $MoveTimer
+@onready var base_duck_sprite : AnimatedSprite2D = $BaseDuckSprite
+@onready var full_timer_testing : Timer = $FullTimerTESTING
 
 func _physics_process(delta: float) -> void:
 	if _is_full:

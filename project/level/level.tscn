@@ -948,6 +948,7 @@ position = Vector2(1250, 594.28)
 gizmo_extents = 50.0
 
 [node name="Player" parent="." instance=ExtResource("2_8qaat")]
+motion_mode = 1
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -100
@@ -956,16 +957,16 @@ tile_map_data = PackedByteArray("AAAIAAEABwAAAAAAAAAJAAEABwAAAAAAAAAKAAEABwAAAAA
 tile_set = SubResource("TileSet_25g77")
 
 [node name="LaneBarrierLeft" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 16
+collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneBarrierLeft"]
 position = Vector2(302, 364)
 shape = SubResource("RectangleShape2D_s1div")
 
 [node name="LaneBarrierRight" type="Area2D" parent="."]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 32
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneBarrierRight"]
 position = Vector2(1300, 364)
