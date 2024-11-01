@@ -29,6 +29,9 @@ var _can_pick_fruit := true
 
 @onready var duck_spawn_timer : Timer = $DuckSpawnTimer
 
+@onready var duck : PackedScene = load("res://duck/duck.tscn")
+@onready var fruit_whole : PackedScene = load("res://fruit/fruit_whole.tscn")
+
 func _ready() -> void:
 	_player_positions.append(player_position_1)
 	_player_positions.append(player_position_2)
@@ -53,31 +56,37 @@ func _physics_process(_delta: float) -> void:
 		
 		await player.animation_finished
 		
-		var fruit_whole : FruitWhole = load("res://fruit/fruit_whole.tscn").instantiate()
-		get_parent().add_child.call_deferred(fruit_whole)
-		fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x
-		fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+		var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+		get_parent().add_child.call_deferred(new_fruit_whole)
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x
+		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
 		_can_pick_fruit = true
 		
 		
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
-	var new_duck : Duck = load("res://duck/duck.tscn").instantiate()
-	var new_duck_type := randi_range(1, 100)
+	var chosen_type : DuckTypes
+	var random_type_roll := randi_range(1, 100)
 	
 	
-	if new_duck_type <= _percent_chance_basic_duck:
+	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
-		new_duck.set_script(load("res://duck/duck_basic.gd"))
-	elif new_duck_type <= (_percent_chance_basic_duck + _percent_chance_fast_duck):
+		chosen_type = load("res://duck/resources/duck_basic.tres") as DuckTypes 
+		
+	elif random_type_roll <= (_percent_chance_basic_duck + _percent_chance_fast_duck):
 		# Spawn Fast Duck
-		new_duck.set_script(load("res://duck/duck_fast.gd"))
-	elif new_duck_type <= (_percent_chance_basic_duck + _percent_chance_fast_duck + _percent_chance_hungry_duck):
+		chosen_type = load("res://duck/resources/duck_fast.tres") as DuckTypes 
+		
+	elif random_type_roll <= (_percent_chance_basic_duck + _percent_chance_fast_duck + _percent_chance_hungry_duck):
 		# Spawn Hungry Duck
-		new_duck.set_script(load("res://duck/duck_hungry.gd"))
+		chosen_type = load("res://duck/resources/duck_hungry.tres") as DuckTypes 
+		
 	else:
 		# Spawn Angry Duck
-		new_duck.set_script(load("res://duck/duck_angry.gd"))
+		chosen_type = load("res://duck/resources/duck_angry.tres") as DuckTypes 
+		
+	var new_duck := duck.instantiate() as Duck
+	new_duck.load_type(chosen_type)
 	get_parent().add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 

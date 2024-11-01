@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="DuckTypes" load_steps=2 format=3 uid="uid://djq55oqkn8c6v"]
+
+[ext_resource type="Script" path="res://duck/duck_types.gd" id="1_s1dl8"]
+
+[resource]
+script = ExtResource("1_s1dl8")
+name = "Hungry"
+is_hungry_type = true
+is_fast_type = false
+color = Color(0, 1, 0, 1)

@@ -31,6 +31,7 @@ folder_colors={
 "res://audio_controller/": "purple",
 "res://duck/": "green",
 "res://duck/graphics/": "red",
+"res://duck/resources/": "red",
 "res://fruit/": "green",
 "res://level/": "orange",
 "res://level/graphics/": "red",
