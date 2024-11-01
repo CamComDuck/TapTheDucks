@@ -7,7 +7,7 @@ var _lane := 1
 
 @onready var player_move: AudioStreamPlayer = $PlayerMove
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed("move_up") and not Input.is_action_pressed("interact_right"):
 		_lane -= 1
@@ -23,8 +23,8 @@ func _physics_process(delta: float) -> void:
 		lane_changed.emit(_lane)
 		player_move.play()
 		
-	elif Input.is_action_pressed("interact_right") and position.x < 740:
-		velocity.x = 15000 * delta
+	elif Input.is_action_pressed("interact_right") and position.x < 696:
+		velocity.x = 150
 		move_and_slide()
 		
 	elif Input.is_action_just_released("interact_right"):

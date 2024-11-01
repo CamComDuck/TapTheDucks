@@ -33,7 +33,7 @@ func _on_move_timer_timeout() -> void:
 func _on_full_timer_testing_timeout() -> void:
 	# Replace with counting hunger to turn is_full to true
 	
-	pass
-	#_is_full = true
-	#move_timer.stop()
-	#base_duck_sprite.flip_h = not base_duck_sprite.flip_h
+	#pass
+	_is_full = true
+	move_timer.stop()
+	base_duck_sprite.flip_h = not base_duck_sprite.flip_h
