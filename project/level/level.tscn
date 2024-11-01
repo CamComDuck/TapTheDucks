@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_b81hx"]
 [ext_resource type="PackedScene" uid="uid://3f2ol0bm2jjt" path="res://player/player.tscn" id="2_8qaat"]
-[ext_resource type="Texture2D" uid="uid://b7cyuhh3yfsl2" path="res://level/tile_tree.png" id="6_icae1"]
+[ext_resource type="Texture2D" uid="uid://b7cyuhh3yfsl2" path="res://level/graphics/tile_tree.png" id="6_icae1"]
 [ext_resource type="PackedScene" uid="uid://c7poxqlkquslw" path="res://fruit/fruit_eaten.tscn" id="7_4iyir"]
-[ext_resource type="Texture2D" uid="uid://bvakkjbee7smd" path="res://level/tile_grass.png" id="132_fy1u2"]
-[ext_resource type="Texture2D" uid="uid://56s1vk0qlcyq" path="res://level/tile_lane.png" id="133_cvyhl"]
-[ext_resource type="Texture2D" uid="uid://cybc8qg1ljdrf" path="res://level/tile_water.png" id="134_c3fog"]
+[ext_resource type="Texture2D" uid="uid://bvakkjbee7smd" path="res://level/graphics/tile_grass.png" id="132_fy1u2"]
+[ext_resource type="Texture2D" uid="uid://56s1vk0qlcyq" path="res://level/graphics/tile_lane.png" id="133_cvyhl"]
+[ext_resource type="Texture2D" uid="uid://cybc8qg1ljdrf" path="res://level/graphics/tile_water.png" id="134_c3fog"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1div"]
 size = Vector2(48, 768)

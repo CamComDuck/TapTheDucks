@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c7poxqlkquslw"]
 
-[ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/fruit_eaten.png" id="1_8umyb"]
+[ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/graphics/fruit_eaten.png" id="1_8umyb"]
 [ext_resource type="Script" path="res://fruit/fruit_eaten.gd" id="1_fclcl"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="3_4f7si"]
 

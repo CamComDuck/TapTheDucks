@@ -1,64 +1,63 @@
 [gd_scene load_steps=45 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
-[ext_resource type="Texture2D" uid="uid://dvblgtjsjy2d6" path="res://duck/graphics/duck_basic_TEMP.png" id="1_ql3ak"]
-[ext_resource type="Texture2D" uid="uid://dgxvgtw5xqk77" path="res://duck/graphics/duck_fast_TEMP.png" id="2_d33gf"]
-[ext_resource type="Texture2D" uid="uid://skint60hc72d" path="res://duck/graphics/duck_hungry_TEMP.png" id="3_10cpf"]
-[ext_resource type="Texture2D" uid="uid://drj0ahi44i8jh" path="res://duck/graphics/duck_angry_TEMP.png" id="4_jhg8h"]
-[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/duck_1.png" id="6_v2shv"]
-[ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/duck_2.png" id="7_3xdwr"]
-[ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/duck_3.png" id="8_3tc27"]
+[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/duck_body_1.png" id="6_v2shv"]
+[ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/graphics/duck_body_2.png" id="7_3xdwr"]
+[ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/graphics/duck_body_3.png" id="8_3tc27"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or6kn"]
 radius = 21.0
 height = 46.0
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y8oey"]
+load_path = "res://.godot/imported/duck_basic_TEMP.png-10c900433fe8ca2236a0563bd605bf2c.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_oubyf"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(576, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i0my8"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(624, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kb18x"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(672, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtx5s"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(720, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dr858"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(768, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w08br"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(816, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btmq8"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(192, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bif1"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(208, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4ol4y"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(224, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qny2p"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(240, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vq8xe"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(256, 64, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wp5be"]
-atlas = ExtResource("1_ql3ak")
+atlas = SubResource("CompressedTexture2D_y8oey")
 region = Rect2(272, 64, 16, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jmway"]
@@ -110,28 +109,31 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e6x57"]
+load_path = "res://.godot/imported/duck_fast_TEMP.png-f6d2a680a117cf32585255f4bf1b178d.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_6hj0s"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(576, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kk8pp"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(624, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1a5jm"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(672, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6k4xb"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(720, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_u2o73"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(768, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_38rp8"]
-atlas = ExtResource("2_d33gf")
+atlas = SubResource("CompressedTexture2D_e6x57")
 region = Rect2(816, 192, 48, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_5ljvg"]
@@ -160,28 +162,31 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p5bne"]
+load_path = "res://.godot/imported/duck_hungry_TEMP.png-eb1d9291b3d77909e7eed662d8fd6f74.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_eaoy5"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(576, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uyr6t"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(624, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fh3ha"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(672, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xk1bk"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(720, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n2kmr"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(768, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_utem0"]
-atlas = ExtResource("3_10cpf")
+atlas = SubResource("CompressedTexture2D_p5bne")
 region = Rect2(816, 192, 48, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_vcs6q"]
@@ -210,28 +215,31 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qnlxc"]
+load_path = "res://.godot/imported/duck_angry_TEMP.png-2bb6fcf5da198af76590e12e1fc496c1.ctex"
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_5oc05"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(576, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37pmi"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(624, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_esyrk"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(672, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_m77j7"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(720, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n7wnx"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(768, 192, 48, 96)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tf33y"]
-atlas = ExtResource("4_jhg8h")
+atlas = SubResource("CompressedTexture2D_qnlxc")
 region = Rect2(816, 192, 48, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_biuye"]
