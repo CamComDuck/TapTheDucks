@@ -1,5 +1,22 @@
-[gd_scene format=3 uid="uid://c7poxqlkquslw"]
+[gd_scene load_steps=4 format=3 uid="uid://c7poxqlkquslw"]
 
-[node name="FruitEaten" type="RigidBody2D"]
+[ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/fruit_eaten.png" id="1_8umyb"]
+[ext_resource type="Script" path="res://fruit/fruit_eaten.gd" id="1_fclcl"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4jh8m"]
+radius = 12.0
+
+[node name="FruitEaten" type="Area2D"]
+z_index = 9
+z_as_relative = false
 collision_layer = 8
 collision_mask = 50
+script = ExtResource("1_fclcl")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_8umyb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_4jh8m")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

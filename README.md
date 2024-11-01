@@ -7,7 +7,7 @@
 ## Third-Party Assets
 
  ### Graphics
- - Duck, Player, and Fruit graphics are original
+ - All graphics are original
 
  ### Sounds
  - PlayerMove is from [FreeSound.org](https://freesound.org/people/sample_able/sounds/744578/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)

@@ -2,6 +2,7 @@ extends Node2D
 
 var _player_positions : Array[Marker2D] = []
 var _duck_positions : Array[Marker2D] = []
+var _player_current_lane : int
 
 var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
@@ -12,6 +13,8 @@ var _round_current_ducks := 0
 var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
+
+var _can_pick_fruit := true
 
 @onready var player_position_1 : Marker2D = $PlayerPosition1
 @onready var player_position_2 : Marker2D = $PlayerPosition2
@@ -43,6 +46,20 @@ func _ready() -> void:
 	duck_spawn_timer.start()
 		
 		
+func _physics_process(_delta: float) -> void:
+	if Input.is_action_just_pressed("interact_left") and _can_pick_fruit and not (Input.is_action_pressed("interact_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_up")):
+		_can_pick_fruit = false
+		player.play_animation("fruit_pick")
+		
+		await player.animation_finished
+		
+		var fruit_whole : FruitWhole = load("res://fruit/fruit_whole.tscn").instantiate()
+		get_parent().add_child.call_deferred(fruit_whole)
+		fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x
+		fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+		_can_pick_fruit = true
+		
+		
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck : Duck = load("res://duck/duck.tscn").instantiate()
@@ -66,8 +83,9 @@ func _spawn_duck() -> void:
 
 
 func _on_player_lane_changed(new_lane: int) -> void:
+	_player_current_lane = new_lane - 1
 	var tween = get_tree().create_tween()
-	tween.tween_property(player, "global_position",_player_positions[new_lane - 1].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 	
 
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:

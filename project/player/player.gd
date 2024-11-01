@@ -2,10 +2,12 @@ class_name Player
 extends CharacterBody2D
 
 signal lane_changed (new_lane : int)
+signal animation_finished
 
 var _lane := 1
 
 @onready var player_move: AudioStreamPlayer = $PlayerMove
+@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
 
 func _physics_process(_delta: float) -> void:
 	
@@ -29,3 +31,10 @@ func _physics_process(_delta: float) -> void:
 		
 	elif Input.is_action_just_released("interact_right"):
 		lane_changed.emit(_lane)
+
+
+func play_animation(animation : String) -> void:
+	sprite_2d.play(animation)
+	await sprite_2d.animation_finished
+	animation_finished.emit()
+	sprite_2d.play("default")

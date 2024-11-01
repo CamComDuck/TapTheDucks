@@ -281,6 +281,8 @@ animations = [{
 }]
 
 [node name="Duck" type="CharacterBody2D"]
+z_index = 7
+z_as_relative = false
 collision_mask = 60
 motion_mode = 1
 script = ExtResource("1_edn5t")
