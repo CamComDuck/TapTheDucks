@@ -12,6 +12,8 @@
  ### Sounds
  - PlayerMove is from [FreeSound.org](https://freesound.org/people/sample_able/sounds/744578/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
    - Edit: Shortened to only first sound
+ - FruitPickup is from [FreeSound.org](https://freesound.org/people/sample_able/sounds/744577/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+   - Edit: Shortened to only first sound
 
  ### Fonts
  - TODO

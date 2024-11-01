@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://c7poxqlkquslw"]
+[gd_scene load_steps=5 format=3 uid="uid://c7poxqlkquslw"]
 
 [ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/fruit_eaten.png" id="1_8umyb"]
 [ext_resource type="Script" path="res://fruit/fruit_eaten.gd" id="1_fclcl"]
+[ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="3_4f7si"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4jh8m"]
 radius = 12.0
@@ -18,5 +19,8 @@ texture = ExtResource("1_8umyb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_4jh8m")
+
+[node name="FruitPickup" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_4f7si")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

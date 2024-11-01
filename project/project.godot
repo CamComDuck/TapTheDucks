@@ -15,6 +15,10 @@ run/main_scene="res://level/level.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://duck/duck_1.png"
 
+[autoload]
+
+AudioController="*res://audio_controller/audio_controller.tscn"
+
 [display]
 
 window/size/viewport_width=768
@@ -24,6 +28,7 @@ window/stretch/mode="canvas_items"
 [file_customization]
 
 folder_colors={
+"res://audio_controller/": "purple",
 "res://duck/": "green",
 "res://duck/graphics/": "red",
 "res://fruit/": "green",

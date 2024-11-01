@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://3f2ol0bm2jjt"]
+[gd_scene load_steps=5 format=3 uid="uid://3f2ol0bm2jjt"]
 
 [ext_resource type="Script" path="res://player/player.gd" id="1_50gqq"]
 [ext_resource type="Texture2D" uid="uid://bi8sxsqch134f" path="res://player/Player.png" id="3_jdyp4"]
-[ext_resource type="AudioStream" uid="uid://ls1x4hf7mya0" path="res://player/PlayerMove.wav" id="3_w6sla"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_exi88"]
 radius = 19.0
@@ -51,10 +50,6 @@ script = ExtResource("1_50gqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_exi88")
-
-[node name="PlayerMove" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("3_w6sla")
-volume_db = -5.0
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
