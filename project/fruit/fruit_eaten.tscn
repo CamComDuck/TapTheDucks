@@ -23,4 +23,5 @@ shape = SubResource("CircleShape2D_4jh8m")
 [node name="FruitPickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_4f7si")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

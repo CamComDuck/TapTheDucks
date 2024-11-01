@@ -58,7 +58,7 @@ func _physics_process(_delta: float) -> void:
 		
 		var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 		get_parent().add_child.call_deferred(new_fruit_whole)
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
 		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
 		_can_pick_fruit = true
 		
