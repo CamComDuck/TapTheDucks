@@ -291,7 +291,7 @@ animations = [{
 [node name="Duck" type="CharacterBody2D"]
 z_index = 7
 z_as_relative = false
-collision_mask = 60
+collision_mask = 52
 motion_mode = 1
 script = ExtResource("1_edn5t")
 
@@ -335,10 +335,4 @@ frame = 3
 frame_progress = 0.354941
 flip_h = true
 
-[node name="FullTimerTESTING" type="Timer" parent="."]
-wait_time = 5.0
-one_shot = true
-autostart = true
-
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
-[connection signal="timeout" from="FullTimerTESTING" to="." method="_on_full_timer_testing_timeout"]

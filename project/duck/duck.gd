@@ -7,10 +7,9 @@ var _duck_type : DuckTypes = null
 
 @onready var move_timer : Timer = $MoveTimer
 @onready var base_duck_sprite : AnimatedSprite2D = $BaseDuckSprite
-@onready var full_timer_testing : Timer = $FullTimerTESTING
 
 func _ready() -> void:
-	print(_duck_type.name)
+	#print(_duck_type.name)
 	base_duck_sprite.modulate = Color(_duck_type.color)
 	
 	if _duck_type.is_fast_type:
@@ -29,6 +28,16 @@ func _physics_process(delta: float) -> void:
 func load_type(new_duck_type : DuckTypes) -> void:
 	_duck_type = new_duck_type
 	
+	
+func eat_fruit() -> bool: # Returns True if Fruit is sucessfully Eaten
+	if not _is_full:
+		_is_full = true
+		move_timer.stop()
+		base_duck_sprite.flip_h = not base_duck_sprite.flip_h
+		return true
+	else:
+		return false
+	
 
 func _on_move_timer_timeout() -> void:
 	var new_position := Vector2(global_position.x - _grid_square, global_position.y)
@@ -39,12 +48,3 @@ func _on_move_timer_timeout() -> void:
 	else:
 		move_timer.wait_time = randf_range(2.1, 3)
 	move_timer.start()
-
-
-func _on_full_timer_testing_timeout() -> void:
-	# Replace with counting hunger to turn is_full to true
-	
-	#pass
-	_is_full = true
-	move_timer.stop()
-	base_duck_sprite.flip_h = not base_duck_sprite.flip_h
