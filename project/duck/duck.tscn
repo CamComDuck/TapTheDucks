@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://dty1uqxcrrd5x"]
+[gd_scene load_steps=7 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
 [ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/duck_body_1.png" id="6_v2shv"]
@@ -8,265 +8,6 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or6kn"]
 radius = 21.0
 height = 46.0
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_y8oey"]
-load_path = "res://.godot/imported/duck_basic_TEMP.png-10c900433fe8ca2236a0563bd605bf2c.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oubyf"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(576, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_i0my8"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(624, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kb18x"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(672, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qtx5s"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(720, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_dr858"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(768, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_w08br"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(816, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_btmq8"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(192, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0bif1"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(208, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ol4y"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(224, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qny2p"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(240, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vq8xe"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(256, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_wp5be"]
-atlas = SubResource("CompressedTexture2D_y8oey")
-region = Rect2(272, 64, 16, 32)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_jmway"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oubyf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i0my8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kb18x")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qtx5s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_dr858")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_w08br")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_btmq8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0bif1")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_4ol4y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qny2p")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vq8xe")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wp5be")
-}],
-"loop": true,
-"name": &"swim",
-"speed": 5.0
-}]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_e6x57"]
-load_path = "res://.godot/imported/duck_fast_TEMP.png-f6d2a680a117cf32585255f4bf1b178d.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6hj0s"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(576, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kk8pp"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(624, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1a5jm"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(672, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6k4xb"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(720, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_u2o73"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(768, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_38rp8"]
-atlas = SubResource("CompressedTexture2D_e6x57")
-region = Rect2(816, 192, 48, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_5ljvg"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6hj0s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kk8pp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1a5jm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6k4xb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_u2o73")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_38rp8")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_p5bne"]
-load_path = "res://.godot/imported/duck_hungry_TEMP.png-eb1d9291b3d77909e7eed662d8fd6f74.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_eaoy5"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(576, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_uyr6t"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(624, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_fh3ha"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(672, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xk1bk"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(720, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n2kmr"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(768, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_utem0"]
-atlas = SubResource("CompressedTexture2D_p5bne")
-region = Rect2(816, 192, 48, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_vcs6q"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_eaoy5")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_uyr6t")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fh3ha")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xk1bk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n2kmr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_utem0")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_qnlxc"]
-load_path = "res://.godot/imported/duck_angry_TEMP.png-2bb6fcf5da198af76590e12e1fc496c1.ctex"
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5oc05"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(576, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_37pmi"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(624, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_esyrk"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(672, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_m77j7"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(720, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n7wnx"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(768, 192, 48, 96)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tf33y"]
-atlas = SubResource("CompressedTexture2D_qnlxc")
-region = Rect2(816, 192, 48, 96)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_biuye"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5oc05")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_37pmi")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_esyrk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_m77j7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n7wnx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tf33y")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_22ymi"]
 animations = [{
@@ -286,6 +27,26 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_v2shv")
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": false,
+"name": &"eating",
+"speed": 5.0
 }]
 
 [node name="Duck" type="CharacterBody2D"]
@@ -298,41 +59,14 @@ script = ExtResource("1_edn5t")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_or6kn")
 
-[node name="SpriteBasic" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-sprite_frames = SubResource("SpriteFrames_jmway")
+[node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_22ymi")
 autoplay = "default"
-frame_progress = 0.881137
-
-[node name="SpriteFast" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-sprite_frames = SubResource("SpriteFrames_5ljvg")
-autoplay = "default"
-
-[node name="SpriteHungry" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-sprite_frames = SubResource("SpriteFrames_vcs6q")
-autoplay = "default"
-
-[node name="SpriteAngry" type="AnimatedSprite2D" parent="."]
-unique_name_in_owner = true
-visible = false
-sprite_frames = SubResource("SpriteFrames_biuye")
-autoplay = "default"
-frame = 5
-frame_progress = 0.825817
+frame_progress = 0.676188
+flip_h = true
 
 [node name="MoveTimer" type="Timer" parent="."]
 wait_time = 2.0
 
-[node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_22ymi")
-autoplay = "default"
-frame = 3
-frame_progress = 0.354941
-flip_h = true
-
+[connection signal="animation_finished" from="BaseDuckSprite" to="." method="_on_base_duck_sprite_animation_finished"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]

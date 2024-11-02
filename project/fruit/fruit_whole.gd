@@ -13,7 +13,7 @@ func _on_area_entered(area: Area2D) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Duck:
-		var is_eaten = body.eat_fruit()
+		var is_eaten : bool = body.eat_fruit()
 		if is_eaten:
 			queue_free()
 		
