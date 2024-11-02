@@ -59,3 +59,4 @@ func _on_base_duck_sprite_animation_finished() -> void:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h
 		else:
 			move_timer.start()
+			AudioController.play_sound_duck_eat_unfinished()
