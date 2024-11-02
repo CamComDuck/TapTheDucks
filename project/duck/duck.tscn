@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dty1uqxcrrd5x"]
+[gd_scene load_steps=8 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
+[ext_resource type="Texture2D" uid="uid://c6g8h2f52c7pq" path="res://duck/graphics/duck_body_4.png" id="5_h6c4g"]
 [ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/duck_body_1.png" id="6_v2shv"]
 [ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/graphics/duck_body_2.png" id="7_3xdwr"]
 [ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/graphics/duck_body_3.png" id="8_3tc27"]
@@ -30,19 +31,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_v2shv")
+"texture": ExtResource("5_h6c4g")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": ExtResource("5_h6c4g")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": ExtResource("5_h6c4g")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": ExtResource("5_h6c4g")
 }, {
 "duration": 1.0,
-"texture": null
+"texture": ExtResource("5_h6c4g")
 }],
 "loop": false,
 "name": &"eating",
@@ -61,8 +62,8 @@ shape = SubResource("CapsuleShape2D_or6kn")
 
 [node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_22ymi")
+animation = &"eating"
 autoplay = "default"
-frame_progress = 0.676188
 flip_h = true
 
 [node name="MoveTimer" type="Timer" parent="."]
