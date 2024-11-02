@@ -14,7 +14,7 @@ var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
 
-var _can_pick_fruit := true
+var _picking_fruit := false
 
 @onready var player_position_1 : Marker2D = $PlayerPosition1
 @onready var player_position_2 : Marker2D = $PlayerPosition2
@@ -50,8 +50,38 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("interact_left") and _can_pick_fruit and not (Input.is_action_pressed("interact_right") or Input.is_action_pressed("move_down") or Input.is_action_pressed("move_up")):
-		_can_pick_fruit = false
+	
+	if _picking_fruit: 
+		# Skip input checks if Player is Picking Fruit ->
+		# Player cannot move while Picking Fruit
+		pass
+		
+	elif Input.is_action_pressed("interact_right") and player.position.x < 696:
+		player.velocity.x = 150
+		player.move_and_slide()
+		
+	elif Input.is_action_just_released("interact_right"):
+		var tween = get_tree().create_tween()
+		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		
+	elif Input.is_action_just_pressed("move_down"):
+		_player_current_lane += 1
+		if _player_current_lane == 4:
+			_player_current_lane = 0
+		AudioController.play_sound_player_move()
+		var tween = get_tree().create_tween()
+		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	
+	elif Input.is_action_just_pressed("move_up"):
+		_player_current_lane -= 1
+		if _player_current_lane == -1:
+			_player_current_lane = 3
+		AudioController.play_sound_player_move()
+		var tween = get_tree().create_tween()
+		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	
+	elif Input.is_action_just_pressed("interact_left"):
+		_picking_fruit = true
 		player.play_animation("fruit_pick")
 		
 		await player.animation_finished
@@ -60,7 +90,9 @@ func _physics_process(_delta: float) -> void:
 		get_parent().add_child.call_deferred(new_fruit_whole)
 		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
 		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
-		_can_pick_fruit = true
+		_picking_fruit = false
+		
+	
 		
 		
 func _spawn_duck() -> void:
@@ -90,12 +122,6 @@ func _spawn_duck() -> void:
 	get_parent().add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
-
-func _on_player_lane_changed(new_lane: int) -> void:
-	_player_current_lane = new_lane - 1
-	var tween = get_tree().create_tween()
-	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-	
 
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 	if body is Duck:
