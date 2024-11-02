@@ -1,7 +1,24 @@
-[gd_scene load_steps=3 format=3 uid="uid://bvl71gsqryfai"]
+[gd_scene load_steps=7 format=3 uid="uid://bvl71gsqryfai"]
 
 [ext_resource type="Script" path="res://level/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
+
+[sub_resource type="Curve" id="Curve_tdlt4"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_ynjnr"]
+interpolation_mode = 2
+colors = PackedColorArray(1, 0.562366, 0.524564, 1, 1, 1, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_a73x0"]
+interpolation_mode = 2
+colors = PackedColorArray(0.713726, 0.945098, 0.972549, 1, 1, 0.666667, 0.984314, 1)
+
+[sub_resource type="Curve" id="Curve_ehslv"]
+min_value = -1.0
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [node name="GameOverlay" type="Control"]
 layout_mode = 3
@@ -21,6 +38,28 @@ offset_bottom = 761.0
 theme = ExtResource("1_wh8a7")
 text = "12345"
 vertical_alignment = 1
+
+[node name="WinParticles" type="CPUParticles2D" parent="."]
+position = Vector2(384, 384)
+emitting = false
+amount = 50
+lifetime = 0.8
+explosiveness = 0.9
+emission_shape = 2
+emission_sphere_radius = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 450.0
+initial_velocity_max = 500.0
+scale_amount_min = 10.0
+scale_amount_max = 20.0
+scale_amount_curve = SubResource("Curve_tdlt4")
+color = Color(1, 1, 0, 1)
+color_ramp = SubResource("Gradient_ynjnr")
+color_initial_ramp = SubResource("Gradient_a73x0")
+hue_variation_min = -1.0
+hue_variation_max = 1.0
+hue_variation_curve = SubResource("Curve_ehslv")
 
 [node name="GameEndContainer" type="VBoxContainer" parent="."]
 visible = false
