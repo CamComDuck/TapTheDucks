@@ -8,3 +8,4 @@ name = "Hungry"
 max_fruits = 2
 is_fast_type = false
 color = Color(0, 1, 0, 1)
+point_value = 50

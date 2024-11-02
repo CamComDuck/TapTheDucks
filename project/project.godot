@@ -18,6 +18,7 @@ config/icon="res://duck/graphics/duck_body_1.png"
 [autoload]
 
 AudioController="*res://audio_controller/audio_controller.tscn"
+ResourceTracker="*res://level/resource_tracker.gd"
 
 [display]
 

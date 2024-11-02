@@ -35,6 +35,8 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 		move_timer.stop()
 		_fruits_eaten += 1
 		base_duck_sprite.play("eating")
+		if _fruits_eaten == _duck_type.max_fruits:
+			ResourceTracker.points += _duck_type.point_value
 		return true
 		
 	else:
@@ -62,6 +64,7 @@ func _on_base_duck_sprite_animation_finished() -> void:
 		
 		if _fruits_eaten == _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h
+			
 		else:
 			move_timer.start()
 			AudioController.play_sound_duck_eat_unfinished()

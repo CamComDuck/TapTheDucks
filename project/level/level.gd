@@ -9,12 +9,15 @@ var _duck_spawn_max_sec := 4
 
 var _round_max_ducks := 10
 var _round_current_ducks := 0
+var _ducks_finished := 0
 
 var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
 
 var _allow_input := true
+
+@onready var game_overlay := $GameOverlay as Control
 
 @onready var player_position_1 := $PlayerPosition1 as Marker2D
 @onready var player_position_2 := $PlayerPosition2 as Marker2D
@@ -133,12 +136,18 @@ func _spawn_duck() -> void:
 
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 	if body is Duck:
+		_ducks_finished += 1
 		body.queue_free()
 
 
 func _on_lane_barrier_right_body_entered(body: Node2D) -> void:
 	if body is Duck:
+		_ducks_finished += 1
 		body.queue_free()
+		
+		if ResourceTracker.points >= 100 and _ducks_finished == _round_max_ducks:
+			_allow_input = false
+			game_overlay.game_end(true)
 
 
 func _on_duck_spawn_timer_timeout() -> void:

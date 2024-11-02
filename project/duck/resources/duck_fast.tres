@@ -8,3 +8,4 @@ name = "Fast"
 max_fruits = 1
 is_fast_type = true
 color = Color(1, 0.47451, 0, 1)
+point_value = 40
