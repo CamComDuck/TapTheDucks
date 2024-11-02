@@ -5,6 +5,6 @@
 [resource]
 script = ExtResource("1_y3j3w")
 name = "Angry"
-is_hungry_type = true
+max_fruits = 2
 is_fast_type = true
 color = Color(1, 0, 0, 1)
