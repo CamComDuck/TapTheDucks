@@ -6,9 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/graphics/duck_body_2.png" id="7_3xdwr"]
 [ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/graphics/duck_body_3.png" id="8_3tc27"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_or6kn"]
-radius = 21.0
-height = 46.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gtmh2"]
+size = Vector2(48, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_22ymi"]
 animations = [{
@@ -58,7 +57,7 @@ motion_mode = 1
 script = ExtResource("1_edn5t")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_or6kn")
+shape = SubResource("RectangleShape2D_gtmh2")
 
 [node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_22ymi")

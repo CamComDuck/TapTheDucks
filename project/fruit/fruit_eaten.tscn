@@ -4,21 +4,21 @@
 [ext_resource type="Script" path="res://fruit/fruit_eaten.gd" id="1_fclcl"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="3_4f7si"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_4jh8m"]
-radius = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2qe5d"]
+size = Vector2(24, 24)
 
 [node name="FruitEaten" type="Area2D"]
 z_index = 9
 z_as_relative = false
 collision_layer = 8
-collision_mask = 48
+collision_mask = 50
 script = ExtResource("1_fclcl")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_8umyb")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_4jh8m")
+shape = SubResource("RectangleShape2D_2qe5d")
 
 [node name="FruitPickup" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_4f7si")

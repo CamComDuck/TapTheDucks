@@ -14,7 +14,7 @@ var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
 
-var _picking_fruit := false
+var _allow_input := true
 
 @onready var player_position_1 := $PlayerPosition1 as Marker2D
 @onready var player_position_2 := $PlayerPosition2 as Marker2D
@@ -56,9 +56,7 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	if _picking_fruit: 
-		# Skip input checks if Player is Picking Fruit
-		# Player cannot move while Picking Fruit
+	if not _allow_input:
 		pass
 		
 	elif Input.is_action_pressed("interact_right") and player.position.x < 696:
@@ -66,27 +64,36 @@ func _physics_process(_delta: float) -> void:
 		player.move_and_slide()
 		
 	elif Input.is_action_just_released("interact_right"):
+		_allow_input = false
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		await tween.finished
+		_allow_input = true
 		
 	elif Input.is_action_just_pressed("move_down"):
+		_allow_input = false
 		_player_current_lane += 1
 		if _player_current_lane == 4:
 			_player_current_lane = 0
 		AudioController.play_sound_player_move()
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		await tween.finished
+		_allow_input = true
 	
 	elif Input.is_action_just_pressed("move_up"):
+		_allow_input = false
 		_player_current_lane -= 1
 		if _player_current_lane == -1:
 			_player_current_lane = 3
 		AudioController.play_sound_player_move()
 		var tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		await tween.finished
+		_allow_input = true
 	
 	elif Input.is_action_just_pressed("interact_left"):
-		_picking_fruit = true
+		_allow_input = false
 		player.play_animation("fruit_pick")
 		
 		await player.animation_finished
@@ -95,7 +102,7 @@ func _physics_process(_delta: float) -> void:
 		get_parent().add_child.call_deferred(new_fruit_whole)
 		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
 		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
-		_picking_fruit = false
+		_allow_input = true
 		
 		
 func _spawn_duck() -> void:

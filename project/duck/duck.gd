@@ -7,6 +7,7 @@ var _duck_type : DuckTypes = null
 
 @onready var move_timer := $MoveTimer as Timer
 @onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
+@onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
 
 func _ready() -> void:
 	print(_duck_type.name)
@@ -54,6 +55,10 @@ func _on_move_timer_timeout() -> void:
 func _on_base_duck_sprite_animation_finished() -> void:
 	if base_duck_sprite.animation == "eating":
 		base_duck_sprite.play("default")
+		
+		var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
+		get_parent().add_child.call_deferred(new_eaten_fruit)
+		new_eaten_fruit.global_position = global_position
 		
 		if _fruits_eaten == _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h

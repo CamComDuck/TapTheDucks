@@ -4,9 +4,8 @@
 [ext_resource type="Texture2D" uid="uid://bi8sxsqch134f" path="res://player/graphics/Player.png" id="3_jdyp4"]
 [ext_resource type="Texture2D" uid="uid://cffc8lqfnpq2f" path="res://player/graphics/Player_2.png" id="3_qo6vv"]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_exi88"]
-radius = 19.0
-height = 92.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m08fr"]
+size = Vector2(48, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c63i7"]
 animations = [{
@@ -44,9 +43,8 @@ collision_mask = 44
 script = ExtResource("1_50gqq")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource("CapsuleShape2D_exi88")
+shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
-animation = &"fruit_pick"
 autoplay = "default"

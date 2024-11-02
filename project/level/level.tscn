@@ -83,7 +83,7 @@ collision_layer = 16
 collision_mask = 13
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneBarrierLeft"]
-position = Vector2(168, 384)
+position = Vector2(164, 384)
 shape = SubResource("RectangleShape2D_s1div")
 
 [node name="LaneBarrierRight" type="Area2D" parent="."]
@@ -91,7 +91,7 @@ collision_layer = 32
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneBarrierRight"]
-position = Vector2(744, 384)
+position = Vector2(748, 384)
 shape = SubResource("RectangleShape2D_s1div")
 
 [node name="DuckSpawnTimer" type="Timer" parent="."]

@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://fruit/fruit_whole.gd" id="1_7hst7"]
 [ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="1_x28de"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_6bfmg"]
-radius = 12.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6doq7"]
+size = Vector2(24, 24)
 
 [node name="FruitWhole" type="Area2D"]
 z_index = 10
@@ -15,7 +15,7 @@ script = ExtResource("1_7hst7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 z_index = 1
-shape = SubResource("CircleShape2D_6bfmg")
+shape = SubResource("RectangleShape2D_6doq7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_x28de")
