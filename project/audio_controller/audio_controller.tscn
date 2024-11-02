@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://d20q4knptbcs3"]
+[gd_scene load_steps=5 format=3 uid="uid://d20q4knptbcs3"]
 
 [ext_resource type="Script" path="res://audio_controller/audio_controller.gd" id="1_4a3nd"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="2_1rvua"]
 [ext_resource type="AudioStream" uid="uid://ls1x4hf7mya0" path="res://audio_controller/PlayerMove.wav" id="3_e5or8"]
+[ext_resource type="AudioStream" uid="uid://dhaivclnabrt8" path="res://audio_controller/FruitEat.wav" id="4_tgg8j"]
 
 [node name="AudioController" type="Control"]
 layout_mode = 3
@@ -10,8 +11,14 @@ anchors_preset = 0
 script = ExtResource("1_4a3nd")
 
 [node name="FruitPickup" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("2_1rvua")
 
 [node name="PlayerMove" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("3_e5or8")
 volume_db = -5.0
+
+[node name="FruitEat" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("4_tgg8j")

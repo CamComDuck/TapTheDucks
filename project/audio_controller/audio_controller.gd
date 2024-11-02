@@ -1,8 +1,11 @@
 extends Control
 
 func play_sound_fruit_pickup() -> void:
-	$FruitPickup.play()
-	
+	%FruitPickup.play()
 	
 func play_sound_player_move() -> void:
-	$PlayerMove.play()
+	%PlayerMove.play()
+
+
+func play_sound_fruit_eat() -> void:
+	%FruitEat.play()
