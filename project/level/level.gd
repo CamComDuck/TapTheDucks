@@ -16,21 +16,27 @@ var _percent_chance_hungry_duck := 20
 
 var _picking_fruit := false
 
-@onready var player_position_1 : Marker2D = $PlayerPosition1
-@onready var player_position_2 : Marker2D = $PlayerPosition2
-@onready var player_position_3 : Marker2D = $PlayerPosition3
-@onready var player_position_4 : Marker2D = $PlayerPosition4
-@onready var player : Player = $Player
+@onready var player_position_1 := $PlayerPosition1 as Marker2D
+@onready var player_position_2 := $PlayerPosition2 as Marker2D
+@onready var player_position_3 := $PlayerPosition3 as Marker2D
+@onready var player_position_4 := $PlayerPosition4 as Marker2D
+@onready var player := $Player as Player
 
-@onready var duck_position_1 : Marker2D = $DuckPosition1
-@onready var duck_position_2 : Marker2D = $DuckPosition2
-@onready var duck_position_3 : Marker2D = $DuckPosition3
-@onready var duck_position_4 : Marker2D = $DuckPosition4
+@onready var duck_position_1 := $DuckPosition1 as Marker2D
+@onready var duck_position_2 := $DuckPosition2 as Marker2D
+@onready var duck_position_3 := $DuckPosition3 as Marker2D
+@onready var duck_position_4 := $DuckPosition4 as Marker2D
 
-@onready var duck_spawn_timer : Timer = $DuckSpawnTimer
+@onready var duck_spawn_timer := $DuckSpawnTimer as Timer
 
-@onready var duck : PackedScene = load("res://duck/duck.tscn")
-@onready var fruit_whole : PackedScene = load("res://fruit/fruit_whole.tscn")
+@onready var duck : = load("res://duck/duck.tscn") as PackedScene
+@onready var duck_basic := load("res://duck/resources/duck_basic.tres") as DuckTypes
+@onready var duck_fast := load("res://duck/resources/duck_fast.tres") as DuckTypes
+@onready var duck_hungry := load("res://duck/resources/duck_hungry.tres") as DuckTypes
+@onready var duck_angry := load("res://duck/resources/duck_angry.tres") as DuckTypes
+
+@onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
+
 
 func _ready() -> void:
 	_player_positions.append(player_position_1)
@@ -50,9 +56,8 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	
 	if _picking_fruit: 
-		# Skip input checks if Player is Picking Fruit ->
+		# Skip input checks if Player is Picking Fruit
 		# Player cannot move while Picking Fruit
 		pass
 		
@@ -92,33 +97,29 @@ func _physics_process(_delta: float) -> void:
 		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
 		_picking_fruit = false
 		
-	
-		
 		
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
-	var chosen_type : DuckTypes
+	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
 	
 	
 	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
-		chosen_type = load("res://duck/resources/duck_basic.tres") as DuckTypes 
+		new_duck.load_type(duck_basic)
 		
 	elif random_type_roll <= (_percent_chance_basic_duck + _percent_chance_fast_duck):
 		# Spawn Fast Duck
-		chosen_type = load("res://duck/resources/duck_fast.tres") as DuckTypes 
+		new_duck.load_type(duck_fast)
 		
 	elif random_type_roll <= (_percent_chance_basic_duck + _percent_chance_fast_duck + _percent_chance_hungry_duck):
 		# Spawn Hungry Duck
-		chosen_type = load("res://duck/resources/duck_hungry.tres") as DuckTypes 
+		new_duck.load_type(duck_hungry)
 		
 	else:
 		# Spawn Angry Duck
-		chosen_type = load("res://duck/resources/duck_angry.tres") as DuckTypes 
-		
-	var new_duck := duck.instantiate() as Duck
-	new_duck.load_type(chosen_type)
+		new_duck.load_type(duck_angry)
+	
 	get_parent().add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 

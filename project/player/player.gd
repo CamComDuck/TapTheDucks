@@ -3,7 +3,7 @@ extends CharacterBody2D
 
 signal animation_finished
 
-@onready var sprite_2d: AnimatedSprite2D = $Sprite2D
+@onready var sprite_2d := $Sprite2D as AnimatedSprite2D
 
 func play_animation(animation : String) -> void:
 	sprite_2d.play(animation)

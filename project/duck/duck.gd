@@ -5,8 +5,8 @@ var _grid_square := 48
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
 
-@onready var move_timer : Timer = $MoveTimer
-@onready var base_duck_sprite : AnimatedSprite2D = $BaseDuckSprite
+@onready var move_timer := $MoveTimer as Timer
+@onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
 
 func _ready() -> void:
 	print(_duck_type.name)
