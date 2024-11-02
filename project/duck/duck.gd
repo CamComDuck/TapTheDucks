@@ -60,7 +60,7 @@ func _on_base_duck_sprite_animation_finished() -> void:
 		
 		var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
 		get_parent().add_child.call_deferred(new_eaten_fruit)
-		new_eaten_fruit.global_position = global_position
+		new_eaten_fruit.global_position = Vector2(global_position.x, global_position.y + 7)
 		
 		if _fruits_eaten == _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h

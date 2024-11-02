@@ -14,6 +14,7 @@
    - Edit: Shortened to only first sound
  - FruitPickup is from [FreeSound.org](https://freesound.org/people/sample_able/sounds/744577/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
    - Edit: Shortened to only first sound
+ - Win is from [FreeSound.org](https://freesound.org/people/LittleRobotSoundFactory/sounds/270333/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
  - FruitEat is from [FreeSound.org](https://freesound.org/people/jeckkech/sounds/391659/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
  - DuckEatUnfinished is from [FreeSound.org](https://freesound.org/people/lulyc/sounds/346116/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
  - TBD is from [FreeSound.org](https://freesound.org/people/CJspellsfish/sounds/727650/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)

@@ -148,6 +148,7 @@ func _on_lane_barrier_right_body_entered(body: Node2D) -> void:
 		if ResourceTracker.points >= 100 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
+			AudioController.play_sound_win()
 
 
 func _on_duck_spawn_timer_timeout() -> void:

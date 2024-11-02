@@ -61,7 +61,6 @@ shape = SubResource("RectangleShape2D_gtmh2")
 
 [node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_22ymi")
-animation = &"eating"
 autoplay = "default"
 flip_h = true
 

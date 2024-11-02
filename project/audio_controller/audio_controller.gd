@@ -11,3 +11,6 @@ func play_sound_fruit_eat() -> void:
 
 func play_sound_duck_eat_unfinished() -> void:
 	%DuckEatUnfinished.play()
+
+func play_sound_win() -> void:
+	%Win.play()

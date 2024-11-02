@@ -16,4 +16,3 @@ func _on_body_entered(body: Node2D) -> void:
 		if is_eaten:
 			AudioController.play_sound_fruit_eat()
 			queue_free()
-		
