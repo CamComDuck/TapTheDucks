@@ -59,7 +59,13 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	if not _allow_input:
+	if ResourceTracker.lives <= 0:
+		_allow_input = false
+		game_overlay.game_end(false)
+		duck_spawn_timer.stop()
+		#AudioController.play_sound_win()
+			
+	elif not _allow_input:
 		pass
 		
 	elif Input.is_action_pressed("interact_right") and player.position.x < 696:
@@ -73,7 +79,7 @@ func _physics_process(_delta: float) -> void:
 		await tween.finished
 		_allow_input = true
 		
-	elif Input.is_action_just_pressed("move_down"):		
+	elif Input.is_action_just_pressed("move_down"):
 		_allow_input = false
 		_player_current_lane += 1
 		if _player_current_lane == 4:

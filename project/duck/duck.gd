@@ -21,7 +21,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < 695):
+	if ResourceTracker.lives <= 0:
+		move_timer.stop()
+		velocity.x = 0
+		
+	elif _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < 695):
 		velocity.x = 15000 * delta
 		move_and_slide()
 
