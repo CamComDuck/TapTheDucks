@@ -60,11 +60,12 @@ func _ready() -> void:
 		
 func _physics_process(_delta: float) -> void:
 	if ResourceTracker.lives <= 0:
+		if _allow_input:
+			AudioController.play_sound_lose()
 		_allow_input = false
 		game_overlay.game_end(false)
 		duck_spawn_timer.stop()
-		#AudioController.play_sound_win()
-			
+		
 	elif not _allow_input:
 		pass
 		
@@ -144,6 +145,7 @@ func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
 		ResourceTracker.lives -= 1
+		AudioController.play_sound_life_lost()
 		game_overlay.update_lives_label()
 		body.queue_free()
 

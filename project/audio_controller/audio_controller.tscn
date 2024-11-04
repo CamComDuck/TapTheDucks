@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://d20q4knptbcs3"]
+[gd_scene load_steps=9 format=3 uid="uid://d20q4knptbcs3"]
 
 [ext_resource type="Script" path="res://audio_controller/audio_controller.gd" id="1_4a3nd"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="2_1rvua"]
@@ -6,6 +6,8 @@
 [ext_resource type="AudioStream" uid="uid://dhaivclnabrt8" path="res://audio_controller/FruitEat.wav" id="4_tgg8j"]
 [ext_resource type="AudioStream" uid="uid://b7xfm0mu01is4" path="res://audio_controller/DuckEatUnfinished.wav" id="5_w3dhj"]
 [ext_resource type="AudioStream" uid="uid://cnyf2fswbwr10" path="res://audio_controller/Win.wav" id="6_8jb3f"]
+[ext_resource type="AudioStream" uid="uid://ddaajmy7ja5pd" path="res://audio_controller/Lose.wav" id="7_jn23n"]
+[ext_resource type="AudioStream" uid="uid://biq8k7wn8c2e7" path="res://audio_controller/LifeLost.wav" id="8_j1eep"]
 
 [node name="AudioController" type="Control"]
 layout_mode = 3
@@ -32,3 +34,11 @@ stream = ExtResource("5_w3dhj")
 [node name="Win" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_8jb3f")
+
+[node name="Lose" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("7_jn23n")
+
+[node name="LifeLost" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("8_j1eep")

@@ -8,6 +8,7 @@ func _physics_process(delta: float) -> void:
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "LaneBarrierRight":
 		ResourceTracker.lives -= 1
+		AudioController.play_sound_life_lost()
 		queue_free()
 
 

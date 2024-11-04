@@ -14,3 +14,9 @@ func play_sound_duck_eat_unfinished() -> void:
 
 func play_sound_win() -> void:
 	%Win.play()
+	
+func play_sound_lose() -> void:
+	%Lose.play()
+
+func play_sound_life_lost() -> void:
+	%LifeLost.play()
