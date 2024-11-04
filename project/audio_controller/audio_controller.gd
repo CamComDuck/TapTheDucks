@@ -20,3 +20,6 @@ func play_sound_lose() -> void:
 
 func play_sound_life_lost() -> void:
 	%LifeLost.play()
+
+func play_sound_menu_click() -> void:
+	%MenuClick.play()
