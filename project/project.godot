@@ -18,7 +18,7 @@ config/icon="res://duck/graphics/duck_body_1.png"
 [autoload]
 
 AudioController="*res://audio_controller/audio_controller.tscn"
-ResourceTracker="*res://level/resource_tracker.gd"
+ResourceTracker="*res://game_overlay/resource_tracker.gd"
 
 [display]
 
@@ -35,6 +35,7 @@ folder_colors={
 "res://duck/resources/": "red",
 "res://fruit/": "green",
 "res://fruit/graphics/": "red",
+"res://game_overlay/": "purple",
 "res://level/": "orange",
 "res://level/graphics/": "red",
 "res://player/": "yellow",

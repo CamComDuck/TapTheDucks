@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bvl71gsqryfai"]
+[gd_scene load_steps=8 format=3 uid="uid://bvl71gsqryfai"]
 
-[ext_resource type="Script" path="res://level/game_overlay.gd" id="1_6vak0"]
+[ext_resource type="Script" path="res://game_overlay/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
+[ext_resource type="PackedScene" uid="uid://bnx7i0eyv5oln" path="res://game_overlay/life.tscn" id="3_2jy7s"]
 
 [sub_resource type="Curve" id="Curve_tdlt4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -32,11 +33,11 @@ script = ExtResource("1_6vak0")
 [node name="PointsLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 110.0
-offset_top = 679.0
-offset_right = 247.0
-offset_bottom = 761.0
+offset_top = 680.0
+offset_right = 399.0
+offset_bottom = 762.0
 theme = ExtResource("1_wh8a7")
-text = "12345"
+text = "1234567890"
 vertical_alignment = 1
 
 [node name="WinParticles" type="CPUParticles2D" parent="."]
@@ -71,3 +72,19 @@ offset_bottom = 40.0
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 text = "You Lose!"
+
+[node name="LivesContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 104.0
+offset_top = 631.0
+offset_right = 268.0
+offset_bottom = 697.0
+
+[node name="Life" parent="LivesContainer" instance=ExtResource("3_2jy7s")]
+layout_mode = 2
+
+[node name="Life2" parent="LivesContainer" instance=ExtResource("3_2jy7s")]
+layout_mode = 2
+
+[node name="Life3" parent="LivesContainer" instance=ExtResource("3_2jy7s")]
+layout_mode = 2

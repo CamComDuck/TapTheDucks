@@ -73,7 +73,7 @@ func _physics_process(_delta: float) -> void:
 		await tween.finished
 		_allow_input = true
 		
-	elif Input.is_action_just_pressed("move_down"):
+	elif Input.is_action_just_pressed("move_down"):		
 		_allow_input = false
 		_player_current_lane += 1
 		if _player_current_lane == 4:
@@ -137,6 +137,8 @@ func _spawn_duck() -> void:
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
+		ResourceTracker.lives -= 1
+		game_overlay.update_lives_label()
 		body.queue_free()
 
 

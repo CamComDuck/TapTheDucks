@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://bnx7i0eyv5oln"]
+
+[ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="1_d8m3u"]
+
+[node name="Life" type="TextureRect"]
+custom_minimum_size = Vector2(48, 48)
+offset_left = 104.0
+offset_top = 631.0
+offset_right = 152.0
+offset_bottom = 697.0
+texture = ExtResource("1_d8m3u")
+stretch_mode = 5
