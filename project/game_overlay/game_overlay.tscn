@@ -30,17 +30,38 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6vak0")
 
-[node name="PointsLabel" type="Label" parent="."]
+[node name="GameEndContainer" type="VBoxContainer" parent="."]
+visible = false
+z_index = 100
+z_as_relative = false
 layout_mode = 0
-offset_left = 110.0
-offset_top = 680.0
-offset_right = 399.0
-offset_bottom = 762.0
+offset_right = 490.0
+offset_bottom = 402.0
+
+[node name="GameEndLabel" type="Label" parent="GameEndContainer"]
+layout_mode = 2
 theme = ExtResource("1_wh8a7")
-text = "1234567890"
+theme_override_font_sizes/font_size = 150
+text = "You Lose!"
+horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="PlayAgainButton" type="Button" parent="GameEndContainer"]
+layout_mode = 2
+theme = ExtResource("1_wh8a7")
+theme_override_font_sizes/font_size = 100
+text = "Play Again"
+
+[node name="MenuButton" type="Button" parent="GameEndContainer"]
+layout_mode = 2
+theme = ExtResource("1_wh8a7")
+theme_override_font_sizes/font_size = 100
+text = "Main Menu
+"
+
 [node name="WinParticles" type="CPUParticles2D" parent="."]
+z_index = 99
+z_as_relative = false
 position = Vector2(384, 384)
 emitting = false
 amount = 50
@@ -62,18 +83,9 @@ hue_variation_min = -1.0
 hue_variation_max = 1.0
 hue_variation_curve = SubResource("Curve_ehslv")
 
-[node name="GameEndContainer" type="VBoxContainer" parent="."]
-visible = false
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="GameEndLabel" type="Label" parent="GameEndContainer"]
-layout_mode = 2
-theme = ExtResource("1_wh8a7")
-text = "You Lose!"
-
 [node name="LivesContainer" type="HBoxContainer" parent="."]
+z_index = 98
+z_as_relative = false
 layout_mode = 0
 offset_left = 104.0
 offset_top = 631.0
@@ -88,3 +100,18 @@ layout_mode = 2
 
 [node name="Life3" parent="LivesContainer" instance=ExtResource("3_2jy7s")]
 layout_mode = 2
+
+[node name="PointsLabel" type="Label" parent="."]
+z_index = 98
+z_as_relative = false
+layout_mode = 0
+offset_left = 110.0
+offset_top = 680.0
+offset_right = 399.0
+offset_bottom = 762.0
+theme = ExtResource("1_wh8a7")
+text = "0"
+vertical_alignment = 1
+
+[connection signal="pressed" from="GameEndContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="GameEndContainer/MenuButton" to="." method="_on_menu_button_pressed"]

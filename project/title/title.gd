@@ -20,10 +20,12 @@ func _ready() -> void:
 
 
 func _on_start_button_pressed() -> void:
+	AudioController.play_sound_menu_click()
 	get_tree().change_scene_to_file("res://level/level.tscn")
 
 
 func _on_help_button_toggled(toggled_on: bool) -> void:
+	AudioController.play_sound_menu_click()
 	if toggled_on:
 		help_container.show()
 	else:

@@ -31,3 +31,17 @@ func game_end(is_win : bool) -> void:
 	game_end_container.position.x = 384 - (game_end_container.size.x / 2)
 	game_end_container.position.y = 384 - (game_end_container.size.y / 2)
 	game_end_container.show()
+
+
+func _on_play_again_button_pressed() -> void:
+	AudioController.play_sound_menu_click()
+	ResourceTracker.points = 0
+	ResourceTracker.lives = 3
+	get_tree().reload_current_scene()
+
+
+func _on_menu_button_pressed() -> void:
+	AudioController.play_sound_menu_click()
+	ResourceTracker.points = 0
+	ResourceTracker.lives = 3
+	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))

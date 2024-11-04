@@ -137,7 +137,7 @@ func _spawn_duck() -> void:
 		# Spawn Angry Duck
 		new_duck.load_type(duck_angry)
 	
-	get_parent().add_child.call_deferred(new_duck)
+	add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
 

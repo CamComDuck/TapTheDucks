@@ -10,7 +10,6 @@ var _duck_type : DuckTypes = null
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
 
 func _ready() -> void:
-	print(_duck_type.name)
 	base_duck_sprite.modulate = Color(_duck_type.color)
 	
 	if _duck_type.is_fast_type:

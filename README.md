@@ -14,6 +14,8 @@
    - Edit: Shortened to only first sound
  - FruitPickup is from [FreeSound.org](https://freesound.org/people/sample_able/sounds/744577/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
    - Edit: Shortened to only first sound
+ - BackgroundMusic is from [FreeSound.org](https://freesound.org/people/ZHR%C3%98/sounds/668879/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+   - Edit: Shortened ending to create loop
  - Win is from [FreeSound.org](https://freesound.org/people/LittleRobotSoundFactory/sounds/270333/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
  - Lose is from [FreeSound.org](https://freesound.org/people/alanmcki/sounds/400581/), licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
  - FruitEat is from [FreeSound.org](https://freesound.org/people/jeckkech/sounds/391659/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
