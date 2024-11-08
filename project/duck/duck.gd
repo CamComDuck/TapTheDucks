@@ -28,7 +28,10 @@ func _physics_process(delta: float) -> void:
 		velocity.x = 0
 		
 	elif _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < 695):
-		velocity.x = 15000 * delta
+		if Counters.player_on_left:
+			velocity.x = 15000 * delta
+		else:
+			velocity.x = -15000 * delta
 		move_and_slide()
 
 

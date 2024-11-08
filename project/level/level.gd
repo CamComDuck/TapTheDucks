@@ -63,17 +63,6 @@ func _physics_process(_delta: float) -> void:
 	if not _allow_input:
 		pass
 		
-	elif Input.is_action_pressed("interact_right") and player.position.x < 696:
-		player.velocity.x = 150
-		player.move_and_slide()
-		
-	elif Input.is_action_just_released("interact_right"):
-		_allow_input = false
-		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-		await tween.finished
-		_allow_input = true
-		
 	elif Input.is_action_just_pressed("move_down"):
 		_allow_input = false
 		_player_current_lane += 1
@@ -95,23 +84,59 @@ func _physics_process(_delta: float) -> void:
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
-	
-	elif Input.is_action_just_pressed("interact_left"):
-		_allow_input = false
-		player.play_animation("fruit_pick")
 		
-		await player.animation_finished
+	elif Counters.player_on_left:
+		if Input.is_action_pressed("interact_right") and player.position.x < 696:
+			player.velocity.x = 150
+			player.move_and_slide()
+			
+		elif Input.is_action_just_released("interact_right"):
+			_allow_input = false
+			var tween : Tween = get_tree().create_tween()
+			tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+			await tween.finished
+			_allow_input = true
+			
+		elif Input.is_action_just_pressed("interact_left"):
+			_allow_input = false
+			player.play_animation("fruit_pick")
+			
+			await player.animation_finished
+			
+			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+			add_child.call_deferred(new_fruit_whole)
+			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
+			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+			_allow_input = true
 		
-		var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
-		add_child.call_deferred(new_fruit_whole)
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
-		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
-		_allow_input = true
+	elif not Counters.player_on_left:
+		
+		if Input.is_action_pressed("interact_left") and player.position.x < 696:
+			player.velocity.x = 150
+			player.move_and_slide()
+			
+		elif Input.is_action_just_released("interact_left"):
+			_allow_input = false
+			var tween : Tween = get_tree().create_tween()
+			tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+			await tween.finished
+			_allow_input = true
+			
+		elif Input.is_action_just_pressed("interact_right"):
+			_allow_input = false
+			player.play_animation("fruit_pick")
+			
+			await player.animation_finished
+			
+			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+			add_child.call_deferred(new_fruit_whole)
+			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
+			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+			_allow_input = true
 		
 		
 func _spawn_duck() -> void:
-	#var new_duck_lane := randi_range(0, 3)
-	var new_duck_lane := 0
+	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
 	
@@ -161,7 +186,7 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
 	new_eaten_fruit.global_position = fruit_position
 
 
-func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
+func _on_lane_end_player_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
 		_on_life_lost()
@@ -169,7 +194,7 @@ func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 		body.queue_free()
 
 
-func _on_lane_barrier_right_body_entered(body: Node2D) -> void:
+func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
 		body.queue_free()

@@ -5,11 +5,14 @@ signal life_lost
 
 func _physics_process(delta: float) -> void:
 	if not Counters.game_end:
-		global_position.x += 150 * delta
+		if Counters.player_on_left:
+			global_position.x += 150 * delta
+		else:
+			global_position.x -= 150 * delta
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area.name == "LaneBarrierRight":
+	if area.name == "LaneEndDuckSide":
 		life_lost.emit()
 		queue_free()
 
