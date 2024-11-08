@@ -2,6 +2,7 @@ class_name Duck
 extends CharacterBody2D
 
 signal points_gained (points : int)
+signal eaten_fruit_spawned (fruit_position : Vector2)
 
 var _grid_square := 48
 var _fruits_eaten := 0
@@ -9,7 +10,6 @@ var _duck_type : DuckTypes = null
 
 @onready var move_timer := $MoveTimer as Timer
 @onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
-@onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
 
 func _ready() -> void:
 	base_duck_sprite.modulate = Color(_duck_type.color)
@@ -62,10 +62,8 @@ func _on_move_timer_timeout() -> void:
 func _on_base_duck_sprite_animation_finished() -> void:
 	if base_duck_sprite.animation == "eating":
 		base_duck_sprite.play("default")
-		
-		var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
-		get_parent().add_child.call_deferred(new_eaten_fruit)
-		new_eaten_fruit.global_position = Vector2(global_position.x, global_position.y + 7)
+	
+		eaten_fruit_spawned.emit(Vector2(global_position.x, global_position.y + 7))
 		
 		if _fruits_eaten == _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h

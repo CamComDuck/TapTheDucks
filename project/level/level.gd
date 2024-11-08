@@ -39,6 +39,7 @@ var _allow_input := true
 @onready var duck_angry := load("res://duck/resources/duck_angry.tres") as DuckTypes
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
+@onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
 
 
 func _ready() -> void:
@@ -150,6 +151,12 @@ func _on_life_lost() -> void:
 func _on_points_gained(points : int) -> void:
 	Counters.points += points
 	game_overlay.update_points_label()
+	
+
+func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
+	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
+	add_child.call_deferred(new_eaten_fruit)
+	new_eaten_fruit.global_position = fruit_position
 
 
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
@@ -187,3 +194,6 @@ func _on_child_entered_tree(node: Node) -> void:
 		
 	if node is FruitEaten or node is Duck:
 		node.connect("points_gained", _on_points_gained)
+	
+	if node is Duck:
+		node.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
