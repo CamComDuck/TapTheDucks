@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Counters.lives <= 0:
+	if Counters.game_end:
 		move_timer.stop()
 		velocity.x = 0
 		

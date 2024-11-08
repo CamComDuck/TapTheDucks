@@ -9,7 +9,7 @@ extends Control
 @onready var life := load("res://game_overlay/life.tscn") as PackedScene
 
 func update_lives_label() -> void:
-	if lives_container.get_child_count() < Counters.lives:
+	if lives_container.get_child_count() < Counters.lives and not Counters.game_end:
 		var new_life := life.instantiate() as TextureRect
 		lives_container.add_child.call_deferred(new_life)
 
@@ -37,6 +37,7 @@ func _on_play_again_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	Counters.points = 0
 	Counters.lives = 3
+	Counters.game_end = false
 	get_tree().reload_current_scene()
 
 
@@ -44,4 +45,5 @@ func _on_menu_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	Counters.points = 0
 	Counters.lives = 3
+	Counters.game_end = false
 	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))

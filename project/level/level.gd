@@ -137,7 +137,7 @@ func _spawn_duck() -> void:
 
 
 func _on_life_lost() -> void:
-	if Counters.lives > 0:
+	if not Counters.game_end:
 		Counters.lives -= 1
 		game_overlay.update_lives_label()
 		AudioController.play_sound_life_lost()
@@ -147,6 +147,7 @@ func _on_life_lost() -> void:
 			_allow_input = false
 			game_overlay.game_end(false)
 			duck_spawn_timer.stop()
+			Counters.game_end = true
 			
 
 func _on_points_gained(points : int) -> void:

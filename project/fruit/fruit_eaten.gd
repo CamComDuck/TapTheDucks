@@ -5,7 +5,7 @@ signal life_lost
 signal points_gained (points : int)
 
 func _physics_process(delta: float) -> void:
-	if Counters.lives > 0:
+	if not Counters.game_end:
 		global_position.x -= 150 * delta
 
 

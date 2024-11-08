@@ -4,7 +4,7 @@ extends Area2D
 signal life_lost
 
 func _physics_process(delta: float) -> void:
-	if Counters.lives > 0:
+	if not Counters.game_end:
 		global_position.x += 150 * delta
 
 
