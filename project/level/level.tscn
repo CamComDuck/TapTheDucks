@@ -81,3 +81,5 @@ tile_set = ExtResource("5_rqhcs")
 
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
+[connection signal="body_entered" from="LaneEndPlayerSide" to="." method="_on_lane_end_player_side_body_entered"]
+[connection signal="body_entered" from="LaneEndDuckSide" to="." method="_on_lane_end_duck_side_body_entered"]

@@ -7,6 +7,8 @@ var _player_current_lane : int
 var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
+var _current_points := 0
+var _current_round := 1
 var _round_max_ducks := 10
 var _round_current_ducks := 0
 var _ducks_finished := 0
@@ -58,7 +60,7 @@ func _ready() -> void:
 	_duck_positions.append(duck_position_3)
 	_duck_positions.append(duck_position_4)
 	
-	_on_round_start(1)
+	_on_round_start()
 		
 		
 func _physics_process(_delta: float) -> void:
@@ -178,8 +180,8 @@ func _on_life_lost() -> void:
 			
 
 func _on_points_gained(points : int) -> void:
-	Counters.points += points
-	game_overlay.update_points_label()
+	_current_points += points
+	game_overlay.update_points_label(_current_points)
 	
 
 func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
@@ -188,16 +190,16 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
 	new_eaten_fruit.global_position = fruit_position
 	
 
-func _on_round_start(round_num : int) -> void:
+func _on_round_start() -> void:
 	var current_map_type : MapTypes
 		
-	if round_num % 4 == 1:
+	if _current_round % 4 == 1:
 		current_map_type = map_1
-	#elif round_num % 4 == 2:
+	#elif _current_round % 4 == 2:
 		#current_map_type = map_2
-	#elif round_num % 4 == 3:
+	#elif _current_round % 4 == 3:
 		#current_map_type = map_3
-	#elif round_num % 4 == 0:
+	#elif _current_round % 4 == 0:
 		#current_map_type = map_4
 	
 	
@@ -213,6 +215,8 @@ func _on_round_start(round_num : int) -> void:
 	
 	lane_end_player_side.global_position = current_map_type.lane_end_player_side_position
 	lane_end_duck_side.global_position = current_map_type.lane_end_duck_side_position
+	
+	game_overlay.update_round_label(_current_round)
 	
 	player.global_position = _player_positions[0].global_position
 	
@@ -233,7 +237,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		body.queue_free()
 		
-		if Counters.points >= 100 and _ducks_finished == _round_max_ducks:
+		if _current_points >= 100 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
 			AudioController.play_sound_win()

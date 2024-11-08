@@ -113,5 +113,18 @@ theme = ExtResource("1_wh8a7")
 text = "0"
 vertical_alignment = 1
 
+[node name="RoundLabel" type="Label" parent="."]
+z_index = 98
+z_as_relative = false
+layout_mode = 0
+offset_left = 425.0
+offset_top = 680.0
+offset_right = 714.0
+offset_bottom = 762.0
+theme = ExtResource("1_wh8a7")
+text = "1"
+horizontal_alignment = 2
+vertical_alignment = 1
+
 [connection signal="pressed" from="GameEndContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameEndContainer/MenuButton" to="." method="_on_menu_button_pressed"]

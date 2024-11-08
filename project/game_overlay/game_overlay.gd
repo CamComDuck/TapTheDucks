@@ -7,6 +7,7 @@ extends Control
 @onready var win_particles := $WinParticles as CPUParticles2D
 @onready var lives_container := $LivesContainer as HBoxContainer
 @onready var life := load("res://game_overlay/life.tscn") as PackedScene
+@onready var round_label := $RoundLabel as Label
 
 func update_lives_label() -> void:
 	if lives_container.get_child_count() < Counters.lives and not Counters.game_end:
@@ -17,8 +18,12 @@ func update_lives_label() -> void:
 		lives_container.get_child(0).queue_free()
 
 
-func update_points_label() -> void:
-	points_label.text = str(Counters.points)
+func update_points_label(points : int) -> void:
+	points_label.text = str(points)
+	
+
+func update_round_label(round_num : int) -> void:
+	round_label.text = str(round_num)
 	
 
 func game_end(is_win : bool) -> void:
@@ -35,7 +40,6 @@ func game_end(is_win : bool) -> void:
 
 func _on_play_again_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	Counters.points = 0
 	Counters.lives = 3
 	Counters.game_end = false
 	get_tree().reload_current_scene()
@@ -43,7 +47,6 @@ func _on_play_again_button_pressed() -> void:
 
 func _on_menu_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	Counters.points = 0
 	Counters.lives = 3
 	Counters.game_end = false
 	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))
