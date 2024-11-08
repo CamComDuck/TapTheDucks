@@ -39,6 +39,7 @@ folder_colors={
 "res://level/": "orange",
 "res://level/graphics/": "red",
 "res://level/map_types/": "red",
+"res://level/map_types/backgrounds/": "red",
 "res://player/": "yellow",
 "res://player/graphics/": "red",
 "res://title/": "orange"

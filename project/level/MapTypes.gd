@@ -2,6 +2,7 @@ class_name MapTypes
 extends Resource
 
 @export var map_number : int
+@export var player_on_left : bool = true
 
 @export_category("Player Positions")
 @export var player_position_1 : Vector2

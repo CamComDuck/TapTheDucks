@@ -3,12 +3,13 @@ extends Node2D
 var _player_positions : Array[Marker2D] = []
 var _duck_positions : Array[Marker2D] = []
 var _player_current_lane : int
+var _background : TileMapLayer = null
 
 var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 1
+var _current_round := 2
 var _round_max_ducks := 10
 var _round_current_ducks := 0
 var _ducks_finished := 0
@@ -46,7 +47,10 @@ var _allow_input := true
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
 
-@onready var map_1 := load("res://level/map_types/map_1.tres") as MapTypes
+@onready var map_1 := load("res://level/map_types/resources/map_1.tres") as MapTypes
+@onready var map_1_background := load("res://level/map_types/backgrounds/bg_map_1.tscn") as PackedScene
+@onready var map_2 := load("res://level/map_types/resources/map_2.tres") as MapTypes
+@onready var map_2_background := load("res://level/map_types/backgrounds/bg_map_2.tscn") as PackedScene
 
 
 func _ready() -> void:
@@ -90,7 +94,7 @@ func _physics_process(_delta: float) -> void:
 		_allow_input = true
 		
 	elif Counters.player_on_left:
-		if Input.is_action_pressed("interact_right") and player.position.x < 696:
+		if Input.is_action_pressed("interact_right") and player.position.x < Counters.grid_square_length * 14.5:
 			player.velocity.x = 150
 			player.move_and_slide()
 			
@@ -109,14 +113,14 @@ func _physics_process(_delta: float) -> void:
 			
 			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 			add_child.call_deferred(new_fruit_whole)
-			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
-			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + Counters.grid_square_length
+			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
 			_allow_input = true
 		
 	elif not Counters.player_on_left:
 		
-		if Input.is_action_pressed("interact_left") and player.position.x < 696:
-			player.velocity.x = 150
+		if Input.is_action_pressed("interact_left") and player.position.x > Counters.grid_square_length * 1.5:
+			player.velocity.x = -150
 			player.move_and_slide()
 			
 		elif Input.is_action_just_released("interact_left"):
@@ -134,8 +138,8 @@ func _physics_process(_delta: float) -> void:
 			
 			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 			add_child.call_deferred(new_fruit_whole)
-			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
-			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
+			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - Counters.grid_square_length
+			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
 			_allow_input = true
 		
 		
@@ -195,13 +199,24 @@ func _on_round_start() -> void:
 		
 	if _current_round % 4 == 1:
 		current_map_type = map_1
-	#elif _current_round % 4 == 2:
-		#current_map_type = map_2
+		
+		if _background != null:
+			_background.queue_free()
+			
+		_background = map_1_background.instantiate() as TileMapLayer
+		
+	elif _current_round % 4 == 2:
+		current_map_type = map_2
+		_background = map_2_background.instantiate() as TileMapLayer
 	#elif _current_round % 4 == 3:
 		#current_map_type = map_3
+		#_background = map_3_background.instantiate() as TileMapLayer
 	#elif _current_round % 4 == 0:
 		#current_map_type = map_4
+		#_background = map_4_background.instantiate() as TileMapLayer
 	
+	Counters.player_on_left = current_map_type.player_on_left
+	add_child.call_deferred(_background)
 	
 	player_position_1.global_position = current_map_type.player_position_1
 	player_position_2.global_position = current_map_type.player_position_2
@@ -240,6 +255,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		if _current_points >= 100 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
+			Counters.game_end = true
 			AudioController.play_sound_win()
 
 

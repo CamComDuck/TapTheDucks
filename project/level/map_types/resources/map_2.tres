@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MapTypes" load_steps=2 format=3 uid="uid://dhe5eqdrkea41"]
+
+[ext_resource type="Script" path="res://level/MapTypes.gd" id="1_d0gud"]
+
+[resource]
+script = ExtResource("1_d0gud")
+map_number = 2
+player_on_left = false
+player_position_1 = Vector2(600, 144)
+player_position_2 = Vector2(600, 288)
+player_position_3 = Vector2(600, 432)
+player_position_4 = Vector2(600, 576)
+duck_position_1 = Vector2(72, 161)
+duck_position_2 = Vector2(72, 305)
+duck_position_3 = Vector2(72, 450)
+duck_position_4 = Vector2(72, 597)
+lane_end_player_side_position = Vector2(604, 384)
+lane_end_duck_side_position = Vector2(20, 384)

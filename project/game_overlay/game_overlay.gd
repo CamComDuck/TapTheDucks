@@ -33,8 +33,8 @@ func game_end(is_win : bool) -> void:
 	else:
 		game_end_label.text = "You lose!"
 		
-	game_end_container.position.x = 384 - (game_end_container.size.x / 2)
-	game_end_container.position.y = 384 - (game_end_container.size.y / 2)
+	game_end_container.position.x = (Counters.grid_square_length * 8) - (game_end_container.size.x / 2)
+	game_end_container.position.y = (Counters.grid_square_length * 8) - (game_end_container.size.y / 2)
 	game_end_container.show()
 
 
