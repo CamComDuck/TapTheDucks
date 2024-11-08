@@ -36,12 +36,12 @@ func game_end(is_win : bool) -> void:
 func _on_play_again_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	Counters.points = 0
-	Counters.lives = 0
+	Counters.lives = 3
 	get_tree().reload_current_scene()
 
 
 func _on_menu_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	Counters.points = 0
-	Counters.lives = 0
+	Counters.lives = 3
 	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))

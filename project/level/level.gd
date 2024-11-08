@@ -110,7 +110,8 @@ func _physics_process(_delta: float) -> void:
 		
 		
 func _spawn_duck() -> void:
-	var new_duck_lane := randi_range(0, 3)
+	#var new_duck_lane := randi_range(0, 3)
+	var new_duck_lane := 0
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
 	

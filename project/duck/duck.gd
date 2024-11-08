@@ -7,7 +7,7 @@ signal eaten_fruit_spawned (fruit_position : Vector2)
 var _grid_square := 48
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
-var _tween : Tween
+var _tween : Tween = null
 
 @onready var move_timer := $MoveTimer as Timer
 @onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
@@ -40,7 +40,8 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 	if _fruits_eaten < _duck_type.max_fruits:
 		move_timer.stop()
 		_fruits_eaten += 1
-		_tween.kill()
+		if _tween != null:
+			_tween.kill()
 		base_duck_sprite.play("eating")
 		if _fruits_eaten == _duck_type.max_fruits:
 			points_gained.emit(_duck_type.point_value)
