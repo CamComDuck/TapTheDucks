@@ -57,7 +57,6 @@ collision_mask = 13
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndPlayerSide"]
-position = Vector2(164, 384)
 shape = SubResource("RectangleShape2D_s1div")
 
 [node name="LaneEndDuckSide" type="Area2D" parent="."]
@@ -66,7 +65,6 @@ collision_mask = 15
 input_pickable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSide"]
-position = Vector2(748, 384)
 shape = SubResource("RectangleShape2D_s1div")
 
 [node name="TileBackgroundLvl1" type="TileMapLayer" parent="."]

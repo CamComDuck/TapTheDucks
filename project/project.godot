@@ -31,13 +31,14 @@ window/stretch/mode="canvas_items"
 folder_colors={
 "res://audio_controller/": "purple",
 "res://duck/": "green",
+"res://duck/duck_types/": "red",
 "res://duck/graphics/": "red",
-"res://duck/resources/": "red",
 "res://fruit/": "green",
 "res://fruit/graphics/": "red",
 "res://game_overlay/": "purple",
 "res://level/": "orange",
 "res://level/graphics/": "red",
+"res://level/map_types/": "red",
 "res://player/": "yellow",
 "res://player/graphics/": "red",
 "res://title/": "orange"

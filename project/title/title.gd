@@ -7,10 +7,10 @@ extends Node2D
 @onready var hungry_duck_texture: TextureRect = $HelpContainer/VBoxContainer/HungryDuck/HungryDuckTexture
 @onready var angry_duck_texture: TextureRect = $HelpContainer/VBoxContainer/AngryDuck/AngryDuckTexture
 
-@onready var duck_basic := load("res://duck/resources/duck_basic.tres") as DuckTypes
-@onready var duck_fast := load("res://duck/resources/duck_fast.tres") as DuckTypes
-@onready var duck_hungry := load("res://duck/resources/duck_hungry.tres") as DuckTypes
-@onready var duck_angry := load("res://duck/resources/duck_angry.tres") as DuckTypes
+@onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
+@onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
+@onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
+@onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
 
 func _ready() -> void:
 	basic_duck_texture.modulate = duck_basic.color

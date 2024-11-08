@@ -33,13 +33,18 @@ var _allow_input := true
 @onready var duck_spawn_timer := $DuckSpawnTimer as Timer
 
 @onready var duck : = load("res://duck/duck.tscn") as PackedScene
-@onready var duck_basic := load("res://duck/resources/duck_basic.tres") as DuckTypes
-@onready var duck_fast := load("res://duck/resources/duck_fast.tres") as DuckTypes
-@onready var duck_hungry := load("res://duck/resources/duck_hungry.tres") as DuckTypes
-@onready var duck_angry := load("res://duck/resources/duck_angry.tres") as DuckTypes
+@onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
+@onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
+@onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
+@onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
+
+@onready var lane_end_player_side := $LaneEndPlayerSide as Area2D
+@onready var lane_end_duck_side := $LaneEndDuckSide as Area2D
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
+
+@onready var map_1 := load("res://level/map_types/map_1.tres") as MapTypes
 
 
 func _ready() -> void:
@@ -53,10 +58,7 @@ func _ready() -> void:
 	_duck_positions.append(duck_position_3)
 	_duck_positions.append(duck_position_4)
 	
-	player.global_position = _player_positions[0].global_position
-	
-	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
-	duck_spawn_timer.start()
+	_on_round_start(1)
 		
 		
 func _physics_process(_delta: float) -> void:
@@ -184,6 +186,38 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
 	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
 	add_child.call_deferred(new_eaten_fruit)
 	new_eaten_fruit.global_position = fruit_position
+	
+
+func _on_round_start(round_num : int) -> void:
+	var current_map_type : MapTypes
+		
+	if round_num % 4 == 1:
+		current_map_type = map_1
+	#elif round_num % 4 == 2:
+		#current_map_type = map_2
+	#elif round_num % 4 == 3:
+		#current_map_type = map_3
+	#elif round_num % 4 == 0:
+		#current_map_type = map_4
+	
+	
+	player_position_1.global_position = current_map_type.player_position_1
+	player_position_2.global_position = current_map_type.player_position_2
+	player_position_3.global_position = current_map_type.player_position_3
+	player_position_4.global_position = current_map_type.player_position_4
+	
+	duck_position_1.global_position = current_map_type.duck_position_1
+	duck_position_2.global_position = current_map_type.duck_position_2
+	duck_position_3.global_position = current_map_type.duck_position_3
+	duck_position_4.global_position = current_map_type.duck_position_4
+	
+	lane_end_player_side.global_position = current_map_type.lane_end_player_side_position
+	lane_end_duck_side.global_position = current_map_type.lane_end_duck_side_position
+	
+	player.global_position = _player_positions[0].global_position
+	
+	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
+	duck_spawn_timer.start()
 
 
 func _on_lane_end_player_side_body_entered(body: Node2D) -> void:
