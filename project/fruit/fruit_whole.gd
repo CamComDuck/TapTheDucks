@@ -1,14 +1,16 @@
 class_name FruitWhole
 extends Area2D
 
+signal life_lost
+
 func _physics_process(delta: float) -> void:
-	global_position.x += 150 * delta
+	if Counters.lives > 0:
+		global_position.x += 150 * delta
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if area.name == "LaneBarrierRight":
-		ResourceTracker.lives -= 1
-		AudioController.play_sound_life_lost()
+		life_lost.emit()
 		queue_free()
 
 

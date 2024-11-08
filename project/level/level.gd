@@ -17,7 +17,7 @@ var _percent_chance_hungry_duck := 20
 
 var _allow_input := true
 
-@onready var game_overlay := $GameOverlay as Control
+@onready var game_overlay := $GameOverlay as GameOverlay
 
 @onready var player_position_1 := $PlayerPosition1 as Marker2D
 @onready var player_position_2 := $PlayerPosition2 as Marker2D
@@ -59,14 +59,7 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	if ResourceTracker.lives <= 0:
-		if _allow_input:
-			AudioController.play_sound_lose()
-		_allow_input = false
-		game_overlay.game_end(false)
-		duck_spawn_timer.stop()
-		
-	elif not _allow_input:
+	if not _allow_input:
 		pass
 		
 	elif Input.is_action_pressed("interact_right") and player.position.x < 696:
@@ -109,7 +102,7 @@ func _physics_process(_delta: float) -> void:
 		await player.animation_finished
 		
 		var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
-		get_parent().add_child.call_deferred(new_fruit_whole)
+		add_child.call_deferred(new_fruit_whole)
 		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + 48
 		new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + 24
 		_allow_input = true
@@ -141,11 +134,28 @@ func _spawn_duck() -> void:
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
 
+func _on_life_lost() -> void:
+	if Counters.lives > 0:
+		Counters.lives -= 1
+		game_overlay.update_lives_label()
+		AudioController.play_sound_life_lost()
+		
+		if Counters.lives == 0:
+			AudioController.play_sound_lose()
+			_allow_input = false
+			game_overlay.game_end(false)
+			duck_spawn_timer.stop()
+			
+
+func _on_points_gained(points : int) -> void:
+	Counters.points += points
+	game_overlay.update_points_label()
+
+
 func _on_lane_barrier_left_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
-		ResourceTracker.lives -= 1
-		AudioController.play_sound_life_lost()
+		_on_life_lost()
 		game_overlay.update_lives_label()
 		body.queue_free()
 
@@ -155,7 +165,7 @@ func _on_lane_barrier_right_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		body.queue_free()
 		
-		if ResourceTracker.points >= 100 and _ducks_finished == _round_max_ducks:
+		if Counters.points >= 100 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
 			AudioController.play_sound_win()
@@ -169,3 +179,11 @@ func _on_duck_spawn_timer_timeout() -> void:
 		duck_spawn_timer.start()
 	else:
 		duck_spawn_timer.stop()
+
+
+func _on_child_entered_tree(node: Node) -> void:
+	if node is FruitEaten or node is FruitWhole:
+		node.connect("life_lost", _on_life_lost)
+		
+	if node is FruitEaten or node is Duck:
+		node.connect("points_gained", _on_points_gained)

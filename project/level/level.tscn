@@ -79,6 +79,7 @@ z_as_relative = false
 tile_map_data = PackedByteArray("AAABAAIAAAAAAAAAAAABAAMAAAAAAAEAAAACAAIAAAABAAAAAAACAAMAAAABAAEAAAABAAUAAAAAAAAAAAABAAYAAAAAAAEAAAACAAUAAAABAAAAAAACAAYAAAABAAEAAAABAAgAAAAAAAAAAAABAAkAAAAAAAEAAAACAAgAAAABAAAAAAACAAkAAAABAAEAAAABAAsAAAAAAAAAAAABAAwAAAAAAAEAAAACAAsAAAABAAAAAAACAAwAAAABAAEAAAA=")
 tile_set = ExtResource("5_rqhcs")
 
+[connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="body_entered" from="LaneBarrierLeft" to="." method="_on_lane_barrier_left_body_entered"]
 [connection signal="body_entered" from="LaneBarrierRight" to="." method="_on_lane_barrier_right_body_entered"]
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]

@@ -18,7 +18,7 @@ config/icon="res://duck/graphics/duck_body_1.png"
 [autoload]
 
 AudioController="*res://audio_controller/audio_controller.tscn"
-ResourceTracker="*res://game_overlay/resource_tracker.gd"
+Counters="*res://game_overlay/counters.gd"
 
 [display]
 

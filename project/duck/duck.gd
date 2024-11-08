@@ -1,6 +1,8 @@
 class_name Duck
 extends CharacterBody2D
 
+signal points_gained (points : int)
+
 var _grid_square := 48
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
@@ -20,7 +22,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if ResourceTracker.lives <= 0:
+	if Counters.lives <= 0:
 		move_timer.stop()
 		velocity.x = 0
 		
@@ -39,7 +41,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 		_fruits_eaten += 1
 		base_duck_sprite.play("eating")
 		if _fruits_eaten == _duck_type.max_fruits:
-			ResourceTracker.points += _duck_type.point_value
+			points_gained.emit(_duck_type.point_value)
 		return true
 		
 	else:
