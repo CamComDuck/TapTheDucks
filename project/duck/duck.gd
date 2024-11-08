@@ -7,6 +7,7 @@ signal eaten_fruit_spawned (fruit_position : Vector2)
 var _grid_square := 48
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
+var _tween : Tween
 
 @onready var move_timer := $MoveTimer as Timer
 @onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
@@ -39,6 +40,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 	if _fruits_eaten < _duck_type.max_fruits:
 		move_timer.stop()
 		_fruits_eaten += 1
+		_tween.kill()
 		base_duck_sprite.play("eating")
 		if _fruits_eaten == _duck_type.max_fruits:
 			points_gained.emit(_duck_type.point_value)
@@ -50,8 +52,8 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 
 func _on_move_timer_timeout() -> void:
 	var new_position := Vector2(global_position.x - _grid_square, global_position.y)
-	var tween = get_tree().create_tween()
-	tween.tween_property(self, "global_position",new_position, 0.6).set_ease(Tween.EASE_OUT)
+	_tween = get_tree().create_tween()
+	_tween.tween_property(self, "global_position",new_position, 0.6).set_ease(Tween.EASE_OUT)
 	if _duck_type.is_fast_type:
 		move_timer.wait_time = randf_range(1, 2)
 	else:
@@ -62,8 +64,9 @@ func _on_move_timer_timeout() -> void:
 func _on_base_duck_sprite_animation_finished() -> void:
 	if base_duck_sprite.animation == "eating":
 		base_duck_sprite.play("default")
-	
-		eaten_fruit_spawned.emit(Vector2(global_position.x, global_position.y + 7))
+		
+		var fruit_position := Vector2(global_position.x, global_position.y + 7)
+		eaten_fruit_spawned.emit(fruit_position)
 		
 		if _fruits_eaten == _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h

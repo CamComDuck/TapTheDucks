@@ -69,7 +69,7 @@ func _physics_process(_delta: float) -> void:
 		
 	elif Input.is_action_just_released("interact_right"):
 		_allow_input = false
-		var tween = get_tree().create_tween()
+		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
@@ -80,7 +80,7 @@ func _physics_process(_delta: float) -> void:
 		if _player_current_lane == 4:
 			_player_current_lane = 0
 		AudioController.play_sound_player_move()
-		var tween = get_tree().create_tween()
+		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
@@ -91,7 +91,7 @@ func _physics_process(_delta: float) -> void:
 		if _player_current_lane == -1:
 			_player_current_lane = 3
 		AudioController.play_sound_player_move()
-		var tween = get_tree().create_tween()
+		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
