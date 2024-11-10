@@ -2,18 +2,21 @@ class_name Duck
 extends CharacterBody2D
 
 signal points_gained (points : int)
-signal eaten_fruit_spawned (fruit_position : Vector2)
+signal eaten_fruit_spawned (fruit_position : Vector2, lane_number : int)
 
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
 var _tween : Tween = null
+
+var in_tree_left_lane : bool
+var lane_number : int
 
 @onready var move_timer := $MoveTimer as Timer
 @onready var base_duck_sprite := $BaseDuckSprite as AnimatedSprite2D
 
 func _ready() -> void:
 	base_duck_sprite.modulate = Color(_duck_type.color)
-	if not Counters.player_on_left:
+	if not in_tree_left_lane:
 		base_duck_sprite.flip_h = not base_duck_sprite.flip_h
 	
 	if _duck_type.is_fast_type:
@@ -28,12 +31,12 @@ func _physics_process(delta: float) -> void:
 		move_timer.stop()
 		velocity.x = 0
 	
-	elif Counters.player_on_left:
+	elif in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (Counters.grid_square_length * 14.5) - 4):
 			velocity.x = 15000 * delta
 			move_and_slide()
 			
-	elif not Counters.player_on_left:
+	elif not in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (Counters.grid_square_length * 1.5) + 4):
 			velocity.x = -15000 * delta
 			move_and_slide()
@@ -62,7 +65,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 func _on_move_timer_timeout() -> void:
 	var new_position : Vector2
 	
-	if Counters.player_on_left:
+	if in_tree_left_lane:
 		new_position = Vector2(global_position.x - Counters.grid_square_length, global_position.y)
 	else:
 		new_position = Vector2(global_position.x + Counters.grid_square_length, global_position.y)
@@ -82,7 +85,7 @@ func _on_base_duck_sprite_animation_finished() -> void:
 		base_duck_sprite.play("default")
 		
 		var fruit_position := Vector2(global_position.x, global_position.y + 7)
-		eaten_fruit_spawned.emit(fruit_position)
+		eaten_fruit_spawned.emit(fruit_position, lane_number)
 		
 		if _fruits_eaten != _duck_type.max_fruits:
 			base_duck_sprite.flip_h = not base_duck_sprite.flip_h

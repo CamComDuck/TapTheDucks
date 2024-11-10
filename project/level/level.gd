@@ -11,7 +11,7 @@ var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 1
+var _current_round := 4
 var _round_max_ducks := 10
 var _round_current_ducks := 0
 var _ducks_finished := 0
@@ -125,7 +125,8 @@ func _physics_process(_delta: float) -> void:
 		await tween.finished
 		_allow_input = true
 		
-	elif Counters.player_on_left:
+	elif _current_lanes_tree_left[_player_current_lane]:
+		
 		if Input.is_action_pressed("interact_right") and player.position.x < Counters.grid_square_length * 14.5:
 			player.velocity.x = 150
 			player.move_and_slide()
@@ -144,12 +145,13 @@ func _physics_process(_delta: float) -> void:
 			await player.animation_finished
 			
 			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+			new_fruit_whole.in_tree_left_lane = _current_lanes_tree_left[_player_current_lane]
 			add_child.call_deferred(new_fruit_whole)
 			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + Counters.grid_square_length
 			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
 			_allow_input = true
 		
-	elif not Counters.player_on_left:
+	elif not _current_lanes_tree_left[_player_current_lane]:
 		
 		if Input.is_action_pressed("interact_left") and player.position.x > Counters.grid_square_length * 1.5:
 			player.velocity.x = -150
@@ -169,6 +171,7 @@ func _physics_process(_delta: float) -> void:
 			await player.animation_finished
 			
 			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+			new_fruit_whole.in_tree_left_lane = _current_lanes_tree_left[_player_current_lane]
 			add_child.call_deferred(new_fruit_whole)
 			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - Counters.grid_square_length
 			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
@@ -197,6 +200,8 @@ func _spawn_duck() -> void:
 		# Spawn Angry Duck
 		new_duck.load_type(duck_angry)
 	
+	new_duck.in_tree_left_lane = _current_lanes_tree_left[new_duck_lane]
+	new_duck.lane_number = new_duck_lane
 	add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
@@ -220,8 +225,9 @@ func _on_points_gained(points : int) -> void:
 	game_overlay.update_points_label(_current_points)
 	
 
-func _on_eaten_fruit_spawned(fruit_position : Vector2) -> void:
+func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> void:
 	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
+	new_eaten_fruit.in_tree_left_lane = _current_lanes_tree_left[current_lane]
 	add_child.call_deferred(new_eaten_fruit)
 	new_eaten_fruit.global_position = fruit_position
 	

@@ -3,9 +3,11 @@ extends Area2D
 
 signal life_lost
 
+var in_tree_left_lane : bool
+
 func _physics_process(delta: float) -> void:
 	if not Counters.game_end:
-		if Counters.player_on_left:
+		if in_tree_left_lane:
 			global_position.x += 150 * delta
 		else:
 			global_position.x -= 150 * delta
