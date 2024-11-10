@@ -30,6 +30,7 @@ func _physics_process(delta: float) -> void:
 	if Counters.game_end:
 		move_timer.stop()
 		velocity.x = 0
+		base_duck_sprite.stop()
 	
 	elif in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (Counters.grid_square_length * 14.5) - 4):
@@ -81,7 +82,7 @@ func _on_move_timer_timeout() -> void:
 
 
 func _on_base_duck_sprite_animation_finished() -> void:
-	if base_duck_sprite.animation == "eating":
+	if base_duck_sprite.animation == "eating" and not Counters.game_end:
 		base_duck_sprite.play("default")
 		
 		var fruit_position := Vector2(global_position.x, global_position.y + 7)

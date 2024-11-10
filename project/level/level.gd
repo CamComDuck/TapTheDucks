@@ -281,6 +281,10 @@ func _on_round_start() -> void:
 		_lane_endings_player_side[i].global_position = _player_positions[i].global_position
 		
 	
+	for i in get_children():
+		if i is FruitEaten or i is FruitWhole:
+			i.queue_free()
+	
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
 	player.global_position = _player_positions[_player_current_lane].global_position
@@ -311,6 +315,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 			#AudioController.play_sound_win()
 		if _ducks_finished == _round_max_ducks:
 			_current_round += 1
+			AudioController.play_sound_round_complete()
 			_on_round_start()
 
 

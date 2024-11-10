@@ -23,3 +23,6 @@ func play_sound_life_lost() -> void:
 
 func play_sound_menu_click() -> void:
 	%MenuClick.play()
+
+func play_sound_round_complete() -> void:
+	%RoundComplete.play()
