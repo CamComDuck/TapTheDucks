@@ -11,12 +11,12 @@ var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 4
-var _round_max_ducks := 10
+var _current_round := 1
+var _round_max_ducks := 3
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
-var _current_lanes_tree_left : Array = [true, true, true, true]
+var _lane_tree_is_left : Array[bool] = [true, true, true, true]
 
 var _duck_y_addition := 17
 var _lane_positions : Dictionary = {
@@ -125,7 +125,7 @@ func _physics_process(_delta: float) -> void:
 		await tween.finished
 		_allow_input = true
 		
-	elif _current_lanes_tree_left[_player_current_lane]:
+	elif _lane_tree_is_left[_player_current_lane]:
 		
 		if Input.is_action_pressed("interact_right") and player.position.x < Counters.grid_square_length * 14.5:
 			player.velocity.x = 150
@@ -141,17 +141,11 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("interact_left"):
 			_allow_input = false
 			player.play_animation("fruit_pick")
-			
 			await player.animation_finished
-			
-			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
-			new_fruit_whole.in_tree_left_lane = _current_lanes_tree_left[_player_current_lane]
-			add_child.call_deferred(new_fruit_whole)
-			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + Counters.grid_square_length
-			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
+			_on_whole_fruit_spawned()
 			_allow_input = true
 		
-	elif not _current_lanes_tree_left[_player_current_lane]:
+	elif not _lane_tree_is_left[_player_current_lane]:
 		
 		if Input.is_action_pressed("interact_left") and player.position.x > Counters.grid_square_length * 1.5:
 			player.velocity.x = -150
@@ -167,14 +161,8 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("interact_right"):
 			_allow_input = false
 			player.play_animation("fruit_pick")
-			
 			await player.animation_finished
-			
-			var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
-			new_fruit_whole.in_tree_left_lane = _current_lanes_tree_left[_player_current_lane]
-			add_child.call_deferred(new_fruit_whole)
-			new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - Counters.grid_square_length
-			new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
+			_on_whole_fruit_spawned()
 			_allow_input = true
 		
 		
@@ -200,7 +188,7 @@ func _spawn_duck() -> void:
 		# Spawn Angry Duck
 		new_duck.load_type(duck_angry)
 	
-	new_duck.in_tree_left_lane = _current_lanes_tree_left[new_duck_lane]
+	new_duck.in_tree_left_lane = _lane_tree_is_left[new_duck_lane]
 	new_duck.lane_number = new_duck_lane
 	add_child.call_deferred(new_duck)
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
@@ -227,15 +215,27 @@ func _on_points_gained(points : int) -> void:
 
 func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> void:
 	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
-	new_eaten_fruit.in_tree_left_lane = _current_lanes_tree_left[current_lane]
+	new_eaten_fruit.in_tree_left_lane = _lane_tree_is_left[current_lane]
 	add_child.call_deferred(new_eaten_fruit)
 	new_eaten_fruit.global_position = fruit_position
+	
+	
+func _on_whole_fruit_spawned() -> void:
+	var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+	new_fruit_whole.in_tree_left_lane = _lane_tree_is_left[_player_current_lane]
+	add_child.call_deferred(new_fruit_whole)
+	
+	if _lane_tree_is_left[_player_current_lane]:
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + Counters.grid_square_length
+	else:
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - Counters.grid_square_length
+	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
 	
 
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
 		
-	if _current_round % 4 == 1:
+	if _current_round % 8 == 1 or _current_round % 8 == 2:
 		current_map_type = map_1
 		
 		if _background != null:
@@ -243,23 +243,26 @@ func _on_round_start() -> void:
 			
 		_background = map_1_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 4 == 2:
+	elif _current_round % 8 == 3 or _current_round % 8 == 4:
+		_background.queue_free()
 		current_map_type = map_2
 		_background = map_2_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 4 == 3:
+	elif _current_round % 8 == 5 or _current_round % 8 == 6:
+		_background.queue_free()
 		current_map_type = map_3
 		_background = map_3_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 4 == 0:
+	elif _current_round % 8 == 7 or _current_round % 8 == 0:
+		_background.queue_free()
 		current_map_type = map_4
 		_background = map_4_background.instantiate() as TileMapLayer
 	
 	
 	for i in 4:
-		_current_lanes_tree_left[i] = current_map_type.lane_is_left_tree[i]
+		_lane_tree_is_left[i] = current_map_type.lane_is_left_tree[i]
 		
-		if _current_lanes_tree_left[i]:
+		if _lane_tree_is_left[i]:
 			_player_positions[i].global_position.x = _lane_positions["player_x_left"]
 			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
 			_duck_positions[i].global_position.x = _lane_positions["duck_x_right"]
@@ -280,7 +283,10 @@ func _on_round_start() -> void:
 	
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
-	player.global_position = _player_positions[0].global_position
+	player.global_position = _player_positions[_player_current_lane].global_position
+	
+	_round_current_ducks = 0
+	_ducks_finished = 0
 	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
 	duck_spawn_timer.start()
 
@@ -298,11 +304,14 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		body.queue_free()
 		
-		if _current_points >= 100 and _ducks_finished == _round_max_ducks:
-			_allow_input = false
-			game_overlay.game_end(true)
-			Counters.game_end = true
-			AudioController.play_sound_win()
+		#if _current_points >= 100 and _ducks_finished == _round_max_ducks:
+			#_allow_input = false
+			#game_overlay.game_end(true)
+			#Counters.game_end = true
+			#AudioController.play_sound_win()
+		if _ducks_finished == _round_max_ducks:
+			_current_round += 1
+			_on_round_start()
 
 
 func _on_duck_spawn_timer_timeout() -> void:
