@@ -1,13 +1,13 @@
-[gd_resource type="Resource" script_class="MapTypes" load_steps=2 format=3 uid="uid://dhe5eqdrkea41"]
+[gd_resource type="Resource" script_class="MapTypes" load_steps=2 format=3 uid="uid://bhst5yre7pxd0"]
 
-[ext_resource type="Script" path="res://level/MapTypes.gd" id="1_d0gud"]
+[ext_resource type="Script" path="res://level/MapTypes.gd" id="1_mq81e"]
 
 [resource]
-script = ExtResource("1_d0gud")
-map_number = 2
+script = ExtResource("1_mq81e")
+map_number = 3
 player_on_left = false
-lane_1_is_left_tree = false
-lane_2_is_left_tree = false
+lane_1_is_left_tree = true
+lane_2_is_left_tree = true
 lane_3_is_left_tree = false
 lane_4_is_left_tree = false
 player_position_1 = Vector2(600, 144)

@@ -59,7 +59,6 @@ shape = SubResource("RectangleShape2D_s1div")
 debug_color = Color(0.265377, 0.502659, 1, 0.42)
 
 [node name="LaneEndDuckSide" type="Area2D" parent="."]
-position = Vector2(20, 0)
 collision_layer = 32
 collision_mask = 15
 input_pickable = false
