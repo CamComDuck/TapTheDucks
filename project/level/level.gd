@@ -2,6 +2,8 @@ extends Node2D
 
 var _player_positions : Array[Marker2D] = []
 var _duck_positions : Array[Marker2D] = []
+var _lane_endings_player_side : Array[Area2D] = []
+var _lane_endings_duck_side : Array[Area2D] = []
 var _player_current_lane : int
 var _background : TileMapLayer = null
 
@@ -9,10 +11,21 @@ var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 2
+var _current_round := 1
 var _round_max_ducks := 10
 var _round_current_ducks := 0
 var _ducks_finished := 0
+
+var _current_lanes_tree_left : Array = [true, true, true, true]
+
+var _duck_y_addition := 17
+var _lane_positions : Dictionary = {
+	"player_x_left" : 168,
+	"player_x_right" : 600,
+	"duck_x_left" : 72,
+	"duck_x_right" : 696,
+	"y_lanes" : [144, 288, 432, 576]
+}
 
 var _percent_chance_basic_duck := 40
 var _percent_chance_fast_duck := 30
@@ -21,6 +34,7 @@ var _percent_chance_hungry_duck := 20
 var _allow_input := true
 
 @onready var game_overlay := $GameOverlay as GameOverlay
+@onready var duck_spawn_timer := $DuckSpawnTimer as Timer
 
 @onready var player_position_1 := $PlayerPosition1 as Marker2D
 @onready var player_position_2 := $PlayerPosition2 as Marker2D
@@ -33,16 +47,20 @@ var _allow_input := true
 @onready var duck_position_3 := $DuckPosition3 as Marker2D
 @onready var duck_position_4 := $DuckPosition4 as Marker2D
 
-@onready var duck_spawn_timer := $DuckSpawnTimer as Timer
-
 @onready var duck : = load("res://duck/duck.tscn") as PackedScene
 @onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
 @onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
 @onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
 @onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
 
-@onready var lane_end_player_side := $LaneEndPlayerSide as Area2D
-@onready var lane_end_duck_side := $LaneEndDuckSide as Area2D
+@onready var lane_end_player_side_1 := $LaneEndPlayerSide1 as LaneEndPlayerSide
+@onready var lane_end_player_side_2 := $LaneEndPlayerSide2 as LaneEndPlayerSide
+@onready var lane_end_player_side_3 := $LaneEndPlayerSide3 as LaneEndPlayerSide
+@onready var lane_end_player_side_4 := $LaneEndPlayerSide4 as LaneEndPlayerSide
+@onready var lane_end_duck_side_1 := $LaneEndDuckSide1 as LaneEndDuckSide
+@onready var lane_end_duck_side_2 := $LaneEndDuckSide2 as LaneEndDuckSide
+@onready var lane_end_duck_side_3 := $LaneEndDuckSide3 as LaneEndDuckSide
+@onready var lane_end_duck_side_4 := $LaneEndDuckSide4 as LaneEndDuckSide
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
@@ -51,6 +69,10 @@ var _allow_input := true
 @onready var map_1_background := load("res://level/map_types/backgrounds/bg_map_1.tscn") as PackedScene
 @onready var map_2 := load("res://level/map_types/resources/map_2.tres") as MapTypes
 @onready var map_2_background := load("res://level/map_types/backgrounds/bg_map_2.tscn") as PackedScene
+@onready var map_3 := load("res://level/map_types/resources/map_3.tres") as MapTypes
+@onready var map_3_background := load("res://level/map_types/backgrounds/bg_map_3.tscn") as PackedScene
+@onready var map_4 := load("res://level/map_types/resources/map_4.tres") as MapTypes
+@onready var map_4_background := load("res://level/map_types/backgrounds/bg_map_4.tscn") as PackedScene
 
 
 func _ready() -> void:
@@ -63,6 +85,16 @@ func _ready() -> void:
 	_duck_positions.append(duck_position_2)
 	_duck_positions.append(duck_position_3)
 	_duck_positions.append(duck_position_4)
+	
+	_lane_endings_player_side.append(lane_end_player_side_1)
+	_lane_endings_player_side.append(lane_end_player_side_2)
+	_lane_endings_player_side.append(lane_end_player_side_3)
+	_lane_endings_player_side.append(lane_end_player_side_4)
+	
+	_lane_endings_duck_side.append(lane_end_duck_side_1)
+	_lane_endings_duck_side.append(lane_end_duck_side_2)
+	_lane_endings_duck_side.append(lane_end_duck_side_3)
+	_lane_endings_duck_side.append(lane_end_duck_side_4)
 	
 	_on_round_start()
 		
@@ -208,33 +240,41 @@ func _on_round_start() -> void:
 	elif _current_round % 4 == 2:
 		current_map_type = map_2
 		_background = map_2_background.instantiate() as TileMapLayer
-	#elif _current_round % 4 == 3:
-		#current_map_type = map_3
-		#_background = map_3_background.instantiate() as TileMapLayer
-	#elif _current_round % 4 == 0:
-		#current_map_type = map_4
-		#_background = map_4_background.instantiate() as TileMapLayer
+		
+	elif _current_round % 4 == 3:
+		current_map_type = map_3
+		_background = map_3_background.instantiate() as TileMapLayer
+		
+	elif _current_round % 4 == 0:
+		current_map_type = map_4
+		_background = map_4_background.instantiate() as TileMapLayer
 	
-	Counters.player_on_left = current_map_type.player_on_left
+	
+	for i in 4:
+		_current_lanes_tree_left[i] = current_map_type.lane_is_left_tree[i]
+		
+		if _current_lanes_tree_left[i]:
+			_player_positions[i].global_position.x = _lane_positions["player_x_left"]
+			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
+			_duck_positions[i].global_position.x = _lane_positions["duck_x_right"]
+			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + Counters.grid_square_length
+			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
+		
+		else:
+			_player_positions[i].global_position.x = _lane_positions["player_x_right"]
+			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
+			_duck_positions[i].global_position.x = _lane_positions["duck_x_left"]
+			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - Counters.grid_square_length
+			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
+	
+		_lane_endings_player_side[i].global_position = _player_positions[i].global_position
+		
+	
 	add_child.call_deferred(_background)
-	
-	player_position_1.global_position = current_map_type.player_position_1
-	player_position_2.global_position = current_map_type.player_position_2
-	player_position_3.global_position = current_map_type.player_position_3
-	player_position_4.global_position = current_map_type.player_position_4
-	
-	duck_position_1.global_position = current_map_type.duck_position_1
-	duck_position_2.global_position = current_map_type.duck_position_2
-	duck_position_3.global_position = current_map_type.duck_position_3
-	duck_position_4.global_position = current_map_type.duck_position_4
-	
-	lane_end_player_side.global_position = current_map_type.lane_end_player_side_position
-	lane_end_duck_side.global_position = current_map_type.lane_end_duck_side_position
-	
 	game_overlay.update_round_label(_current_round)
-	
 	player.global_position = _player_positions[0].global_position
-	
 	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
 	duck_spawn_timer.start()
 

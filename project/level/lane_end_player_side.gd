@@ -1,0 +1,2 @@
+class_name LaneEndPlayerSide
+extends Area2D

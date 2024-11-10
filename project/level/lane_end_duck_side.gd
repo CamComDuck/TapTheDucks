@@ -1,0 +1,2 @@
+class_name LaneEndDuckSide
+extends Area2D
