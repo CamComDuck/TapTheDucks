@@ -323,7 +323,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 				_allow_input = false
 				GameInfo.game_paused = true
 				var new_minigame := minigame.instantiate()
-				get_parent().add_child(new_minigame)
+				get_parent().add_child.call_deferred(new_minigame)
 				
 				var minigame_points : int = await new_minigame.minigame_finished
 				_on_points_gained(minigame_points)
