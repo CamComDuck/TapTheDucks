@@ -33,6 +33,23 @@ animations = [{
 "loop": false,
 "name": &"fruit_pick",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_qo6vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qo6vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qo6vv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_qo6vv")
+}],
+"loop": false,
+"name": &"minigame_pick",
+"speed": 5.0
 }]
 
 [node name="Player" type="CharacterBody2D"]
@@ -47,4 +64,5 @@ shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
+animation = &"minigame_pick"
 autoplay = "default"
