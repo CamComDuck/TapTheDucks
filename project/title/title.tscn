@@ -277,7 +277,7 @@ horizontal_alignment = 1
 [node name="Label" type="Label" parent="HelpContainer/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 25
-text = "Achieve 100 Points to Win"
+text = "Achieve 10,000 Points to Win"
 horizontal_alignment = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="HelpContainer/VBoxContainer"]

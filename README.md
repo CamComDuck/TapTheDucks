@@ -22,6 +22,7 @@
  - DuckEatUnfinished is from [FreeSound.org](https://freesound.org/people/lulyc/sounds/346116/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
  - MenuClick is from [FreeSound.org](https://freesound.org/people/CJspellsfish/sounds/727650/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
  - LifeLost is from [FreeSound.org](https://freesound.org/people/suntemple/sounds/253174/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
+ - RoundComplete is from [FreeSound.org](https://freesound.org/people/Kenneth_Cooney/sounds/609336/), licensed under [CC0 1.0 Universal](https://creativecommons.org/publicdomain/zero/1.0/)
 
  ### Fonts
  - Primary font is from [Google Fonts](https://fonts.google.com/specimen/Jersey+10?preview.text=Tap%20The%20Ducks%20123&query=jersey&lang=en_Latn&script=Latn&categoryFilters=Appearance:%2FTheme%2FPixel), licensed under [SIL Open Font License](https://openfontlicense.org/open-font-license-official-text/)

@@ -74,6 +74,7 @@ var _allow_input := true
 @onready var map_4 := load("res://level/map_types/resources/map_4.tres") as MapTypes
 @onready var map_4_background := load("res://level/map_types/backgrounds/bg_map_4.tscn") as PackedScene
 
+@onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
 
 func _ready() -> void:
 	_player_positions.append(player_position_1)
@@ -127,7 +128,7 @@ func _physics_process(_delta: float) -> void:
 		
 	elif _lane_tree_is_left[_player_current_lane]:
 		
-		if Input.is_action_pressed("interact_right") and player.position.x < Counters.grid_square_length * 14.5:
+		if Input.is_action_pressed("interact_right") and player.position.x < GameInfo.grid_square_length * 14.5:
 			player.velocity.x = 150
 			player.move_and_slide()
 			
@@ -147,7 +148,7 @@ func _physics_process(_delta: float) -> void:
 		
 	elif not _lane_tree_is_left[_player_current_lane]:
 		
-		if Input.is_action_pressed("interact_left") and player.position.x > Counters.grid_square_length * 1.5:
+		if Input.is_action_pressed("interact_left") and player.position.x > GameInfo.grid_square_length * 1.5:
 			player.velocity.x = -150
 			player.move_and_slide()
 			
@@ -195,17 +196,17 @@ func _spawn_duck() -> void:
 
 
 func _on_life_lost() -> void:
-	if not Counters.game_end:
-		Counters.lives -= 1
+	if not GameInfo.game_paused:
+		GameInfo.lives -= 1
 		game_overlay.update_lives_label()
 		AudioController.play_sound_life_lost()
 		
-		if Counters.lives == 0:
+		if GameInfo.lives == 0:
 			AudioController.play_sound_lose()
 			_allow_input = false
 			game_overlay.game_end(false)
 			duck_spawn_timer.stop()
-			Counters.game_end = true
+			GameInfo.game_paused = true
 			
 
 func _on_points_gained(points : int) -> void:
@@ -226,10 +227,10 @@ func _on_whole_fruit_spawned() -> void:
 	add_child.call_deferred(new_fruit_whole)
 	
 	if _lane_tree_is_left[_player_current_lane]:
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + Counters.grid_square_length
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + GameInfo.grid_square_length
 	else:
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - Counters.grid_square_length
-	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (Counters.grid_square_length / 2.0)
+		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - GameInfo.grid_square_length
+	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
 	
 
 func _on_round_start() -> void:
@@ -267,7 +268,7 @@ func _on_round_start() -> void:
 			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
 			_duck_positions[i].global_position.x = _lane_positions["duck_x_right"]
 			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + Counters.grid_square_length
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 		
 		else:
@@ -275,7 +276,7 @@ func _on_round_start() -> void:
 			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
 			_duck_positions[i].global_position.x = _lane_positions["duck_x_left"]
 			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - Counters.grid_square_length
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 	
 		_lane_endings_player_side[i].global_position = _player_positions[i].global_position
@@ -308,14 +309,27 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		body.queue_free()
 		
-		#if _current_points >= 100 and _ducks_finished == _round_max_ducks:
-			#_allow_input = false
-			#game_overlay.game_end(true)
-			#Counters.game_end = true
-			#AudioController.play_sound_win()
-		if _ducks_finished == _round_max_ducks:
+		if _current_points >= 10000 and _ducks_finished == _round_max_ducks:
+			_allow_input = false
+			game_overlay.game_end(true)
+			GameInfo.game_paused = true
+			AudioController.play_sound_win()
+			
+		elif _ducks_finished == _round_max_ducks:
 			_current_round += 1
 			AudioController.play_sound_round_complete()
+			
+			if _current_round % 2 == 1:
+				_allow_input = false
+				GameInfo.game_paused = true
+				var new_minigame := minigame.instantiate()
+				get_parent().add_child(new_minigame)
+				
+				var minigame_points : int = await new_minigame.minigame_finished
+				_on_points_gained(minigame_points)
+				_allow_input = true
+				GameInfo.game_paused = false
+				
 			_on_round_start()
 
 

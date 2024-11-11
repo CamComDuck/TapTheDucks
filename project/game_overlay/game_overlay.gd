@@ -10,11 +10,11 @@ extends Control
 @onready var round_label := $RoundLabel as Label
 
 func update_lives_label() -> void:
-	if lives_container.get_child_count() < Counters.lives and not Counters.game_end:
+	if lives_container.get_child_count() < GameInfo.lives and not GameInfo.game_paused:
 		var new_life := life.instantiate() as TextureRect
 		lives_container.add_child.call_deferred(new_life)
 
-	elif lives_container.get_child_count() > Counters.lives and lives_container.get_child_count() > 0:
+	elif lives_container.get_child_count() > GameInfo.lives and lives_container.get_child_count() > 0:
 		lives_container.get_child(0).queue_free()
 
 
@@ -33,20 +33,20 @@ func game_end(is_win : bool) -> void:
 	else:
 		game_end_label.text = "You lose!"
 		
-	game_end_container.position.x = (Counters.grid_square_length * 8) - (game_end_container.size.x / 2)
-	game_end_container.position.y = (Counters.grid_square_length * 8) - (game_end_container.size.y / 2)
+	game_end_container.position.x = (GameInfo.grid_square_length * 8) - (game_end_container.size.x / 2)
+	game_end_container.position.y = (GameInfo.grid_square_length * 8) - (game_end_container.size.y / 2)
 	game_end_container.show()
 
 
 func _on_play_again_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	Counters.lives = 3
-	Counters.game_end = false
+	GameInfo.lives = 3
+	GameInfo.game_paused = false
 	get_tree().reload_current_scene()
 
 
 func _on_menu_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	Counters.lives = 3
-	Counters.game_end = false
+	GameInfo.lives = 3
+	GameInfo.game_paused = false
 	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))

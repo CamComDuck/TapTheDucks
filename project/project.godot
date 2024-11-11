@@ -18,7 +18,7 @@ config/icon="res://duck/graphics/duck_body_1.png"
 [autoload]
 
 AudioController="*res://audio_controller/audio_controller.tscn"
-Counters="*res://game_overlay/counters.gd"
+GameInfo="*res://game_info.gd"
 
 [display]
 
@@ -40,6 +40,7 @@ folder_colors={
 "res://level/graphics/": "red",
 "res://level/map_types/": "red",
 "res://level/map_types/backgrounds/": "red",
+"res://minigame/": "orange",
 "res://player/": "yellow",
 "res://player/graphics/": "red",
 "res://title/": "orange"

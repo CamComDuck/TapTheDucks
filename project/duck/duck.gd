@@ -27,18 +27,18 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Counters.game_end:
+	if GameInfo.game_paused:
 		move_timer.stop()
 		velocity.x = 0
 		base_duck_sprite.stop()
 	
 	elif in_tree_left_lane:
-		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (Counters.grid_square_length * 14.5) - 4):
+		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (GameInfo.grid_square_length * 14.5) - 4):
 			velocity.x = 15000 * delta
 			move_and_slide()
 			
 	elif not in_tree_left_lane:
-		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (Counters.grid_square_length * 1.5) + 4):
+		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (GameInfo.grid_square_length * 1.5) + 4):
 			velocity.x = -15000 * delta
 			move_and_slide()
 
@@ -67,9 +67,9 @@ func _on_move_timer_timeout() -> void:
 	var new_position : Vector2
 	
 	if in_tree_left_lane:
-		new_position = Vector2(global_position.x - Counters.grid_square_length, global_position.y)
+		new_position = Vector2(global_position.x - GameInfo.grid_square_length, global_position.y)
 	else:
-		new_position = Vector2(global_position.x + Counters.grid_square_length, global_position.y)
+		new_position = Vector2(global_position.x + GameInfo.grid_square_length, global_position.y)
 	
 	_tween = get_tree().create_tween()
 	_tween.tween_property(self, "global_position",new_position, 0.6).set_ease(Tween.EASE_OUT)
@@ -82,7 +82,7 @@ func _on_move_timer_timeout() -> void:
 
 
 func _on_base_duck_sprite_animation_finished() -> void:
-	if base_duck_sprite.animation == "eating" and not Counters.game_end:
+	if base_duck_sprite.animation == "eating" and not GameInfo.game_paused:
 		base_duck_sprite.play("default")
 		
 		var fruit_position := Vector2(global_position.x, global_position.y + 7)
