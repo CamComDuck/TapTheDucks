@@ -27,8 +27,8 @@ var _lane_positions : Dictionary = {
 	"y_lanes" : [144, 288, 432, 576]
 }
 
-var _percent_chance_basic_duck := 40
-var _percent_chance_fast_duck := 30
+var _percent_chance_basic_duck := 0
+var _percent_chance_fast_duck := 0
 var _percent_chance_hungry_duck := 20
 
 var _allow_input := true
@@ -268,7 +268,7 @@ func _on_round_start() -> void:
 			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
 			_duck_positions[i].global_position.x = _lane_positions["duck_x_right"]
 			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length + 4
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 		
 		else:
@@ -276,7 +276,7 @@ func _on_round_start() -> void:
 			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
 			_duck_positions[i].global_position.x = _lane_positions["duck_x_left"]
 			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length - 4
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 	
 		_lane_endings_player_side[i].global_position = _player_positions[i].global_position

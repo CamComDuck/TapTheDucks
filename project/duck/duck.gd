@@ -27,20 +27,25 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	
 	if GameInfo.game_paused:
 		move_timer.stop()
 		velocity.x = 0
 		base_duck_sprite.stop()
 	
 	elif in_tree_left_lane:
-		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (GameInfo.grid_square_length * 14.5) - 4):
+		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (GameInfo.grid_square_length * 14.5)):
 			velocity.x = 15000 * delta
 			move_and_slide()
+		elif base_duck_sprite.animation == "eating" and position.x >= (GameInfo.grid_square_length * 14.5):
+			position.x = min(position.x, GameInfo.grid_square_length * 14.5)
 			
 	elif not in_tree_left_lane:
-		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (GameInfo.grid_square_length * 1.5) + 4):
+		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (GameInfo.grid_square_length * 1.5)):
 			velocity.x = -15000 * delta
 			move_and_slide()
+		elif base_duck_sprite.animation == "eating" and position.x <= (GameInfo.grid_square_length * 1.5):
+			position.x = max(position.x, GameInfo.grid_square_length * 1.5)
 
 
 func load_type(new_duck_type : DuckTypes) -> void:
