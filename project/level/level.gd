@@ -11,8 +11,8 @@ var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 1
-var _round_max_ducks := 3
+var _current_round := 2
+var _round_max_ducks := 1
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
@@ -27,8 +27,8 @@ var _lane_positions : Dictionary = {
 	"y_lanes" : [144, 288, 432, 576]
 }
 
-var _percent_chance_basic_duck := 0
-var _percent_chance_fast_duck := 0
+var _percent_chance_basic_duck := 40
+var _percent_chance_fast_duck := 30
 var _percent_chance_hungry_duck := 20
 
 var _allow_input := true
@@ -325,10 +325,12 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 				var new_minigame := minigame.instantiate()
 				get_parent().add_child.call_deferred(new_minigame)
 				
-				var minigame_points : int = await new_minigame.minigame_finished
-				_on_points_gained(minigame_points)
+				var minigame_return : Array = await new_minigame.minigame_finished
 				_allow_input = true
 				GameInfo.game_paused = false
+				if minigame_return[1]:
+					GameInfo.lives += 1
+					game_overlay.update_lives_label()
 				
 			_on_round_start()
 
