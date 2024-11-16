@@ -24,12 +24,14 @@ var _points_eared : int
 @onready var hiding_spot_3 := $HidingSpot3 as AnimatedSprite2D
 @onready var hiding_spot_4 := $HidingSpot4 as AnimatedSprite2D
 @onready var hiding_spot_5 := $HidingSpot5 as AnimatedSprite2D
+@onready var hiding_spot_6 := $HidingSpot6 as AnimatedSprite2D
 
 @onready var player_position_1 := $PlayerPosition1 as Marker2D
 @onready var player_position_2 := $PlayerPosition2 as Marker2D
 @onready var player_position_3 := $PlayerPosition3 as Marker2D
 @onready var player_position_4 := $PlayerPosition4 as Marker2D
 @onready var player_position_5 := $PlayerPosition5 as Marker2D
+@onready var player_position_6 := $PlayerPosition6 as Marker2D
 
 @onready var finding_fruit := $FindingFruit as Sprite2D
 @onready var finding_fruit_normal := load("res://fruit/graphics/fruit_eaten.png") as Texture2D
@@ -41,6 +43,7 @@ func _ready() -> void:
 	_player_positions.append(player_position_3)
 	_player_positions.append(player_position_4)
 	_player_positions.append(player_position_5)
+	_player_positions.append(player_position_6)
 	player.global_position = _player_positions[_player_current_spot_index].global_position
 	player.hide()
 	
@@ -49,6 +52,7 @@ func _ready() -> void:
 	_hiding_spot_positions.append(hiding_spot_3)
 	_hiding_spot_positions.append(hiding_spot_4)
 	_hiding_spot_positions.append(hiding_spot_5)
+	_hiding_spot_positions.append(hiding_spot_6)
 	
 	_correct_spot = _hiding_spot_positions.pick_random()
 	#print("Correct duck: " + str(_correct_spot))
@@ -79,32 +83,27 @@ func _ready() -> void:
 	await create_tween().tween_interval(1.5).finished
 	instruction_label.hide()
 	
-	for i in 10:
-		var coinflip := randi_range(0, 1)
+	var x_positions : Array[int] = [144, 240, 336, 432, 528, 624]
+	for i in 15:
+		var left_index_1 := randi_range(1, x_positions.size() - 3)
+		var left_index_2 := randi_range(left_index_1 + 2, x_positions.size()-1)
+		var right_index_1 := left_index_1 - 1
+		var right_index_2 := left_index_2 - 1
 		var move_left_1 : AnimatedSprite2D
 		var move_left_2 : AnimatedSprite2D
 		var move_right_1 : AnimatedSprite2D
 		var move_right_2 : AnimatedSprite2D
-		if coinflip == 0:
-			for x in _hiding_spot_positions:
-				if x.global_position.x == 96:
-					move_right_1 = x
-				elif x.global_position.x == 240:
-					move_left_1 = x
-				elif x.global_position.x == 384:
-					move_right_2 = x
-				elif x.global_position.x == 528:
-					move_left_2 = x
-		else:
-			for x in _hiding_spot_positions:
-				if x.global_position.x == 240:
-					move_right_1 = x
-				elif x.global_position.x == 384:
-					move_left_1 = x
-				elif x.global_position.x == 528:
-					move_right_2 = x
-				elif x.global_position.x == 672:
-					move_left_2 = x
+		
+		for spot in _hiding_spot_positions:
+			if spot.global_position.x == x_positions[left_index_1]:
+				move_left_1 = spot
+			elif spot.global_position.x == x_positions[right_index_1]:
+				move_right_1 = spot
+			elif spot.global_position.x == x_positions[left_index_2]:
+				move_left_2 = spot
+			elif spot.global_position.x == x_positions[right_index_2]:
+				move_right_2 = spot
+				
 		
 		await _mix_spots(move_left_1, move_left_2, move_right_1, move_right_2)
 	
@@ -160,36 +159,35 @@ func _show_wrong_shuffled_spots() -> void:
 		
 
 func _mix_spots(move_left_1 : AnimatedSprite2D, move_left_2 : AnimatedSprite2D, move_right_1 : AnimatedSprite2D, move_right_2 : AnimatedSprite2D) -> void:
-	await create_tween().tween_interval(0.5).finished
-	
+	await create_tween().tween_interval(0.1).finished
 	var transition := Tween.TRANS_SPRING
 	
 	# Left-Moving Ducks Move Up
 	var tween_up := create_tween().set_parallel().set_trans(transition)
-	var up_position_1 := Vector2(move_left_1.global_position.x - (GameInfo.grid_square_length * 1.5), move_left_1.global_position.y -  (GameInfo.grid_square_length * 3))
-	tween_up.tween_property(move_left_1,"global_position",up_position_1, .25)
-	var up_position_2 := Vector2(move_left_2.global_position.x - (GameInfo.grid_square_length * 1.5), move_left_2.global_position.y -  (GameInfo.grid_square_length * 3))
-	tween_up.tween_property(move_left_2,"global_position",up_position_2, .25)
+	var up_position_1 := Vector2(move_left_1.global_position.x - (GameInfo.grid_square_length), move_left_1.global_position.y -  (GameInfo.grid_square_length * 2))
+	tween_up.tween_property(move_left_1,"global_position",up_position_1, .15)
+	var up_position_2 := Vector2(move_left_2.global_position.x - (GameInfo.grid_square_length), move_left_2.global_position.y -  (GameInfo.grid_square_length * 2))
+	tween_up.tween_property(move_left_2,"global_position",up_position_2, .15)
 	await tween_up.finished
 	move_left_1.global_position = up_position_1
 	move_left_2.global_position = up_position_2
 	
 	# Right-Moving Ducks Move Right
 	var tween_right := create_tween().set_parallel().set_trans(transition)
-	var right_position_1 := Vector2(move_right_1.global_position.x + (GameInfo.grid_square_length * 3), move_right_1.global_position.y)
-	tween_right.tween_property(move_right_1,"global_position",right_position_1, .25)
-	var right_position_2 := Vector2(move_right_2.global_position.x + (GameInfo.grid_square_length * 3), move_right_2.global_position.y)
-	tween_right.tween_property(move_right_2,"global_position",right_position_2, .25)
+	var right_position_1 := Vector2(move_right_1.global_position.x + (GameInfo.grid_square_length * 2), move_right_1.global_position.y)
+	tween_right.tween_property(move_right_1,"global_position",right_position_1, .1)
+	var right_position_2 := Vector2(move_right_2.global_position.x + (GameInfo.grid_square_length * 2), move_right_2.global_position.y)
+	tween_right.tween_property(move_right_2,"global_position",right_position_2, .1)
 	await tween_right.finished
 	move_right_1.global_position = right_position_1
 	move_right_2.global_position = right_position_2
 	
 	# Left-Moving Ducks Move Down
 	var tween_down := create_tween().set_parallel().set_trans(transition)
-	var down_position_1 := Vector2(move_left_1.global_position.x -  (GameInfo.grid_square_length * 1.5), move_left_1.global_position.y +  (GameInfo.grid_square_length * 3))
-	tween_down.tween_property(move_left_1,"global_position",down_position_1, .25)
-	var down_position_2 := Vector2(move_left_2.global_position.x -  (GameInfo.grid_square_length * 1.5), move_left_2.global_position.y +  (GameInfo.grid_square_length * 3))
-	tween_down.tween_property(move_left_2,"global_position",down_position_2, .25)
+	var down_position_1 := Vector2(move_left_1.global_position.x -  (GameInfo.grid_square_length), move_left_1.global_position.y +  (GameInfo.grid_square_length * 2))
+	tween_down.tween_property(move_left_1,"global_position",down_position_1, .15)
+	var down_position_2 := Vector2(move_left_2.global_position.x -  (GameInfo.grid_square_length), move_left_2.global_position.y +  (GameInfo.grid_square_length * 2))
+	tween_down.tween_property(move_left_2,"global_position",down_position_2, .15)
 	await tween_down.finished
 	move_left_1.global_position = down_position_1
 	move_left_2.global_position = down_position_2

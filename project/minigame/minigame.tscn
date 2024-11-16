@@ -33,7 +33,7 @@ texture = ExtResource("4_w0upr")
 [node name="HidingSpot1" type="AnimatedSprite2D" parent="."]
 z_index = 105
 z_as_relative = false
-position = Vector2(96, 240)
+position = Vector2(144, 240)
 scale = Vector2(2, 2.12)
 sprite_frames = ExtResource("3_psmgc")
 autoplay = "default"
@@ -49,7 +49,7 @@ autoplay = "default"
 [node name="HidingSpot3" type="AnimatedSprite2D" parent="."]
 z_index = 105
 z_as_relative = false
-position = Vector2(384, 240)
+position = Vector2(336, 240)
 scale = Vector2(2, 2.12)
 sprite_frames = ExtResource("3_psmgc")
 autoplay = "default"
@@ -57,7 +57,7 @@ autoplay = "default"
 [node name="HidingSpot4" type="AnimatedSprite2D" parent="."]
 z_index = 105
 z_as_relative = false
-position = Vector2(528, 240)
+position = Vector2(432, 240)
 scale = Vector2(2, 2.12)
 sprite_frames = ExtResource("3_psmgc")
 autoplay = "default"
@@ -65,13 +65,21 @@ autoplay = "default"
 [node name="HidingSpot5" type="AnimatedSprite2D" parent="."]
 z_index = 105
 z_as_relative = false
-position = Vector2(672, 240)
+position = Vector2(528, 240)
+scale = Vector2(2, 2.12)
+sprite_frames = ExtResource("3_psmgc")
+autoplay = "default"
+
+[node name="HidingSpot6" type="AnimatedSprite2D" parent="."]
+z_index = 105
+z_as_relative = false
+position = Vector2(624, 240)
 scale = Vector2(2, 2.12)
 sprite_frames = ExtResource("3_psmgc")
 autoplay = "default"
 
 [node name="PlayerPosition1" type="Marker2D" parent="."]
-position = Vector2(96, 432)
+position = Vector2(144, 432)
 gizmo_extents = 50.0
 
 [node name="PlayerPosition2" type="Marker2D" parent="."]
@@ -79,15 +87,19 @@ position = Vector2(240, 432)
 gizmo_extents = 50.0
 
 [node name="PlayerPosition3" type="Marker2D" parent="."]
-position = Vector2(384, 432)
+position = Vector2(336, 432)
 gizmo_extents = 50.0
 
 [node name="PlayerPosition4" type="Marker2D" parent="."]
-position = Vector2(528, 432)
+position = Vector2(432, 432)
 gizmo_extents = 50.0
 
 [node name="PlayerPosition5" type="Marker2D" parent="."]
-position = Vector2(672, 432)
+position = Vector2(528, 432)
+gizmo_extents = 50.0
+
+[node name="PlayerPosition6" type="Marker2D" parent="."]
+position = Vector2(624, 432)
 gizmo_extents = 50.0
 
 [node name="InstructionLabel" type="Label" parent="."]
