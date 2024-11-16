@@ -217,6 +217,7 @@ func _on_player_animation_finished() -> void:
 	instruction_label.hide()
 	if player.global_position.x == _correct_spot.global_position.x:
 		await _on_reveal_spot(_selected_spot, false, true)
+		AudioController.pause_sound_minigame_music()
 		AudioController.play_sound_minigame_correct()
 		if _is_extra_life_round:
 			_life_found = true
@@ -224,13 +225,14 @@ func _on_player_animation_finished() -> void:
 		_points_eared = 75
 	else:
 		await _on_reveal_spot(_selected_spot, false, false)
+		AudioController.pause_sound_minigame_music()
 		AudioController.play_sound_minigame_wrong()
 		await _on_reveal_spot(_correct_spot, false, true)
 		_points_eared = 0
 	
-	await create_tween().tween_interval(1).finished
+	await create_tween().tween_interval(2.5).finished
 	minigame_finished.emit(_points_eared, _life_found)
 	
-	AudioController.pause_sound_minigame_music()
+	
 	AudioController.pause_sound_background_music()
 	queue_free()

@@ -11,8 +11,8 @@ var _duck_spawn_min_sec := 2
 var _duck_spawn_max_sec := 4
 
 var _current_points := 0
-var _current_round := 2
-var _round_max_ducks := 1
+var _current_round := 1
+var _round_max_ducks := 5
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
@@ -309,7 +309,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		body.queue_free()
 		
-		if _current_points >= 10000 and _ducks_finished == _round_max_ducks:
+		if _current_points >= 5000 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
 			GameInfo.game_paused = true

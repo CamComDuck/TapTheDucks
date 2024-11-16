@@ -68,12 +68,15 @@ parameters/looping = true
 [node name="MinigameCorrect" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("12_oh1ky")
+volume_db = 10.0
 
 [node name="MinigameMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("13_kobq0")
+volume_db = -3.0
 parameters/looping = true
 
 [node name="MinigameWrong" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("14_tn0hw")
+volume_db = -5.0
