@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=4 uid="uid://cft8vigxuurai"]
+[gd_scene load_steps=7 format=4 uid="uid://cft8vigxuurai"]
 
 [ext_resource type="Script" path="res://minigame/minigame.gd" id="1_3qcdb"]
 [ext_resource type="TileSet" uid="uid://ch7gon45j0wgo" path="res://level/tile_background.tres" id="2_4qqgl"]
 [ext_resource type="PackedScene" uid="uid://3f2ol0bm2jjt" path="res://player/player.tscn" id="2_k0wcu"]
 [ext_resource type="SpriteFrames" uid="uid://bgomhltpc62oi" path="res://duck/duck_sprite_frames.tres" id="3_psmgc"]
 [ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/graphics/fruit_eaten.png" id="4_w0upr"]
+[ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="6_r62us"]
 
 [node name="Minigame" type="Node2D"]
 z_index = 100
@@ -23,6 +24,7 @@ tile_map_data = PackedByteArray("AAAAAAAAAgAAAAAAAAAAAAEAAgAAAAAAAAAAAAIAAgAAAAA
 tile_set = ExtResource("2_4qqgl")
 
 [node name="FindingFruit" type="Sprite2D" parent="."]
+visible = false
 z_index = 104
 z_as_relative = false
 scale = Vector2(1.5, 1.5)
@@ -87,5 +89,20 @@ gizmo_extents = 50.0
 [node name="PlayerPosition5" type="Marker2D" parent="."]
 position = Vector2(672, 432)
 gizmo_extents = 50.0
+
+[node name="InstructionLabel" type="Label" parent="."]
+visible = false
+z_index = 110
+z_as_relative = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("6_r62us")
+text = "WATCH CLOSELY"
+horizontal_alignment = 1
+vertical_alignment = 1
+uppercase = true
 
 [connection signal="animation_finished" from="Player" to="." method="_on_player_animation_finished"]

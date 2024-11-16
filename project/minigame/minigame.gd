@@ -8,15 +8,16 @@ var _hiding_spot_positions : Array[AnimatedSprite2D] = []
 var _allow_input := false
 var _player_current_spot_index := 2
 
-var _correct_spot_index : int
-var _selected_spot_index : int
+var _correct_spot : AnimatedSprite2D
+var _selected_spot : AnimatedSprite2D
 
 var _is_extra_life_round : bool
 var _life_found := false
 var _points_eared : int
 
 @onready var player := $Player as Player
-@onready var finding_fruit := $FindingFruit as Sprite2D
+
+@onready var instruction_label := $InstructionLabel as Label
 
 @onready var hiding_spot_1 := $HidingSpot1 as AnimatedSprite2D
 @onready var hiding_spot_2 := $HidingSpot2 as AnimatedSprite2D
@@ -30,6 +31,7 @@ var _points_eared : int
 @onready var player_position_4 := $PlayerPosition4 as Marker2D
 @onready var player_position_5 := $PlayerPosition5 as Marker2D
 
+@onready var finding_fruit := $FindingFruit as Sprite2D
 @onready var finding_fruit_normal := load("res://fruit/graphics/fruit_eaten.png") as Texture2D
 @onready var finding_fruit_extra_life := load("res://fruit/graphics/fruit_whole.png") as Texture2D
 
@@ -40,6 +42,7 @@ func _ready() -> void:
 	_player_positions.append(player_position_4)
 	_player_positions.append(player_position_5)
 	player.global_position = _player_positions[_player_current_spot_index].global_position
+	player.hide()
 	
 	_hiding_spot_positions.append(hiding_spot_1)
 	_hiding_spot_positions.append(hiding_spot_2)
@@ -47,9 +50,9 @@ func _ready() -> void:
 	_hiding_spot_positions.append(hiding_spot_4)
 	_hiding_spot_positions.append(hiding_spot_5)
 	
-	_correct_spot_index = randi_range(0, _hiding_spot_positions.size() - 1)
-	finding_fruit.global_position = _hiding_spot_positions[_correct_spot_index].global_position
-	finding_fruit.hide()
+	_correct_spot = _hiding_spot_positions.pick_random()
+	#print("Correct duck: " + str(_correct_spot))
+	
 	var extra_life_roll := randi_range(1, 10) 
 	if extra_life_roll == 1:
 		_is_extra_life_round = true
@@ -57,9 +60,33 @@ func _ready() -> void:
 	else:
 		_is_extra_life_round = false
 		finding_fruit.set_texture(finding_fruit_normal)
-		
-	#print("Correct duck: " + str(_correct_spot_index + 1))
+	
+	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), GameInfo.grid_square_length * 2.0)
+	await create_tween().tween_interval(0.7).finished
+	instruction_label.show()
+	await create_tween().tween_interval(0.15).finished
+	instruction_label.hide()
+	await create_tween().tween_interval(0.15).finished
+	instruction_label.show()
+	await create_tween().tween_interval(2).finished
+	instruction_label.hide()
+	
 	await _show_wrong_shuffled_spots()
+	
+	instruction_label.text = "Now Mix!"
+	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), instruction_label.global_position.y)
+	instruction_label.show()
+	await create_tween().tween_interval(1.5).finished
+	instruction_label.hide()
+	
+	await _mix_spots(_hiding_spot_positions[2], _hiding_spot_positions[4], _hiding_spot_positions[1], _hiding_spot_positions[3])
+	
+	
+	finding_fruit.global_position = _correct_spot.global_position
+	player.show()
+	instruction_label.text = "Pick Your Duck"
+	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), instruction_label.global_position.y)
+	instruction_label.show()
 	_allow_input = true
 	
 
@@ -91,48 +118,85 @@ func _physics_process(_delta: float) -> void:
 		
 	elif Input.is_action_just_pressed("move_up"):
 		_allow_input = false
-		_selected_spot_index = _player_current_spot_index
+		for i in _hiding_spot_positions:
+			if i.global_position.x == player.global_position.x:
+				_selected_spot = i
 		player.play_animation("minigame_pick")
 		
 
 func _show_wrong_shuffled_spots() -> void:
 	var shuffled_spots : Array[AnimatedSprite2D] = _hiding_spot_positions.duplicate()
-	shuffled_spots.remove_at(_correct_spot_index)
+	shuffled_spots.erase(_correct_spot)
 	shuffled_spots.shuffle()
 	
 	for i in shuffled_spots:
 		await _on_reveal_spot(i, true, false)
 		
 
+func _mix_spots(move_left_1 : AnimatedSprite2D, move_left_2 : AnimatedSprite2D, move_right_1 : AnimatedSprite2D, move_right_2 : AnimatedSprite2D) -> void:
+	await create_tween().tween_interval(0.5).finished
+	
+	var transition = Tween.TRANS_SPRING
+	
+	# Left-Moving Ducks Move Up
+	var tween_up = create_tween().set_parallel().set_trans(transition)
+	var up_position_1 = Vector2(move_left_1.global_position.x - (GameInfo.grid_square_length * 1.5), move_left_1.global_position.y -  (GameInfo.grid_square_length * 3))
+	tween_up.tween_property(move_left_1,"global_position",up_position_1, .25)
+	var up_position_2 = Vector2(move_left_2.global_position.x - (GameInfo.grid_square_length * 1.5), move_left_2.global_position.y -  (GameInfo.grid_square_length * 3))
+	tween_up.tween_property(move_left_2,"global_position",up_position_2, .25)
+	await tween_up.finished
+	move_left_1.global_position = up_position_1
+	move_left_2.global_position = up_position_2
+	
+	# Right-Moving Ducks Move Right
+	var tween_right = create_tween().set_parallel().set_trans(transition)
+	var right_position_1 = Vector2(move_right_1.global_position.x + (GameInfo.grid_square_length * 3), move_right_1.global_position.y)
+	tween_right.tween_property(move_right_1,"global_position",right_position_1, .25)
+	var right_position_2 = Vector2(move_right_2.global_position.x + (GameInfo.grid_square_length * 3), move_right_2.global_position.y)
+	tween_right.tween_property(move_right_2,"global_position",right_position_2, .25)
+	await tween_right.finished
+	move_right_1.global_position = right_position_1
+	move_right_2.global_position = right_position_2
+	
+	# Left-Moving Ducks Move Down
+	var tween_down = create_tween().set_parallel().set_trans(transition)
+	var down_position_1 = Vector2(move_left_1.global_position.x -  (GameInfo.grid_square_length * 1.5), move_left_1.global_position.y +  (GameInfo.grid_square_length * 3))
+	tween_down.tween_property(move_left_1,"global_position",down_position_1, .25)
+	var down_position_2 = Vector2(move_left_2.global_position.x -  (GameInfo.grid_square_length * 1.5), move_left_2.global_position.y +  (GameInfo.grid_square_length * 3))
+	tween_down.tween_property(move_left_2,"global_position",down_position_2, .25)
+	await tween_down.finished
+	move_left_1.global_position = down_position_1
+	move_left_2.global_position = down_position_2
+	
+
 func _on_reveal_spot(spot : AnimatedSprite2D, return_to_spot : bool, show_fruit : bool) -> void:
 	var revealed_position := Vector2(spot.global_position.x, spot.global_position.y - (GameInfo.grid_square_length * 2))
-	var tween_revealed : Tween = get_tree().create_tween()
-	tween_revealed.tween_property(spot,"global_position",revealed_position, 1).set_ease(Tween.EASE_OUT)
+	var tween_revealed : Tween = get_tree().create_tween().set_parallel()
+	tween_revealed.tween_property(spot,"global_position",revealed_position, 0.5).set_ease(Tween.EASE_OUT)
+	if show_fruit: # Replace with showing fruit when tween is halfway done
+		tween_revealed.tween_callback(Callable(finding_fruit, "show")).set_delay(0.1)
 	
 	await tween_revealed.finished
-	
-	if show_fruit: # Replace with showing fruit when tween is halfway done
-		finding_fruit.show()
-	
-	await create_tween().tween_interval(0.5).finished
+	await create_tween().tween_interval(0.2).finished
 
 	if return_to_spot:
 		var return_position := Vector2(spot.global_position.x, spot.global_position.y + (GameInfo.grid_square_length * 2))
 		var tween_return : Tween = get_tree().create_tween()
-		tween_return.tween_property(spot,"global_position",return_position, 1).set_ease(Tween.EASE_OUT)
+		tween_return.tween_property(spot,"global_position",return_position, 0.5).set_ease(Tween.EASE_OUT)
 		await tween_return.finished
 
 
 func _on_player_animation_finished() -> void:
-	if _selected_spot_index == _correct_spot_index:
-		await _on_reveal_spot(_hiding_spot_positions[_selected_spot_index], false, true)
+	instruction_label.hide()
+	if player.global_position.x == _correct_spot.global_position.x:
+		await _on_reveal_spot(_selected_spot, false, true)
 		if _is_extra_life_round:
 			_life_found = true
 		
 		_points_eared = 75
 	else:
-		await _on_reveal_spot(_hiding_spot_positions[_selected_spot_index], false, false)
-		await _on_reveal_spot(_hiding_spot_positions[_correct_spot_index], false, true)
+		await _on_reveal_spot(_selected_spot, false, false)
+		await _on_reveal_spot(_correct_spot, false, true)
 		_points_eared = 0
 	
 	await create_tween().tween_interval(1).finished
