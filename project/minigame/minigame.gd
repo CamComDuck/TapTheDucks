@@ -38,6 +38,9 @@ var _points_eared : int
 @onready var finding_fruit_extra_life := load("res://fruit/graphics/fruit_whole.png") as Texture2D
 
 func _ready() -> void:
+	AudioController.pause_sound_background_music()
+	AudioController.pause_sound_minigame_music()
+	
 	_player_positions.append(player_position_1)
 	_player_positions.append(player_position_2)
 	_player_positions.append(player_position_3)
@@ -214,15 +217,20 @@ func _on_player_animation_finished() -> void:
 	instruction_label.hide()
 	if player.global_position.x == _correct_spot.global_position.x:
 		await _on_reveal_spot(_selected_spot, false, true)
+		AudioController.play_sound_minigame_correct()
 		if _is_extra_life_round:
 			_life_found = true
 		
 		_points_eared = 75
 	else:
 		await _on_reveal_spot(_selected_spot, false, false)
+		AudioController.play_sound_minigame_wrong()
 		await _on_reveal_spot(_correct_spot, false, true)
 		_points_eared = 0
 	
 	await create_tween().tween_interval(1).finished
-	minigame_finished.emit(_points_eared, _life_found)	
+	minigame_finished.emit(_points_eared, _life_found)
+	
+	AudioController.pause_sound_minigame_music()
+	AudioController.pause_sound_background_music()
 	queue_free()

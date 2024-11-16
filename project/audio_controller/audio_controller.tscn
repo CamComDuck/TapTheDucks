@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d20q4knptbcs3"]
+[gd_scene load_steps=15 format=3 uid="uid://d20q4knptbcs3"]
 
 [ext_resource type="Script" path="res://audio_controller/audio_controller.gd" id="1_4a3nd"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="2_1rvua"]
@@ -11,6 +11,9 @@
 [ext_resource type="AudioStream" uid="uid://biq8k7wn8c2e7" path="res://audio_controller/LifeLost.wav" id="8_j1eep"]
 [ext_resource type="AudioStream" uid="uid://5wtbjg4ef74p" path="res://audio_controller/MenuClick.wav" id="9_0dfxf"]
 [ext_resource type="AudioStream" uid="uid://dm12oxh8gbkfw" path="res://audio_controller/BackgroundMusic.ogg" id="10_yp060"]
+[ext_resource type="AudioStream" uid="uid://dcu7nt4r167t8" path="res://audio_controller/MinigameCorrect.wav" id="12_oh1ky"]
+[ext_resource type="AudioStream" uid="uid://cc6xmnqdh7u4" path="res://audio_controller/MinigameMusic.ogg" id="13_kobq0"]
+[ext_resource type="AudioStream" uid="uid://dci4thtwon2nf" path="res://audio_controller/MinigameWrong.wav" id="14_tn0hw"]
 
 [node name="AudioController" type="Control"]
 layout_mode = 3
@@ -57,6 +60,20 @@ unique_name_in_owner = true
 stream = ExtResource("9_0dfxf")
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
 stream = ExtResource("10_yp060")
 autoplay = true
 parameters/looping = true
+
+[node name="MinigameCorrect" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("12_oh1ky")
+
+[node name="MinigameMusic" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("13_kobq0")
+parameters/looping = true
+
+[node name="MinigameWrong" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("14_tn0hw")
