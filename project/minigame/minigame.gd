@@ -92,6 +92,7 @@ func _ready() -> void:
 		var left_index_2 := randi_range(left_index_1 + 2, x_positions.size()-1)
 		var right_index_1 := left_index_1 - 1
 		var right_index_2 := left_index_2 - 1
+
 		var move_left_1 : AnimatedSprite2D
 		var move_left_2 : AnimatedSprite2D
 		var move_right_1 : AnimatedSprite2D
@@ -199,9 +200,9 @@ func _mix_spots(move_left_1 : AnimatedSprite2D, move_left_2 : AnimatedSprite2D, 
 func _on_reveal_spot(spot : AnimatedSprite2D, return_to_spot : bool, show_fruit : bool) -> void:
 	var revealed_position := Vector2(spot.global_position.x, spot.global_position.y - (GameInfo.grid_square_length * 2))
 	var tween_revealed : Tween = get_tree().create_tween().set_parallel()
-	tween_revealed.tween_property(spot,"global_position",revealed_position, 0.5).set_ease(Tween.EASE_OUT)
+	tween_revealed.tween_property(spot,"global_position",revealed_position, 0.25).set_ease(Tween.EASE_OUT)
 	if show_fruit: 
-		tween_revealed.tween_callback(Callable(finding_fruit, "show")).set_delay(0.1)
+		tween_revealed.tween_callback(Callable(finding_fruit, "show")).set_delay(0.05)
 	
 	await tween_revealed.finished
 	await create_tween().tween_interval(0.2).finished
@@ -209,7 +210,7 @@ func _on_reveal_spot(spot : AnimatedSprite2D, return_to_spot : bool, show_fruit 
 	if return_to_spot:
 		var return_position := Vector2(spot.global_position.x, spot.global_position.y + (GameInfo.grid_square_length * 2))
 		var tween_return : Tween = get_tree().create_tween()
-		tween_return.tween_property(spot,"global_position",return_position, 0.5).set_ease(Tween.EASE_OUT)
+		tween_return.tween_property(spot,"global_position",return_position, 0.25).set_ease(Tween.EASE_OUT)
 		await tween_return.finished
 
 

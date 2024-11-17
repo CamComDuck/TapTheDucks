@@ -36,6 +36,7 @@ folder_colors={
 "res://fruit/": "green",
 "res://fruit/graphics/": "red",
 "res://game_overlay/": "purple",
+"res://ice/": "green",
 "res://level/": "orange",
 "res://level/graphics/": "red",
 "res://level/map_types/": "red",

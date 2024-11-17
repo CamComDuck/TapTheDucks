@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 signal points_gained (points : int)
 signal eaten_fruit_spawned (fruit_position : Vector2, lane_number : int)
+signal ice_spawned (ice_position : Vector2)
 
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
@@ -58,6 +59,13 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 		_fruits_eaten += 1
 		if _tween != null:
 			_tween.kill()
+		
+		var ice_chance := randf_range(1, 3)
+		if ice_chance < 2:
+			print("ice rolled")
+			var ice_position := Vector2(global_position.x, global_position.y + 7)
+			ice_spawned.emit(ice_position)
+		
 		base_duck_sprite.play("eating")
 		base_duck_sprite.flip_h = not base_duck_sprite.flip_h
 		if _fruits_eaten == _duck_type.max_fruits:

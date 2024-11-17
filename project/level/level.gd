@@ -64,6 +64,7 @@ var _allow_input := true
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
+@onready var ice := load("res://ice/ice.tscn") as PackedScene
 
 @onready var map_1 := load("res://level/map_types/resources/map_1.tres") as MapTypes
 @onready var map_1_background := load("res://level/map_types/backgrounds/bg_map_1.tscn") as PackedScene
@@ -233,6 +234,12 @@ func _on_whole_fruit_spawned() -> void:
 	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
 	
 
+func _on_ice_spawned(ice_position : Vector2) -> void:
+	var new_ice := ice.instantiate() as Ice
+	add_child.call_deferred(new_ice)
+	new_ice.global_position = ice_position
+
+
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
 		
@@ -354,3 +361,4 @@ func _on_child_entered_tree(node: Node) -> void:
 	
 	if node is Duck:
 		node.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
+		node.connect("ice_spawned", _on_ice_spawned)
