@@ -12,7 +12,7 @@ var _duck_spawn_max_sec := 4
 
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 5
+var _round_max_ducks := 50
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
@@ -64,7 +64,9 @@ var _allow_input := true
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
+
 @onready var ice := load("res://ice/ice.tscn") as PackedScene
+@onready var duck_freeze := $DuckFreeze as Timer
 
 @onready var map_1 := load("res://level/map_types/resources/map_1.tres") as MapTypes
 @onready var map_1_background := load("res://level/map_types/backgrounds/bg_map_1.tscn") as PackedScene
@@ -240,6 +242,12 @@ func _on_ice_spawned(ice_position : Vector2) -> void:
 	new_ice.global_position = ice_position
 
 
+func _on_ducks_frozen() -> void:
+	for i in get_children():
+		if i is Duck:
+			i.toggle_frozen(true)
+	duck_freeze.start()
+
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
 		
@@ -290,7 +298,7 @@ func _on_round_start() -> void:
 		
 	
 	for i in get_children():
-		if i is FruitEaten or i is FruitWhole:
+		if i is FruitEaten or i is FruitWhole or i is Ice:
 			i.queue_free()
 	
 	add_child.call_deferred(_background)
@@ -352,6 +360,12 @@ func _on_duck_spawn_timer_timeout() -> void:
 		duck_spawn_timer.stop()
 
 
+func _on_duck_freeze_timeout() -> void:
+	for i in get_children():
+		if i is Duck:
+			i.toggle_frozen(false)
+	
+
 func _on_child_entered_tree(node: Node) -> void:
 	if node is FruitEaten or node is FruitWhole:
 		node.connect("life_lost", _on_life_lost)
@@ -362,3 +376,6 @@ func _on_child_entered_tree(node: Node) -> void:
 	if node is Duck:
 		node.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
 		node.connect("ice_spawned", _on_ice_spawned)
+		
+	if node is Ice:
+		node.connect("ducks_frozen", _on_ducks_frozen)

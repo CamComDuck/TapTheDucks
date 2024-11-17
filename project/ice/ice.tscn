@@ -9,6 +9,8 @@ size = Vector2(24, 24)
 [node name="Ice" type="Area2D"]
 z_index = 6
 z_as_relative = false
+collision_layer = 64
+collision_mask = 2
 script = ExtResource("1_0j226")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
@@ -21,4 +23,5 @@ shape = SubResource("RectangleShape2D_ya443")
 wait_time = 5.0
 one_shot = true
 
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="TimeUntilDespawn" to="." method="_on_time_until_despawn_timeout"]

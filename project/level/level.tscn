@@ -13,6 +13,7 @@ size = Vector2(44, 72)
 script = ExtResource("1_b81hx")
 
 [node name="Player" parent="." instance=ExtResource("2_8qaat")]
+collision_mask = 108
 motion_mode = 1
 
 [node name="DuckSpawnTimer" type="Timer" parent="."]
@@ -131,6 +132,9 @@ script = ExtResource("5_dw3ud")
 shape = SubResource("RectangleShape2D_s1div")
 debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
 
+[node name="DuckFreeze" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="child_entered_tree" from="." to="." method="_on_child_entered_tree"]
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
 [connection signal="body_entered" from="LaneEndPlayerSide1" to="." method="_on_lane_end_player_side_body_entered"]
@@ -141,3 +145,4 @@ debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
 [connection signal="body_entered" from="LaneEndDuckSide2" to="." method="_on_lane_end_duck_side_body_entered"]
 [connection signal="body_entered" from="LaneEndDuckSide3" to="." method="_on_lane_end_duck_side_body_entered"]
 [connection signal="body_entered" from="LaneEndDuckSide4" to="." method="_on_lane_end_duck_side_body_entered"]
+[connection signal="timeout" from="DuckFreeze" to="." method="_on_duck_freeze_timeout"]
