@@ -39,14 +39,14 @@ func _physics_process(delta: float) -> void:
 			velocity.x = 15000 * delta
 			move_and_slide()
 		elif base_duck_sprite.animation == "eating" and position.x >= (GameInfo.grid_square_length * 14.5):
-			position.x = min(position.x, GameInfo.grid_square_length * 14.5)
+			position.x = minf(position.x, GameInfo.grid_square_length * 14.5)
 			
 	elif not in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (GameInfo.grid_square_length * 1.5)):
 			velocity.x = -15000 * delta
 			move_and_slide()
 		elif base_duck_sprite.animation == "eating" and position.x <= (GameInfo.grid_square_length * 1.5):
-			position.x = max(position.x, GameInfo.grid_square_length * 1.5)
+			position.x = maxf(position.x, GameInfo.grid_square_length * 1.5)
 
 
 func load_type(new_duck_type : DuckTypes) -> void:
@@ -60,8 +60,8 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 		if _tween != null:
 			_tween.kill()
 		
-		var ice_chance := randf_range(1, 3)
-		if ice_chance < 4:
+		var ice_chance := randf_range(1, 10)
+		if ice_chance < 2:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		
@@ -79,6 +79,8 @@ func toggle_frozen(is_frozen : bool) -> void:
 	if is_frozen:
 		move_timer.stop()
 		base_duck_sprite.stop()
+		if _tween != null:
+			_tween.kill()
 	else:
 		move_timer.start()
 		base_duck_sprite.play()

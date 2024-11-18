@@ -4,32 +4,17 @@ var _player_positions : Array[Marker2D] = []
 var _duck_positions : Array[Marker2D] = []
 var _lane_endings_player_side : Array[Area2D] = []
 var _lane_endings_duck_side : Array[Area2D] = []
+var _current_ducks_swimming : Array[Duck] = []
 var _player_current_lane : int
 var _background : TileMapLayer = null
 
-var _duck_spawn_min_sec := 2
-var _duck_spawn_max_sec := 4
-
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 50
+var _round_max_ducks := 2
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
 var _lane_tree_is_left : Array[bool] = [true, true, true, true]
-
-var _duck_y_addition := 17
-var _lane_positions : Dictionary = {
-	"player_x_left" : 168,
-	"player_x_right" : 600,
-	"duck_x_left" : 72,
-	"duck_x_right" : 696,
-	"y_lanes" : [144, 288, 432, 576]
-}
-
-var _percent_chance_basic_duck := 40
-var _percent_chance_fast_duck := 30
-var _percent_chance_hungry_duck := 20
 
 var _allow_input := true
 
@@ -104,77 +89,77 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
+	var _player_speed := 150
 	if not _allow_input:
 		pass
 		
 	elif Input.is_action_just_pressed("move_down"):
-		_allow_input = false
-		_player_current_lane += 1
-		if _player_current_lane == 4:
-			_player_current_lane = 0
-		AudioController.play_sound_player_move()
-		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-		await tween.finished
-		_allow_input = true
+		_handle_player_vertical_movement(true)
 	
 	elif Input.is_action_just_pressed("move_up"):
-		_allow_input = false
-		_player_current_lane -= 1
-		if _player_current_lane == -1:
-			_player_current_lane = 3
-		AudioController.play_sound_player_move()
-		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-		await tween.finished
-		_allow_input = true
+		_handle_player_vertical_movement(false)
 		
 	elif _lane_tree_is_left[_player_current_lane]:
 		
 		if Input.is_action_pressed("interact_right") and player.position.x < GameInfo.grid_square_length * 14.5:
-			player.velocity.x = 150
+			player.velocity.x = _player_speed
 			player.move_and_slide()
 			
 		elif Input.is_action_just_released("interact_right"):
-			_allow_input = false
-			var tween : Tween = get_tree().create_tween()
-			tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			_allow_input = true
+			_handle_player_return_to_lane()
 			
 		elif Input.is_action_just_pressed("interact_left"):
-			_allow_input = false
-			player.play_animation("fruit_pick")
-			await player.animation_finished
 			_on_whole_fruit_spawned()
-			_allow_input = true
 		
 	elif not _lane_tree_is_left[_player_current_lane]:
 		
 		if Input.is_action_pressed("interact_left") and player.position.x > GameInfo.grid_square_length * 1.5:
-			player.velocity.x = -150
+			player.velocity.x = _player_speed * -1
 			player.move_and_slide()
 			
 		elif Input.is_action_just_released("interact_left"):
-			_allow_input = false
-			var tween : Tween = get_tree().create_tween()
-			tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-			await tween.finished
-			_allow_input = true
+			_handle_player_return_to_lane()
 			
 		elif Input.is_action_just_pressed("interact_right"):
-			_allow_input = false
-			player.play_animation("fruit_pick")
-			await player.animation_finished
 			_on_whole_fruit_spawned()
-			_allow_input = true
+			
 		
+func _handle_player_vertical_movement(is_down : bool) -> void:
+	_allow_input = false
+	
+	if is_down:
+		_player_current_lane += 1
+	else:
+		_player_current_lane -= 1
+		
+	if _player_current_lane == 4:
+		_player_current_lane = 0
+	elif _player_current_lane == -1:
+		_player_current_lane = 3
+		
+	AudioController.play_sound_player_move()
+	var tween : Tween = create_tween()
+	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	_allow_input = true
+	
+func _handle_player_return_to_lane() -> void:
+	_allow_input = false
+	var tween : Tween = create_tween()
+	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	await tween.finished
+	_allow_input = true
+	
 		
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
+	_current_ducks_swimming.append(new_duck)
 	
+	var _percent_chance_basic_duck := 40
+	var _percent_chance_fast_duck := 30
+	var _percent_chance_hungry_duck := 20
 	
 	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
@@ -192,6 +177,9 @@ func _spawn_duck() -> void:
 		# Spawn Angry Duck
 		new_duck.load_type(duck_angry)
 	
+	new_duck.connect("points_gained", _on_points_gained)
+	new_duck.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
+	new_duck.connect("ice_spawned", _on_ice_spawned)
 	new_duck.in_tree_left_lane = _lane_tree_is_left[new_duck_lane]
 	new_duck.lane_number = new_duck_lane
 	add_child.call_deferred(new_duck)
@@ -210,22 +198,29 @@ func _on_life_lost() -> void:
 			game_overlay.game_end(false)
 			duck_spawn_timer.stop()
 			GameInfo.game_paused = true
-			
+
 
 func _on_points_gained(points : int) -> void:
 	_current_points += points
 	game_overlay.update_points_label(_current_points)
-	
+
 
 func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> void:
 	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
+	new_eaten_fruit.connect("life_lost", _on_life_lost)
+	new_eaten_fruit.connect("points_gained", _on_points_gained)
 	new_eaten_fruit.in_tree_left_lane = _lane_tree_is_left[current_lane]
 	add_child.call_deferred(new_eaten_fruit)
 	new_eaten_fruit.global_position = fruit_position
 	
 	
 func _on_whole_fruit_spawned() -> void:
+	_allow_input = false
+	player.play_animation("fruit_pick")
+	await player.animation_finished
+
 	var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
+	new_fruit_whole.connect("life_lost", _on_life_lost)
 	new_fruit_whole.in_tree_left_lane = _lane_tree_is_left[_player_current_lane]
 	add_child.call_deferred(new_fruit_whole)
 	
@@ -235,17 +230,18 @@ func _on_whole_fruit_spawned() -> void:
 		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - GameInfo.grid_square_length
 	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
 	
+	_allow_input = true
 
 func _on_ice_spawned(ice_position : Vector2) -> void:
 	var new_ice := ice.instantiate() as Ice
+	new_ice.connect("ducks_frozen", _on_ducks_frozen)
 	add_child.call_deferred(new_ice)
 	new_ice.global_position = ice_position
 
 
 func _on_ducks_frozen() -> void:
-	for i in get_children():
-		if i is Duck:
-			i.toggle_frozen(true)
+	for i in _current_ducks_swimming:
+		i.toggle_frozen(true)
 	duck_freeze.start()
 	AudioController.toggle_music_volume(true)
 	AudioController.play_sound_freeze()
@@ -276,29 +272,32 @@ func _on_round_start() -> void:
 		current_map_type = map_4
 		_background = map_4_background.instantiate() as TileMapLayer
 	
+	var _duck_y_addition := 17
+	
+	var player_x_left := 168
+	var player_x_right := 600
+	var duck_x_left := 72
+	var duck_x_right := 696
+	var y_lanes : Array[int] = [144, 288, 432, 576]
+	var safe_length : int = 4
 	
 	for i in 4:
 		_lane_tree_is_left[i] = current_map_type.lane_is_left_tree[i]
 		
 		if _lane_tree_is_left[i]:
-			_player_positions[i].global_position.x = _lane_positions["player_x_left"]
-			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
-			_duck_positions[i].global_position.x = _lane_positions["duck_x_right"]
-			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length + 4
+			_player_positions[i].global_position = Vector2(player_x_left, y_lanes[i])
+			_duck_positions[i].global_position = Vector2(duck_x_right, y_lanes[i] + _duck_y_addition)
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length + safe_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 		
 		else:
-			_player_positions[i].global_position.x = _lane_positions["player_x_right"]
-			_player_positions[i].global_position.y = _lane_positions["y_lanes"][i]
-			_duck_positions[i].global_position.x = _lane_positions["duck_x_left"]
-			_duck_positions[i].global_position.y = _lane_positions["y_lanes"][i] + _duck_y_addition
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length - 4
+			_player_positions[i].global_position = Vector2(player_x_right, y_lanes[i])
+			_duck_positions[i].global_position = Vector2(duck_x_left, y_lanes[i] + _duck_y_addition)
+			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length - safe_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 	
 		_lane_endings_player_side[i].global_position = _player_positions[i].global_position
 		
-	
 	for i in get_children():
 		if i is FruitEaten or i is FruitWhole or i is Ice:
 			i.queue_free()
@@ -309,6 +308,12 @@ func _on_round_start() -> void:
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
+	_restart_duck_spawn_timer()
+	
+
+func _restart_duck_spawn_timer() -> void:
+	var _duck_spawn_min_sec := 2
+	var _duck_spawn_max_sec := 4
 	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
 	duck_spawn_timer.start()
 
@@ -318,12 +323,14 @@ func _on_lane_end_player_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		_on_life_lost()
 		game_overlay.update_lives_label()
+		_current_ducks_swimming.erase(body)
 		body.queue_free()
 
 
 func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
+		_current_ducks_swimming.erase(body)
 		body.queue_free()
 		
 		if _current_points >= 5000 and _ducks_finished == _round_max_ducks:
@@ -339,13 +346,16 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 			if _current_round % 2 == 1:
 				_allow_input = false
 				GameInfo.game_paused = true
-				var new_minigame := minigame.instantiate()
+				var new_minigame := minigame.instantiate() as Minigame
 				get_parent().add_child.call_deferred(new_minigame)
 				
-				var minigame_return : Array = await new_minigame.minigame_finished
+				var points_earned : int = await new_minigame.points_earned
+				var life_earned : bool = await new_minigame.life_earned
+				
 				_allow_input = true
 				GameInfo.game_paused = false
-				if minigame_return[1]:
+				_on_points_gained(points_earned)
+				if life_earned:
 					GameInfo.lives += 1
 					game_overlay.update_lives_label()
 				
@@ -356,29 +366,13 @@ func _on_duck_spawn_timer_timeout() -> void:
 	_spawn_duck()
 	_round_current_ducks += 1
 	if _round_current_ducks < _round_max_ducks:
-		duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
-		duck_spawn_timer.start()
+		_restart_duck_spawn_timer()
 	else:
 		duck_spawn_timer.stop()
 
 
 func _on_duck_freeze_timeout() -> void:
-	for i in get_children():
-		if i is Duck:
-			i.toggle_frozen(false)
+	for i in _current_ducks_swimming:
+		i.toggle_frozen(false)
 	AudioController.toggle_music_volume(false)
 	
-
-func _on_child_entered_tree(node: Node) -> void:
-	if node is FruitEaten or node is FruitWhole:
-		node.connect("life_lost", _on_life_lost)
-		
-	if node is FruitEaten or node is Duck:
-		node.connect("points_gained", _on_points_gained)
-	
-	if node is Duck:
-		node.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
-		node.connect("ice_spawned", _on_ice_spawned)
-		
-	if node is Ice:
-		node.connect("ducks_frozen", _on_ducks_frozen)

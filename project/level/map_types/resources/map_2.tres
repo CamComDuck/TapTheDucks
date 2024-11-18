@@ -5,4 +5,4 @@
 [resource]
 script = ExtResource("1_d0gud")
 map_number = 2
-lane_is_left_tree = [false, false, false, false]
+lane_is_left_tree = Array[bool]([false, false, false, false])

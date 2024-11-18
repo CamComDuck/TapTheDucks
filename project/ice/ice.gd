@@ -3,7 +3,7 @@ extends Area2D
 
 signal ducks_frozen
 
-@onready var time_until_despawn: Timer = $TimeUntilDespawn
+@onready var time_until_despawn := $TimeUntilDespawn as Timer
 
 func _ready() -> void:
 	time_until_despawn.start()

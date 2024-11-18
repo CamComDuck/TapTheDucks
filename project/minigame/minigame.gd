@@ -1,6 +1,8 @@
+class_name Minigame
 extends Node2D
 
-signal minigame_finished (points_earned : int, add_life : bool)
+signal points_earned (points_earned : int)
+signal life_earned (add_life : bool)
 
 var _player_positions : Array[Marker2D] = []
 var _hiding_spot_positions : Array[AnimatedSprite2D] = []
@@ -232,7 +234,8 @@ func _on_player_animation_finished() -> void:
 		_points_eared = 0
 	
 	await create_tween().tween_interval(2.5).finished
-	minigame_finished.emit(_points_eared, _life_found)
+	points_earned.emit(_points_eared)
+	life_earned.emit(_life_found)
 	
 	
 	AudioController.pause_sound_background_music()
