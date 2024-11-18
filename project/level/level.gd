@@ -10,7 +10,7 @@ var _background : TileMapLayer = null
 
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 2
+var _round_max_ducks := 100
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
@@ -186,6 +186,13 @@ func _spawn_duck() -> void:
 	new_duck.global_position = _duck_positions[new_duck_lane].global_position
 
 
+func _restart_duck_spawn_timer() -> void:
+	var _duck_spawn_min_sec := 2
+	var _duck_spawn_max_sec := 4
+	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
+	duck_spawn_timer.start()
+	
+
 func _on_life_lost() -> void:
 	if not GameInfo.game_paused:
 		GameInfo.lives -= 1
@@ -309,13 +316,6 @@ func _on_round_start() -> void:
 	_round_current_ducks = 0
 	_ducks_finished = 0
 	_restart_duck_spawn_timer()
-	
-
-func _restart_duck_spawn_timer() -> void:
-	var _duck_spawn_min_sec := 2
-	var _duck_spawn_max_sec := 4
-	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
-	duck_spawn_timer.start()
 
 
 func _on_lane_end_player_side_body_entered(body: Node2D) -> void:
@@ -333,7 +333,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_current_ducks_swimming.erase(body)
 		body.queue_free()
 		
-		if _current_points >= 5000 and _ducks_finished == _round_max_ducks:
+		if _current_points >= 2000 and _ducks_finished == _round_max_ducks:
 			_allow_input = false
 			game_overlay.game_end(true)
 			GameInfo.game_paused = true

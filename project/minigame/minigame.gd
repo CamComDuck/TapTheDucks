@@ -128,7 +128,7 @@ func _physics_process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("interact_right"):
 		_allow_input = false
 		_player_current_spot_index += 1
-		if _player_current_spot_index == 5:
+		if _player_current_spot_index == 6:
 			_player_current_spot_index = 0
 		AudioController.play_sound_player_move()
 		var tween : Tween = get_tree().create_tween()
@@ -140,7 +140,7 @@ func _physics_process(_delta: float) -> void:
 		_allow_input = false
 		_player_current_spot_index -= 1
 		if _player_current_spot_index == -1:
-			_player_current_spot_index = 4
+			_player_current_spot_index = 5
 		AudioController.play_sound_player_move()
 		var tween : Tween = get_tree().create_tween()
 		tween.tween_property(player, "global_position",_player_positions[_player_current_spot_index].global_position, 0.1).set_ease(Tween.EASE_OUT)
@@ -225,7 +225,7 @@ func _on_player_animation_finished() -> void:
 		if _is_extra_life_round:
 			_life_found = true
 		
-		_points_eared = 75
+		_points_eared = 100
 	else:
 		await _on_reveal_spot(_selected_spot, false, false)
 		AudioController.pause_sound_minigame_music()

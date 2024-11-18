@@ -34,17 +34,5 @@
  
  
 ## Report
- - Meeting the following criterion earns a **D** or better grade, and failing to meet it earns an **F** grade.
-   - The repository is in the course organization. It contains a README.md file in its top-level directory on the default branch. This file lists the names of all team members. *-> Complete*
- - Meeting all previous criteria as well as the following earns a **C** or better grade.
-   - Your release is created before the iteration deadline and is tagged using semantic versioning where the major version is zero and the minor version is the iteration number.  *-> Complete*
-   - You have a clear legal right to use all incorporated assets, the licenses for all third-party assets are tracked in the repository, and you have satisfied all license requirements. *-> Complete*
-   - There is a core loop: the game begins, the player takes action toward some goal, there is some source of conflict, and the game ends. The player can play again without restarting the application. *-> Complete*
-   - The increment presentation is completed. *-> Complete*
- - Meeting all previous criteria as well as the following earns a **B** or better grade.
-   - You satisfactorily completed any personal progress reports that were due during the iteration. *-> Complete*
-   - Your repository has no unnecessary files tracked and has a single mainline branch called master, main, or trunk. Your commit messages follow our commit message style guide. *-> Complete*
-   - The game features appropriate music, sound effects, and graphics. Instructions are included. The game's goals are explicit or inferred from the theme. *-> Complete*
- - Meeting all previous criteria as well as the following earns an **A**.
-   - The game runs with neither errors nor warnings. *-> Complete*
-   - The source code and project structure comply with our style guides. *-> Complete*
+
+ - I expect to earn an "A" grade.

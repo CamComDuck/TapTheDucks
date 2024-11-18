@@ -82,7 +82,8 @@ func toggle_frozen(is_frozen : bool) -> void:
 		if _tween != null:
 			_tween.kill()
 	else:
-		move_timer.start()
+		if base_duck_sprite.animation != "eating":
+			move_timer.start()
 		base_duck_sprite.play()
 
 func _on_move_timer_timeout() -> void:
