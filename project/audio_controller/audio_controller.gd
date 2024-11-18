@@ -1,5 +1,13 @@
 extends Control
 
+var _change_volume_lower := false
+
+func _physics_process(delta: float) -> void:
+	if _change_volume_lower:
+		%BackgroundMusic.volume_db = move_toward(%BackgroundMusic.volume_db, -12, delta * 20)
+	else:
+		%BackgroundMusic.volume_db = move_toward(%BackgroundMusic.volume_db, 0, delta * 20)
+
 func play_sound_fruit_pickup() -> void:
 	%FruitPickup.play()
 	
@@ -38,3 +46,9 @@ func play_sound_minigame_correct() -> void:
 	
 func play_sound_minigame_wrong() -> void:
 	%MinigameWrong.play()
+
+func toggle_music_volume(is_lower : bool) -> void:
+	_change_volume_lower = is_lower
+
+func play_sound_freeze() -> void:
+	%Freeze.play()

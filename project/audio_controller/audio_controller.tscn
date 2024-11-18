@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://d20q4knptbcs3"]
+[gd_scene load_steps=16 format=3 uid="uid://d20q4knptbcs3"]
 
 [ext_resource type="Script" path="res://audio_controller/audio_controller.gd" id="1_4a3nd"]
 [ext_resource type="AudioStream" uid="uid://4tf8ut585yus" path="res://audio_controller/FruitPickup.wav" id="2_1rvua"]
@@ -14,6 +14,7 @@
 [ext_resource type="AudioStream" uid="uid://dcu7nt4r167t8" path="res://audio_controller/MinigameCorrect.wav" id="12_oh1ky"]
 [ext_resource type="AudioStream" uid="uid://cc6xmnqdh7u4" path="res://audio_controller/MinigameMusic.ogg" id="13_kobq0"]
 [ext_resource type="AudioStream" uid="uid://dci4thtwon2nf" path="res://audio_controller/MinigameWrong.wav" id="14_tn0hw"]
+[ext_resource type="AudioStream" uid="uid://b27g6nrsaurd4" path="res://audio_controller/Freeze.wav" id="15_dfirk"]
 
 [node name="AudioController" type="Control"]
 layout_mode = 3
@@ -80,3 +81,8 @@ parameters/looping = true
 unique_name_in_owner = true
 stream = ExtResource("14_tn0hw")
 volume_db = -5.0
+
+[node name="Freeze" type="AudioStreamPlayer" parent="."]
+unique_name_in_owner = true
+stream = ExtResource("15_dfirk")
+volume_db = 20.0

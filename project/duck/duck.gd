@@ -61,7 +61,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 			_tween.kill()
 		
 		var ice_chance := randf_range(1, 3)
-		if ice_chance < 2:
+		if ice_chance < 4:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		

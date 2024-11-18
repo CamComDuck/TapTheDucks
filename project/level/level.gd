@@ -247,6 +247,8 @@ func _on_ducks_frozen() -> void:
 		if i is Duck:
 			i.toggle_frozen(true)
 	duck_freeze.start()
+	AudioController.toggle_music_volume(true)
+	AudioController.play_sound_freeze()
 
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
@@ -364,6 +366,7 @@ func _on_duck_freeze_timeout() -> void:
 	for i in get_children():
 		if i is Duck:
 			i.toggle_frozen(false)
+	AudioController.toggle_music_volume(false)
 	
 
 func _on_child_entered_tree(node: Node) -> void:
