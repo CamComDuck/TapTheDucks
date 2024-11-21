@@ -1,16 +1,17 @@
+@icon("res://level/graphics/tree.png")
 extends Node2D
 
-var _player_positions : Array[Marker2D] = []
+var _goose_positions : Array[Marker2D] = []
 var _duck_positions : Array[Marker2D] = []
-var _lane_endings_player_side : Array[Area2D] = []
+var _lane_endings_goose_side : Array[Area2D] = []
 var _lane_endings_duck_side : Array[Area2D] = []
 var _current_ducks_swimming : Array[Duck] = []
-var _player_current_lane : int
+var _goose_current_lane : int
 var _background : TileMapLayer = null
 
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 100
+var _round_max_ducks := 5
 var _round_current_ducks := 0
 var _ducks_finished := 0
 
@@ -21,11 +22,11 @@ var _allow_input := true
 @onready var game_overlay := $GameOverlay as GameOverlay
 @onready var duck_spawn_timer := $DuckSpawnTimer as Timer
 
-@onready var player_position_1 := $PlayerPosition1 as Marker2D
-@onready var player_position_2 := $PlayerPosition2 as Marker2D
-@onready var player_position_3 := $PlayerPosition3 as Marker2D
-@onready var player_position_4 := $PlayerPosition4 as Marker2D
-@onready var player := $Player as Player
+@onready var goose_position_1 := $GoosePosition1 as Marker2D
+@onready var goose_position_2 := $GoosePosition2 as Marker2D
+@onready var goose_position_3 := $GoosePosition3 as Marker2D
+@onready var goose_position_4 := $GoosePosition4 as Marker2D
+@onready var goose := $Goose as Goose
 
 @onready var duck_position_1 := $DuckPosition1 as Marker2D
 @onready var duck_position_2 := $DuckPosition2 as Marker2D
@@ -38,10 +39,10 @@ var _allow_input := true
 @onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
 @onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
 
-@onready var lane_end_player_side_1 := $LaneEndPlayerSide1 as LaneEndPlayerSide
-@onready var lane_end_player_side_2 := $LaneEndPlayerSide2 as LaneEndPlayerSide
-@onready var lane_end_player_side_3 := $LaneEndPlayerSide3 as LaneEndPlayerSide
-@onready var lane_end_player_side_4 := $LaneEndPlayerSide4 as LaneEndPlayerSide
+@onready var lane_end_goose_side_1 := $LaneEndGooseSide1 as LaneEndGooseSide
+@onready var lane_end_goose_side_2 := $LaneEndGooseSide2 as LaneEndGooseSide
+@onready var lane_end_goose_side_3 := $LaneEndGooseSide3 as LaneEndGooseSide
+@onready var lane_end_goose_side_4 := $LaneEndGooseSide4 as LaneEndGooseSide
 @onready var lane_end_duck_side_1 := $LaneEndDuckSide1 as LaneEndDuckSide
 @onready var lane_end_duck_side_2 := $LaneEndDuckSide2 as LaneEndDuckSide
 @onready var lane_end_duck_side_3 := $LaneEndDuckSide3 as LaneEndDuckSide
@@ -65,20 +66,20 @@ var _allow_input := true
 @onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
 
 func _ready() -> void:
-	_player_positions.append(player_position_1)
-	_player_positions.append(player_position_2)
-	_player_positions.append(player_position_3)
-	_player_positions.append(player_position_4)
+	_goose_positions.append(goose_position_1)
+	_goose_positions.append(goose_position_2)
+	_goose_positions.append(goose_position_3)
+	_goose_positions.append(goose_position_4)
 	
 	_duck_positions.append(duck_position_1)
 	_duck_positions.append(duck_position_2)
 	_duck_positions.append(duck_position_3)
 	_duck_positions.append(duck_position_4)
 	
-	_lane_endings_player_side.append(lane_end_player_side_1)
-	_lane_endings_player_side.append(lane_end_player_side_2)
-	_lane_endings_player_side.append(lane_end_player_side_3)
-	_lane_endings_player_side.append(lane_end_player_side_4)
+	_lane_endings_goose_side.append(lane_end_goose_side_1)
+	_lane_endings_goose_side.append(lane_end_goose_side_2)
+	_lane_endings_goose_side.append(lane_end_goose_side_3)
+	_lane_endings_goose_side.append(lane_end_goose_side_4)
 	
 	_lane_endings_duck_side.append(lane_end_duck_side_1)
 	_lane_endings_duck_side.append(lane_end_duck_side_2)
@@ -89,64 +90,64 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	var _player_speed := 150
+	var _goose_speed := 150
 	if not _allow_input:
 		pass
 		
 	elif Input.is_action_just_pressed("move_down"):
-		_handle_player_vertical_movement(true)
+		_handle_goose_vertical_movement(true)
 	
 	elif Input.is_action_just_pressed("move_up"):
-		_handle_player_vertical_movement(false)
+		_handle_goose_vertical_movement(false)
 		
-	elif _lane_tree_is_left[_player_current_lane]:
+	elif _lane_tree_is_left[_goose_current_lane]:
 		
-		if Input.is_action_pressed("interact_right") and player.position.x < GameInfo.grid_square_length * 14.5:
-			player.velocity.x = _player_speed
-			player.move_and_slide()
+		if Input.is_action_pressed("interact_right") and goose.position.x < GameInfo.grid_square_length * 14.5:
+			goose.velocity.x = _goose_speed
+			goose.move_and_slide()
 			
 		elif Input.is_action_just_released("interact_right"):
-			_handle_player_return_to_lane()
+			_handle_goose_return_to_lane()
 			
 		elif Input.is_action_just_pressed("interact_left"):
 			_on_whole_fruit_spawned()
 		
-	elif not _lane_tree_is_left[_player_current_lane]:
+	elif not _lane_tree_is_left[_goose_current_lane]:
 		
-		if Input.is_action_pressed("interact_left") and player.position.x > GameInfo.grid_square_length * 1.5:
-			player.velocity.x = _player_speed * -1
-			player.move_and_slide()
+		if Input.is_action_pressed("interact_left") and goose.position.x > GameInfo.grid_square_length * 1.5:
+			goose.velocity.x = _goose_speed * -1
+			goose.move_and_slide()
 			
 		elif Input.is_action_just_released("interact_left"):
-			_handle_player_return_to_lane()
+			_handle_goose_return_to_lane()
 			
 		elif Input.is_action_just_pressed("interact_right"):
 			_on_whole_fruit_spawned()
 			
 		
-func _handle_player_vertical_movement(is_down : bool) -> void:
+func _handle_goose_vertical_movement(is_down : bool) -> void:
 	_allow_input = false
 	
 	if is_down:
-		_player_current_lane += 1
+		_goose_current_lane += 1
 	else:
-		_player_current_lane -= 1
+		_goose_current_lane -= 1
 		
-	if _player_current_lane == 4:
-		_player_current_lane = 0
-	elif _player_current_lane == -1:
-		_player_current_lane = 3
+	if _goose_current_lane == 4:
+		_goose_current_lane = 0
+	elif _goose_current_lane == -1:
+		_goose_current_lane = 3
 		
-	AudioController.play_sound_player_move()
+	AudioController.play_sound_goose_move()
 	var tween : Tween = create_tween()
-	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	_allow_input = true
 	
-func _handle_player_return_to_lane() -> void:
+func _handle_goose_return_to_lane() -> void:
 	_allow_input = false
 	var tween : Tween = create_tween()
-	tween.tween_property(player, "global_position",_player_positions[_player_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
 	await tween.finished
 	_allow_input = true
 	
@@ -223,19 +224,19 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> vo
 	
 func _on_whole_fruit_spawned() -> void:
 	_allow_input = false
-	player.play_animation("fruit_pick")
-	await player.animation_finished
+	goose.play_animation("fruit_pick")
+	await goose.animation_finished
 
 	var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 	new_fruit_whole.connect("life_lost", _on_life_lost)
-	new_fruit_whole.in_tree_left_lane = _lane_tree_is_left[_player_current_lane]
+	new_fruit_whole.in_tree_left_lane = _lane_tree_is_left[_goose_current_lane]
 	add_child.call_deferred(new_fruit_whole)
 	
-	if _lane_tree_is_left[_player_current_lane]:
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x + GameInfo.grid_square_length
+	if _lane_tree_is_left[_goose_current_lane]:
+		new_fruit_whole.global_position.x = _goose_positions[_goose_current_lane].global_position.x + GameInfo.grid_square_length
 	else:
-		new_fruit_whole.global_position.x = _player_positions[_player_current_lane].global_position.x - GameInfo.grid_square_length
-	new_fruit_whole.global_position.y = _player_positions[_player_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
+		new_fruit_whole.global_position.x = _goose_positions[_goose_current_lane].global_position.x - GameInfo.grid_square_length
+	new_fruit_whole.global_position.y = _goose_positions[_goose_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
 	
 	_allow_input = true
 
@@ -281,8 +282,8 @@ func _on_round_start() -> void:
 	
 	var _duck_y_addition := 17
 	
-	var player_x_left := 168
-	var player_x_right := 600
+	var goose_x_left := 168
+	var goose_x_right := 600
 	var duck_x_left := 72
 	var duck_x_right := 696
 	var y_lanes : Array[int] = [144, 288, 432, 576]
@@ -292,18 +293,18 @@ func _on_round_start() -> void:
 		_lane_tree_is_left[i] = current_map_type.lane_is_left_tree[i]
 		
 		if _lane_tree_is_left[i]:
-			_player_positions[i].global_position = Vector2(player_x_left, y_lanes[i])
+			_goose_positions[i].global_position = Vector2(goose_x_left, y_lanes[i])
 			_duck_positions[i].global_position = Vector2(duck_x_right, y_lanes[i] + _duck_y_addition)
 			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length + safe_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 		
 		else:
-			_player_positions[i].global_position = Vector2(player_x_right, y_lanes[i])
+			_goose_positions[i].global_position = Vector2(goose_x_right, y_lanes[i])
 			_duck_positions[i].global_position = Vector2(duck_x_left, y_lanes[i] + _duck_y_addition)
 			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length - safe_length
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 	
-		_lane_endings_player_side[i].global_position = _player_positions[i].global_position
+		_lane_endings_goose_side[i].global_position = _goose_positions[i].global_position
 		
 	for i in get_children():
 		if i is FruitEaten or i is FruitWhole or i is Ice:
@@ -311,14 +312,14 @@ func _on_round_start() -> void:
 	
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
-	player.global_position = _player_positions[_player_current_lane].global_position
+	goose.global_position = _goose_positions[_goose_current_lane].global_position
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
 	_restart_duck_spawn_timer()
 
 
-func _on_lane_end_player_side_body_entered(body: Node2D) -> void:
+func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
 		_on_life_lost()

@@ -1,3 +1,4 @@
+@icon("res://duck/graphics/default_1.png")
 class_name Duck
 extends CharacterBody2D
 

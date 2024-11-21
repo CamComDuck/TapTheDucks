@@ -1,3 +1,4 @@
+@icon("res://fruit/graphics/fruit_eaten.png")
 class_name FruitEaten
 extends Area2D
 
@@ -15,13 +16,13 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	if area is LaneEndPlayerSide:
+	if area is LaneEndGooseSide:
 		life_lost.emit()
 		queue_free()
 
 
 func _on_body_entered(body: Node) -> void:
-	if body is Player:
+	if body is Goose:
 		AudioController.play_sound_fruit_pickup()
 		points_gained.emit(50)
 		queue_free()

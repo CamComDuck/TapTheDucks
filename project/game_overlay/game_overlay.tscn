@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bvl71gsqryfai"]
+[gd_scene load_steps=9 format=3 uid="uid://bvl71gsqryfai"]
 
 [ext_resource type="Script" path="res://game_overlay/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
 [ext_resource type="PackedScene" uid="uid://bnx7i0eyv5oln" path="res://game_overlay/life.tscn" id="3_2jy7s"]
+[ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/Points.png" id="4_nnei5"]
 
 [sub_resource type="Curve" id="Curve_tdlt4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -101,13 +102,21 @@ layout_mode = 2
 [node name="Life3" parent="LivesContainer" instance=ExtResource("3_2jy7s")]
 layout_mode = 2
 
+[node name="PointsTexture" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 110.0
+offset_top = 700.0
+offset_right = 150.0
+offset_bottom = 740.0
+texture = ExtResource("4_nnei5")
+
 [node name="PointsLabel" type="Label" parent="."]
 z_index = 98
 z_as_relative = false
 layout_mode = 0
-offset_left = 110.0
+offset_left = 160.0
 offset_top = 680.0
-offset_right = 399.0
+offset_right = 449.0
 offset_bottom = 762.0
 theme = ExtResource("1_wh8a7")
 text = "0"

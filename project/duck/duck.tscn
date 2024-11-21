@@ -1,10 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://dty1uqxcrrd5x"]
+[gd_scene load_steps=11 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
-[ext_resource type="Texture2D" uid="uid://c6g8h2f52c7pq" path="res://duck/graphics/duck_body_4.png" id="5_h6c4g"]
-[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/duck_body_1.png" id="6_v2shv"]
-[ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/graphics/duck_body_2.png" id="7_3xdwr"]
-[ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/graphics/duck_body_3.png" id="8_3tc27"]
+[ext_resource type="Texture2D" uid="uid://01emhn7igrg4" path="res://duck/graphics/eating_1.png" id="5_jddv2"]
+[ext_resource type="Texture2D" uid="uid://3p8h8ebkukr3" path="res://duck/graphics/eating_2.png" id="6_m4ubj"]
+[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="6_v2shv"]
+[ext_resource type="Texture2D" uid="uid://bx261j6w3nnlw" path="res://duck/graphics/default_2.png" id="7_3xdwr"]
+[ext_resource type="Texture2D" uid="uid://cv42awtoolbx" path="res://duck/graphics/eating_3.png" id="7_84ndm"]
+[ext_resource type="Texture2D" uid="uid://cf2q4egp5w6rm" path="res://duck/graphics/default_3.png" id="8_3tc27"]
+[ext_resource type="Texture2D" uid="uid://ctbxnb1ndly8u" path="res://duck/graphics/eating_4.png" id="8_rju1y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtmh2"]
 size = Vector2(48, 48)
@@ -30,19 +33,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_h6c4g")
+"texture": ExtResource("5_jddv2")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_h6c4g")
+"texture": ExtResource("6_m4ubj")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_h6c4g")
+"texture": ExtResource("7_84ndm")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_h6c4g")
+"texture": ExtResource("8_rju1y")
 }, {
 "duration": 1.0,
-"texture": ExtResource("5_h6c4g")
+"texture": ExtResource("6_v2shv")
 }],
 "loop": false,
 "name": &"eating",
@@ -61,6 +64,7 @@ shape = SubResource("RectangleShape2D_gtmh2")
 
 [node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_22ymi")
+animation = &"eating"
 autoplay = "default"
 flip_h = true
 

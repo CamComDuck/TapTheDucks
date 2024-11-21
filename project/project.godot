@@ -13,7 +13,7 @@ config_version=5
 config/name="TapTheDucks"
 run/main_scene="res://title/title.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://duck/graphics/duck_body_1.png"
+config/icon="res://duck/graphics/default_1.png"
 
 [autoload]
 
@@ -36,6 +36,8 @@ folder_colors={
 "res://fruit/": "green",
 "res://fruit/graphics/": "red",
 "res://game_overlay/": "purple",
+"res://goose/": "yellow",
+"res://goose/graphics/": "red",
 "res://ice/": "green",
 "res://level/": "orange",
 "res://level/graphics/": "red",

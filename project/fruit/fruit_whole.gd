@@ -1,3 +1,4 @@
+@icon("res://fruit/graphics/fruit_whole.png")
 class_name FruitWhole
 extends Area2D
 

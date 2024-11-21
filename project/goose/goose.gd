@@ -1,4 +1,5 @@
-class_name Player
+@icon("res://goose/graphics/default_1.png")
+class_name Goose
 extends CharacterBody2D
 
 signal animation_finished

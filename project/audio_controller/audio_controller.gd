@@ -11,8 +11,8 @@ func _physics_process(delta: float) -> void:
 func play_sound_fruit_pickup() -> void:
 	%FruitPickup.play()
 	
-func play_sound_player_move() -> void:
-	%PlayerMove.play()
+func play_sound_goose_move() -> void:
+	%GooseMove.play()
 
 func play_sound_fruit_eat() -> void:
 	%FruitEat.play()

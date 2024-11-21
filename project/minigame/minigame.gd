@@ -1,14 +1,15 @@
+@icon("res://game_overlay/Points.png")
 class_name Minigame
 extends Node2D
 
 signal points_earned (points_earned : int)
 signal life_earned (add_life : bool)
 
-var _player_positions : Array[Marker2D] = []
+var _goose_positions : Array[Marker2D] = []
 var _hiding_spot_positions : Array[AnimatedSprite2D] = []
 
 var _allow_input := false
-var _player_current_spot_index := 2
+var _goose_current_spot_index := 2
 
 var _correct_spot : AnimatedSprite2D
 var _selected_spot : AnimatedSprite2D
@@ -17,7 +18,7 @@ var _is_extra_life_round : bool
 var _life_found := false
 var _points_eared : int
 
-@onready var player := $Player as Player
+@onready var goose := $Goose as Goose
 
 @onready var instruction_label := $InstructionLabel as Label
 
@@ -28,12 +29,12 @@ var _points_eared : int
 @onready var hiding_spot_5 := $HidingSpot5 as AnimatedSprite2D
 @onready var hiding_spot_6 := $HidingSpot6 as AnimatedSprite2D
 
-@onready var player_position_1 := $PlayerPosition1 as Marker2D
-@onready var player_position_2 := $PlayerPosition2 as Marker2D
-@onready var player_position_3 := $PlayerPosition3 as Marker2D
-@onready var player_position_4 := $PlayerPosition4 as Marker2D
-@onready var player_position_5 := $PlayerPosition5 as Marker2D
-@onready var player_position_6 := $PlayerPosition6 as Marker2D
+@onready var goose_position_1 := $GoosePosition1 as Marker2D
+@onready var goose_position_2 := $GoosePosition2 as Marker2D
+@onready var goose_position_3 := $GoosePosition3 as Marker2D
+@onready var goose_position_4 := $GoosePosition4 as Marker2D
+@onready var goose_position_5 := $GoosePosition5 as Marker2D
+@onready var goose_position_6 := $GoosePosition6 as Marker2D
 
 @onready var finding_fruit := $FindingFruit as Sprite2D
 @onready var finding_fruit_normal := load("res://fruit/graphics/fruit_eaten.png") as Texture2D
@@ -43,14 +44,14 @@ func _ready() -> void:
 	AudioController.pause_sound_background_music()
 	AudioController.pause_sound_minigame_music()
 	
-	_player_positions.append(player_position_1)
-	_player_positions.append(player_position_2)
-	_player_positions.append(player_position_3)
-	_player_positions.append(player_position_4)
-	_player_positions.append(player_position_5)
-	_player_positions.append(player_position_6)
-	player.global_position = _player_positions[_player_current_spot_index].global_position
-	player.hide()
+	_goose_positions.append(goose_position_1)
+	_goose_positions.append(goose_position_2)
+	_goose_positions.append(goose_position_3)
+	_goose_positions.append(goose_position_4)
+	_goose_positions.append(goose_position_5)
+	_goose_positions.append(goose_position_6)
+	goose.global_position = _goose_positions[_goose_current_spot_index].global_position
+	goose.hide()
 	
 	_hiding_spot_positions.append(hiding_spot_1)
 	_hiding_spot_positions.append(hiding_spot_2)
@@ -114,7 +115,7 @@ func _ready() -> void:
 		await _mix_spots(move_left_1, move_left_2, move_right_1, move_right_2)
 	
 	finding_fruit.global_position = _correct_spot.global_position
-	player.show()
+	goose.show()
 	instruction_label.text = "Pick Your Duck"
 	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), instruction_label.global_position.y)
 	instruction_label.show()
@@ -127,32 +128,32 @@ func _physics_process(_delta: float) -> void:
 		
 	elif Input.is_action_just_pressed("interact_right"):
 		_allow_input = false
-		_player_current_spot_index += 1
-		if _player_current_spot_index == 6:
-			_player_current_spot_index = 0
-		AudioController.play_sound_player_move()
+		_goose_current_spot_index += 1
+		if _goose_current_spot_index == 6:
+			_goose_current_spot_index = 0
+		AudioController.play_sound_goose_move()
 		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(player, "global_position",_player_positions[_player_current_spot_index].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		tween.tween_property(goose, "global_position",_goose_positions[_goose_current_spot_index].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
 	
 	elif Input.is_action_just_pressed("interact_left"):
 		_allow_input = false
-		_player_current_spot_index -= 1
-		if _player_current_spot_index == -1:
-			_player_current_spot_index = 5
-		AudioController.play_sound_player_move()
+		_goose_current_spot_index -= 1
+		if _goose_current_spot_index == -1:
+			_goose_current_spot_index = 5
+		AudioController.play_sound_goose_move()
 		var tween : Tween = get_tree().create_tween()
-		tween.tween_property(player, "global_position",_player_positions[_player_current_spot_index].global_position, 0.1).set_ease(Tween.EASE_OUT)
+		tween.tween_property(goose, "global_position",_goose_positions[_goose_current_spot_index].global_position, 0.1).set_ease(Tween.EASE_OUT)
 		await tween.finished
 		_allow_input = true
 		
 	elif Input.is_action_just_pressed("move_up"):
 		_allow_input = false
 		for i in _hiding_spot_positions:
-			if i.global_position.x == player.global_position.x:
+			if i.global_position.x == goose.global_position.x:
 				_selected_spot = i
-		player.play_animation("minigame_pick")
+		goose.play_animation("minigame_pick")
 		
 
 func _show_wrong_shuffled_spots() -> void:
@@ -216,9 +217,9 @@ func _on_reveal_spot(spot : AnimatedSprite2D, return_to_spot : bool, show_fruit 
 		await tween_return.finished
 
 
-func _on_player_animation_finished() -> void:
+func _on_goose_animation_finished() -> void:
 	instruction_label.hide()
-	if player.global_position.x == _correct_spot.global_position.x:
+	if goose.global_position.x == _correct_spot.global_position.x:
 		await _on_reveal_spot(_selected_spot, false, true)
 		AudioController.pause_sound_minigame_music()
 		AudioController.play_sound_minigame_correct()

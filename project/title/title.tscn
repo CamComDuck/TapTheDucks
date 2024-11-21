@@ -3,7 +3,7 @@
 [ext_resource type="TileSet" uid="uid://ch7gon45j0wgo" path="res://level/tile_background.tres" id="1_7oxq5"]
 [ext_resource type="Script" path="res://title/title.gd" id="1_r7xhm"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="2_cgims"]
-[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/duck_body_1.png" id="3_j7int"]
+[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="3_j7int"]
 [ext_resource type="SpriteFrames" uid="uid://bgomhltpc62oi" path="res://duck/duck_sprite_frames.tres" id="4_5l0oq"]
 [ext_resource type="Texture2D" uid="uid://baiwwtm46sfux" path="res://title/vertical_arrow.png" id="7_ung5p"]
 [ext_resource type="Texture2D" uid="uid://hattrt3udigl" path="res://title/horizontal_arrow.png" id="8_mh4nd"]
@@ -47,8 +47,6 @@ position = Vector2(599, 203)
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("4_5l0oq")
 autoplay = "default"
-frame = 1
-frame_progress = 0.964471
 flip_h = true
 
 [node name="Duck2" type="AnimatedSprite2D" parent="."]

@@ -1,3 +1,4 @@
+@icon("res://ice/ice.png")
 class_name Ice
 extends Area2D
 
@@ -12,6 +13,6 @@ func _on_time_until_despawn_timeout() -> void:
 	queue_free()
 
 func _on_body_entered(body: Node2D) -> void:
-	if body is Player:
+	if body is Goose:
 		ducks_frozen.emit()
 		queue_free()
