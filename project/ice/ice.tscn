@@ -20,7 +20,7 @@ texture = ExtResource("1_mb1b4")
 shape = SubResource("RectangleShape2D_ya443")
 
 [node name="TimeUntilDespawn" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 10.0
 one_shot = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

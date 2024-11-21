@@ -62,7 +62,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 			_tween.kill()
 		
 		var ice_chance := randf_range(1, 10)
-		if ice_chance < 10:
+		if ice_chance < 2.5:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		
@@ -88,6 +88,7 @@ func toggle_frozen(is_frozen : bool) -> void:
 		if base_duck_sprite.animation != "eating":
 			move_timer.start()
 		base_duck_sprite.play()
+
 
 func _on_move_timer_timeout() -> void:
 	var new_position : Vector2

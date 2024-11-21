@@ -14,5 +14,5 @@ func _on_time_until_despawn_timeout() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Goose:
-		ducks_frozen.emit()
+		ducks_frozen.emit(global_position)
 		queue_free()

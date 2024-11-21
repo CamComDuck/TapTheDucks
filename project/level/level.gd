@@ -64,7 +64,9 @@ var _allow_input := true
 @onready var map_4_background := load("res://level/map_types/backgrounds/bg_map_4.tscn") as PackedScene
 
 @onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
+
 @onready var lost_life_particles := load("res://level/lost_life_particles.tscn") as PackedScene
+@onready var ice_hit_particles := load("res://level/ice_hit_particles.tscn") as PackedScene
 
 func _ready() -> void:
 	_goose_positions.append(goose_position_1)
@@ -255,12 +257,20 @@ func _on_ice_spawned(ice_position : Vector2) -> void:
 	new_ice.global_position = ice_position
 
 
-func _on_ducks_frozen() -> void:
+func _on_ducks_frozen(particle_position : Vector2) -> void:
 	for i in _current_ducks_swimming:
 		i.toggle_frozen(true)
 	duck_freeze.start()
 	AudioController.toggle_music_volume(true)
 	AudioController.play_sound_freeze()
+	
+	var new_particles := ice_hit_particles.instantiate() as CPUParticles2D
+	add_child.call_deferred(new_particles)
+	new_particles.global_position = particle_position
+	new_particles.emitting = true
+	await new_particles.finished
+	new_particles.queue_free()
+	
 
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
