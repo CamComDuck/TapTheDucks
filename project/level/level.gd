@@ -64,6 +64,7 @@ var _allow_input := true
 @onready var map_4_background := load("res://level/map_types/backgrounds/bg_map_4.tscn") as PackedScene
 
 @onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
+@onready var lost_life_particles := load("res://level/lost_life_particles.tscn") as PackedScene
 
 func _ready() -> void:
 	_goose_positions.append(goose_position_1)
@@ -194,11 +195,18 @@ func _restart_duck_spawn_timer() -> void:
 	duck_spawn_timer.start()
 	
 
-func _on_life_lost() -> void:
+func _on_life_lost(particle_position : Vector2) -> void:
 	if not GameInfo.game_paused:
 		GameInfo.lives -= 1
 		game_overlay.update_lives_label()
 		AudioController.play_sound_life_lost()
+		
+		var new_particles := lost_life_particles.instantiate() as CPUParticles2D
+		add_child.call_deferred(new_particles)
+		new_particles.global_position = particle_position
+		new_particles.emitting = true
+		await new_particles.finished
+		new_particles.queue_free()
 		
 		if GameInfo.lives == 0:
 			AudioController.play_sound_lose()
@@ -322,7 +330,7 @@ func _on_round_start() -> void:
 func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
-		_on_life_lost()
+		_on_life_lost(body.global_position)
 		game_overlay.update_lives_label()
 		_current_ducks_swimming.erase(body)
 		body.queue_free()
@@ -376,4 +384,3 @@ func _on_duck_freeze_timeout() -> void:
 	for i in _current_ducks_swimming:
 		i.toggle_frozen(false)
 	AudioController.toggle_music_volume(false)
-	

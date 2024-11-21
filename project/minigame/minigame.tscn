@@ -12,6 +12,10 @@ z_index = 100
 z_as_relative = false
 script = ExtResource("1_3qcdb")
 
+[node name="Goose" parent="." instance=ExtResource("2_k0wcu")]
+z_index = 105
+scale = Vector2(2, 2)
+
 [node name="MinigameBackground" type="TileMapLayer" parent="."]
 z_index = 100
 z_as_relative = false
@@ -111,9 +115,5 @@ text = "WATCH CLOSELY"
 horizontal_alignment = 1
 vertical_alignment = 1
 uppercase = true
-
-[node name="Goose" parent="." instance=ExtResource("2_k0wcu")]
-z_index = 105
-scale = Vector2(2, 2)
 
 [connection signal="animation_finished" from="Goose" to="." method="_on_goose_animation_finished"]

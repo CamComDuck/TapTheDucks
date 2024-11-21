@@ -12,6 +12,8 @@ size = Vector2(44, 72)
 [node name="Level" type="Node2D"]
 script = ExtResource("1_b81hx")
 
+[node name="Goose" parent="." instance=ExtResource("2_8qaat")]
+
 [node name="DuckSpawnTimer" type="Timer" parent="."]
 
 [node name="GameOverlay" parent="." instance=ExtResource("7_8tnxi")]
@@ -131,13 +133,11 @@ debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
 [node name="DuckFreeze" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="Goose" parent="." instance=ExtResource("2_8qaat")]
-
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
-[connection signal="body_entered" from="LaneEndGooseSide1" to="." method="_on_lane_end_player_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide2" to="." method="_on_lane_end_player_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide3" to="." method="_on_lane_end_player_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide4" to="." method="_on_lane_end_player_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSide1" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSide2" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSide3" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSide4" to="." method="_on_lane_end_goose_side_body_entered"]
 [connection signal="body_entered" from="LaneEndDuckSide1" to="." method="_on_lane_end_duck_side_body_entered"]
 [connection signal="body_entered" from="LaneEndDuckSide2" to="." method="_on_lane_end_duck_side_body_entered"]
 [connection signal="body_entered" from="LaneEndDuckSide3" to="." method="_on_lane_end_duck_side_body_entered"]
