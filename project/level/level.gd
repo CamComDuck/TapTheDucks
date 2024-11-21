@@ -10,7 +10,7 @@ var _goose_current_lane : int
 var _background : TileMapLayer = null
 
 var _current_points := 0
-var _current_round := 1
+var _current_round := 7
 var _round_max_ducks := 5
 var _round_current_ducks := 0
 var _ducks_finished := 0
@@ -142,10 +142,19 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 		_goose_current_lane = 3
 		
 	AudioController.play_sound_goose_move()
-	var tween : Tween = create_tween()
-	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
-	await tween.finished
+	var tween_fade_out : Tween = create_tween()
+	tween_fade_out.tween_property(goose, "modulate", Color(1, 1, 1, 0), 0.08).set_ease(Tween.EASE_OUT)
+	await tween_fade_out.finished
+	
+	goose.global_position = _goose_positions[_goose_current_lane].global_position
+	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	
+	var tween_fade_in : Tween = create_tween()
+	tween_fade_in.tween_property(goose, "modulate", Color(1, 1, 1, 1), 0.08).set_ease(Tween.EASE_IN)
+	await tween_fade_in.finished
+	
 	_allow_input = true
+	
 	
 func _handle_goose_return_to_lane() -> void:
 	_allow_input = false
@@ -274,27 +283,22 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 
 func _on_round_start() -> void:
 	var current_map_type : MapTypes
+	if _background != null:
+		_background.queue_free()
 		
 	if _current_round % 8 == 1 or _current_round % 8 == 2:
 		current_map_type = map_1
-		
-		if _background != null:
-			_background.queue_free()
-			
 		_background = map_1_background.instantiate() as TileMapLayer
 		
 	elif _current_round % 8 == 3 or _current_round % 8 == 4:
-		_background.queue_free()
 		current_map_type = map_2
 		_background = map_2_background.instantiate() as TileMapLayer
 		
 	elif _current_round % 8 == 5 or _current_round % 8 == 6:
-		_background.queue_free()
 		current_map_type = map_3
 		_background = map_3_background.instantiate() as TileMapLayer
 		
 	elif _current_round % 8 == 7 or _current_round % 8 == 0:
-		_background.queue_free()
 		current_map_type = map_4
 		_background = map_4_background.instantiate() as TileMapLayer
 	
@@ -331,9 +335,11 @@ func _on_round_start() -> void:
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
 	goose.global_position = _goose_positions[_goose_current_lane].global_position
+	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
+	game_overlay.new_round_progress_bar(_round_max_ducks)
 	_restart_duck_spawn_timer()
 
 
@@ -344,6 +350,7 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 		game_overlay.update_lives_label()
 		_current_ducks_swimming.erase(body)
 		body.queue_free()
+		game_overlay.update_round_progress_value(_ducks_finished)
 
 
 func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
@@ -351,6 +358,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		_current_ducks_swimming.erase(body)
 		body.queue_free()
+		game_overlay.update_round_progress_value(_ducks_finished)
 		
 		if _current_points >= 2000 and _ducks_finished == _round_max_ducks:
 			_allow_input = false

@@ -1,9 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://bvl71gsqryfai"]
+[gd_scene load_steps=12 format=3 uid="uid://bvl71gsqryfai"]
 
 [ext_resource type="Script" path="res://game_overlay/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
 [ext_resource type="PackedScene" uid="uid://bnx7i0eyv5oln" path="res://game_overlay/life.tscn" id="3_2jy7s"]
 [ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/Points.png" id="4_nnei5"]
+[ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="5_sns4n"]
+[ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="6_bm8l6"]
 
 [sub_resource type="Curve" id="Curve_tdlt4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -21,6 +23,9 @@ colors = PackedColorArray(0.713726, 0.945098, 0.972549, 1, 1, 0.666667, 0.984314
 min_value = -1.0
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, -1), 0.0, 0.0, 0, 0]
 point_count = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ptr36"]
+bg_color = Color(0.463072, 0.674347, 0.213461, 1)
 
 [node name="GameOverlay" type="Control"]
 layout_mode = 3
@@ -134,6 +139,22 @@ theme = ExtResource("1_wh8a7")
 text = "1"
 horizontal_alignment = 2
 vertical_alignment = 1
+
+[node name="RoundProgressSlider" type="HSlider" parent="."]
+layout_mode = 0
+offset_left = 134.0
+offset_right = 634.0
+offset_bottom = 48.0
+theme_override_constants/center_grabber = 1
+theme_override_constants/grabber_offset = 1
+theme_override_icons/grabber_disabled = ExtResource("5_sns4n")
+theme_override_icons/tick = ExtResource("6_bm8l6")
+theme_override_styles/grabber_area = SubResource("StyleBoxFlat_ptr36")
+max_value = 5.0
+editable = false
+scrollable = false
+tick_count = 6
+ticks_on_borders = true
 
 [connection signal="pressed" from="GameEndContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameEndContainer/MenuButton" to="." method="_on_menu_button_pressed"]

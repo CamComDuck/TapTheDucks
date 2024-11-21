@@ -8,6 +8,17 @@ extends Control
 @onready var lives_container := $LivesContainer as HBoxContainer
 @onready var life := load("res://game_overlay/life.tscn") as PackedScene
 @onready var round_label := $RoundLabel as Label
+@onready var round_progress_slider := $RoundProgressSlider as HSlider
+
+func update_round_progress_value(value : int) -> void:
+	round_progress_slider.value = value
+	
+
+func new_round_progress_bar(max_ducks : int) -> void:
+	round_progress_slider.tick_count = max_ducks + 1
+	round_progress_slider.max_value = max_ducks
+	round_progress_slider.value = 0
+
 
 func update_lives_label() -> void:
 	if lives_container.get_child_count() < GameInfo.lives and not GameInfo.game_paused:

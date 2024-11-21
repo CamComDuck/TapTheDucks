@@ -11,3 +11,7 @@ func play_animation(animation : String) -> void:
 	await sprite_2d.animation_finished
 	animation_finished.emit()
 	sprite_2d.play("default")
+
+
+func flip_h(face_left : bool) -> void:
+	sprite_2d.flip_h = face_left
