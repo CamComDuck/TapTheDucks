@@ -29,6 +29,7 @@ volume_db = 5.0
 [node name="FruitPickup" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("2_1rvua")
+volume_db = -3.0
 
 [node name="GooseMove" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
@@ -54,7 +55,7 @@ stream = ExtResource("7_jn23n")
 [node name="LifeLost" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("8_j1eep")
-volume_db = 3.0
+volume_db = 10.0
 
 [node name="MenuClick" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bvl71gsqryfai"]
+[gd_scene load_steps=15 format=3 uid="uid://bvl71gsqryfai"]
 
 [ext_resource type="Script" path="res://game_overlay/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/Points.png" id="4_nnei5"]
 [ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="5_sns4n"]
 [ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="6_bm8l6"]
+[ext_resource type="Texture2D" uid="uid://c3vpasorjvx4n" path="res://ice/ice.png" id="7_ril57"]
+[ext_resource type="Texture2D" uid="uid://b66yhgmxcsh3d" path="res://game_overlay/frozen_progress_bg.png" id="8_efgtv"]
+[ext_resource type="Texture2D" uid="uid://j3p0yfsturvb" path="res://game_overlay/frozen_progress.png" id="9_gouch"]
 
 [sub_resource type="Curve" id="Curve_tdlt4"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -155,6 +158,27 @@ editable = false
 scrollable = false
 tick_count = 6
 ticks_on_borders = true
+
+[node name="FreezeTimerContainer" type="VBoxContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 24.0
+offset_top = 640.0
+offset_right = 48.0
+offset_bottom = 692.0
+scale = Vector2(2, 2)
+
+[node name="IceTexture" type="TextureRect" parent="FreezeTimerContainer"]
+layout_mode = 2
+texture = ExtResource("7_ril57")
+stretch_mode = 4
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="FreezeTimerContainer"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+fill_mode = 4
+texture_under = ExtResource("8_efgtv")
+texture_progress = ExtResource("9_gouch")
 
 [connection signal="pressed" from="GameEndContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
 [connection signal="pressed" from="GameEndContainer/MenuButton" to="." method="_on_menu_button_pressed"]

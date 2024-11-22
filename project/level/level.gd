@@ -10,10 +10,11 @@ var _goose_current_lane : int
 var _background : TileMapLayer = null
 
 var _current_points := 0
-var _current_round := 7
-var _round_max_ducks := 5
+var _current_round := 1
+var _round_max_ducks := 10
 var _round_current_ducks := 0
 var _ducks_finished := 0
+var _ducks_currently_frozen := false
 
 var _lane_tree_is_left : Array[bool] = [true, true, true, true]
 
@@ -65,8 +66,7 @@ var _allow_input := true
 
 @onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
 
-@onready var lost_life_particles := load("res://level/lost_life_particles.tscn") as PackedScene
-@onready var ice_hit_particles := load("res://level/ice_hit_particles.tscn") as PackedScene
+@onready var firework_particles := load("res://level/firework_particles.tscn") as PackedScene
 
 func _ready() -> void:
 	_goose_positions.append(goose_position_1)
@@ -94,6 +94,11 @@ func _ready() -> void:
 		
 func _physics_process(_delta: float) -> void:
 	var _goose_speed := 150
+	
+	if _ducks_currently_frozen:
+		var frozen_time_left_percent := (duck_freeze.time_left / duck_freeze.wait_time) * 100
+		game_overlay.update_freezer_progress_value(frozen_time_left_percent)
+		
 	if not _allow_input:
 		pass
 		
@@ -212,12 +217,12 @@ func _on_life_lost(particle_position : Vector2) -> void:
 		game_overlay.update_lives_label()
 		AudioController.play_sound_life_lost()
 		
-		var new_particles := lost_life_particles.instantiate() as CPUParticles2D
+		var new_particles := firework_particles.instantiate() as Fireworks
 		add_child.call_deferred(new_particles)
 		new_particles.global_position = particle_position
+		new_particles.color = Color(Color.RED)
 		new_particles.emitting = true
-		await new_particles.finished
-		new_particles.queue_free()
+		
 		
 		if GameInfo.lives == 0:
 			AudioController.play_sound_lose()
@@ -272,13 +277,13 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 	duck_freeze.start()
 	AudioController.toggle_music_volume(true)
 	AudioController.play_sound_freeze()
+	_ducks_currently_frozen = true
 	
-	var new_particles := ice_hit_particles.instantiate() as CPUParticles2D
+	var new_particles := firework_particles.instantiate() as Fireworks
 	add_child.call_deferred(new_particles)
 	new_particles.global_position = particle_position
+	new_particles.color = Color(Color.DEEP_SKY_BLUE)
 	new_particles.emitting = true
-	await new_particles.finished
-	new_particles.queue_free()
 	
 
 func _on_round_start() -> void:
@@ -402,3 +407,4 @@ func _on_duck_freeze_timeout() -> void:
 	for i in _current_ducks_swimming:
 		i.toggle_frozen(false)
 	AudioController.toggle_music_volume(false)
+	_ducks_currently_frozen = false

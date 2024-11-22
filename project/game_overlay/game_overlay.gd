@@ -9,6 +9,17 @@ extends Control
 @onready var life := load("res://game_overlay/life.tscn") as PackedScene
 @onready var round_label := $RoundLabel as Label
 @onready var round_progress_slider := $RoundProgressSlider as HSlider
+@onready var freeze_timer_container := $FreezeTimerContainer as VBoxContainer
+@onready var texture_progress_bar := $FreezeTimerContainer/TextureProgressBar as TextureProgressBar
+
+func update_freezer_progress_value(value : float) -> void:
+	print(value)
+	if not freeze_timer_container.visible:
+		freeze_timer_container.show()
+	texture_progress_bar.value = value
+	if value < 0.5:
+		freeze_timer_container.hide()
+
 
 func update_round_progress_value(value : int) -> void:
 	round_progress_slider.value = value

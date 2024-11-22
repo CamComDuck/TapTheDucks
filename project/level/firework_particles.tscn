@@ -1,10 +1,12 @@
-[gd_scene load_steps=2 format=3 uid="uid://h6fjft7vwj0n"]
+[gd_scene load_steps=3 format=3 uid="uid://h6fjft7vwj0n"]
+
+[ext_resource type="Script" path="res://level/firework_particles.gd" id="1_raxeq"]
 
 [sub_resource type="Curve" id="Curve_pagwl"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[node name="LostLifeParticles" type="CPUParticles2D"]
+[node name="FireworkParticles" type="CPUParticles2D"]
 z_index = 10
 z_as_relative = false
 emitting = false
@@ -22,3 +24,6 @@ scale_amount_min = 10.0
 scale_amount_max = 20.0
 scale_amount_curve = SubResource("Curve_pagwl")
 color = Color(1, 0, 0, 1)
+script = ExtResource("1_raxeq")
+
+[connection signal="finished" from="." to="." method="_on_finished"]
