@@ -1,10 +1,13 @@
-@icon("res://goose/graphics/default_1.png")
+@icon("res://game_overlay/icon_goose.png")
 class_name Goose
 extends CharacterBody2D
 
 signal animation_finished
 
 @onready var sprite_2d := $Sprite2D as AnimatedSprite2D
+
+func _ready() -> void:
+	sprite_2d.modulate = GameInfo.goose_color
 
 func play_animation(animation : String) -> void:
 	sprite_2d.play(animation)

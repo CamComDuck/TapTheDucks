@@ -1,4 +1,4 @@
-@icon("res://game_overlay/Points.png")
+@icon("res://game_overlay/icon_point.png")
 class_name Minigame
 extends Node2D
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://game_overlay/game_overlay.gd" id="1_6vak0"]
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="1_wh8a7"]
 [ext_resource type="PackedScene" uid="uid://bnx7i0eyv5oln" path="res://game_overlay/life.tscn" id="3_2jy7s"]
-[ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/Points.png" id="4_nnei5"]
+[ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/icon_point.png" id="4_nnei5"]
 [ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="5_sns4n"]
 [ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="6_bm8l6"]
 [ext_resource type="Texture2D" uid="uid://c3vpasorjvx4n" path="res://ice/ice.png" id="7_ril57"]

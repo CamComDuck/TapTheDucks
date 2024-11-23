@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://chmktvkf4d0fm"
-path="res://.godot/imported/Points.png-5e1dde7c66a284f859dc5cc4a4643ac1.ctex"
+uid="uid://e446648ionkq"
+path="res://.godot/imported/icon_goose.png-9fa79eb2688a643579881161d1c561a8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game_overlay/Points.png"
-dest_files=["res://.godot/imported/Points.png-5e1dde7c66a284f859dc5cc4a4643ac1.ctex"]
+source_file="res://game_overlay/icon_goose.png"
+dest_files=["res://.godot/imported/icon_goose.png-9fa79eb2688a643579881161d1c561a8.ctex"]
 
 [params]
 

@@ -4,7 +4,7 @@
 
 [resource]
 script = ExtResource("1_dk5a8")
-name = "Fast"
+name = "FastDuck"
 max_fruits = 1
 is_fast_type = true
 color = Color(1, 0.47451, 0, 1)
