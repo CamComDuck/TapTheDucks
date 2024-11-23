@@ -1,14 +1,15 @@
 extends TabContainer
 
-var _goose_red := 1.0
-var _goose_green := 1.0
-var _goose_blue := 1.0
+var _goose_red : float
+var _goose_green : float
+var _goose_blue : float
 
 @onready var duck_grid_container := %GridContainer as GridContainer
 @onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
 @onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
 @onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
 @onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
+@onready var frozen_duck_texture := %FrozenDuckTexture as TextureRect
 
 @onready var goose_texture := %GooseTexture as TextureRect
 @onready var red_slider := %RedSlider as HSlider
@@ -19,6 +20,16 @@ func _ready() -> void:
 	set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
 	set_tab_icon(1, preload("res://duck/graphics/default_1.png"))
 	
+	_goose_red = GameInfo.goose_color.r
+	red_slider.value = _goose_red
+	_goose_green = GameInfo.goose_color.g
+	green_slider.value = _goose_green
+	_goose_blue = GameInfo.goose_color.b
+	blue_slider.value = _goose_blue
+	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
+	GameInfo.goose_color = Color(_goose_red, _goose_green, _goose_blue)
+	
+	frozen_duck_texture.modulate = Color(Color.AQUA)
 	var duck_info_grid : Array[Node] = duck_grid_container.get_children()
 	var duck_types : Array[DuckTypes] = [duck_basic, duck_fast, duck_hungry, duck_angry]
 	
@@ -54,3 +65,16 @@ func _on_save_color_button_pressed() -> void:
 func _on_point_input_box_value_changed(value: int) -> void:
 	GameInfo.points_to_win = value
 	AudioController.play_sound_menu_click()
+
+
+func _on_random_color_button_pressed() -> void:
+	AudioController.play_sound_menu_click()
+	_goose_red = randf_range(0, 1)
+	red_slider.value = _goose_red
+	_goose_green = randf_range(0, 1)
+	green_slider.value = _goose_green
+	_goose_blue = randf_range(0, 1)
+	blue_slider.value = _goose_blue
+	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
+	GameInfo.goose_color = Color(_goose_red, _goose_green, _goose_blue)
+	

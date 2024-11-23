@@ -5,7 +5,7 @@
 [ext_resource type="Theme" uid="uid://cehlnuq88iqv4" path="res://primary_theme.tres" id="2_cgims"]
 [ext_resource type="Texture2D" uid="uid://dwbmhjla24vos" path="res://duck/graphics/default_1.png" id="3_j7int"]
 [ext_resource type="SpriteFrames" uid="uid://bgomhltpc62oi" path="res://duck/duck_sprite_frames.tres" id="4_5l0oq"]
-[ext_resource type="Script" path="res://title/help_container.gd" id="5_hwgsy"]
+[ext_resource type="Script" path="res://title/settings_container.gd" id="5_hwgsy"]
 [ext_resource type="Texture2D" uid="uid://bu0fikqd3650r" path="res://level/graphics/tree.png" id="6_r34ve"]
 [ext_resource type="Texture2D" uid="uid://c3vpasorjvx4n" path="res://ice/ice.png" id="9_5r817"]
 [ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/icon_point.png" id="9_6xbvw"]
@@ -310,7 +310,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 50
-text = "Volume Control"
+text = "Volume"
 horizontal_alignment = 1
 
 [node name="HBoxMaster" type="HBoxContainer" parent="SettingsContainer/Volume/VBoxContainer"]
@@ -400,15 +400,45 @@ theme_override_font_sizes/font_size = 30
 text = "75%"
 horizontal_alignment = 1
 
-[node name="Exit Menu" type="Label" parent="SettingsContainer"]
+[node name="Language" type="MarginContainer" parent="SettingsContainer"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 2
 
+[node name="VBoxContainer" type="VBoxContainer" parent="SettingsContainer/Language"]
+layout_mode = 2
+
+[node name="LanguageHeading" type="Label" parent="SettingsContainer/Language/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_cgims")
+theme_override_font_sizes/font_size = 50
+text = "Language"
+horizontal_alignment = 1
+
+[node name="EnglishButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "English"
+
+[node name="FrenchButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "French"
+
+[node name="KoreanButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "Korean"
+
+[node name="Exit Menu" type="Label" parent="SettingsContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 3
+
 [node name="CustomizationContainer" type="TabContainer" parent="."]
 visible = false
 offset_right = 700.0
-offset_bottom = 630.0
+offset_bottom = 683.0
 theme = ExtResource("2_cgims")
 tab_alignment = 1
 current_tab = 0
@@ -500,6 +530,11 @@ value = 1.0
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "Save Color"
+
+[node name="RandomColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Random Color"
 
 [node name="How To Play" type="MarginContainer" parent="CustomizationContainer"]
 visible = false
@@ -785,6 +820,32 @@ theme_override_font_sizes/font_size = 30
 text = "Don't Throw Too Many"
 horizontal_alignment = 1
 
+[node name="HBoxIce" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
+layout_mode = 2
+
+[node name="IceTexture" type="TextureRect" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxIce"]
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("9_5r817")
+stretch_mode = 5
+
+[node name="FrozenDuckTexture" type="TextureRect" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxIce"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(48, 48)
+layout_mode = 2
+texture = ExtResource("3_j7int")
+stretch_mode = 5
+
+[node name="Spacer" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxIce"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="IceLabel" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxIce"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Grab an Ice Block to freeze all ducks"
+horizontal_alignment = 1
+
 [node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
 layout_mode = 2
 
@@ -811,9 +872,13 @@ metadata/_tab_index = 2
 [connection signal="mouse_entered" from="SettingsContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="SettingsContainer" method="_on_sounds_slider_mouse_entered"]
 [connection signal="mouse_exited" from="SettingsContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="SettingsContainer" method="_on_sounds_slider_mouse_exited"]
 [connection signal="value_changed" from="SettingsContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="SettingsContainer" method="_on_sounds_slider_value_changed"]
+[connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/EnglishButton" to="SettingsContainer" method="_on_english_button_pressed"]
+[connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/FrenchButton" to="SettingsContainer" method="_on_french_button_pressed"]
+[connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/KoreanButton" to="SettingsContainer" method="_on_korean_button_pressed"]
 [connection signal="tab_changed" from="CustomizationContainer" to="." method="_on_customization_container_tab_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer/RedSlider" to="CustomizationContainer" method="_on_red_slider_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer/GreenSlider" to="CustomizationContainer" method="_on_green_slider_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer/BlueSlider" to="CustomizationContainer" method="_on_blue_slider_value_changed"]
 [connection signal="pressed" from="CustomizationContainer/Goose Color/VBoxContainer/SaveColorButton" to="CustomizationContainer" method="_on_save_color_button_pressed"]
+[connection signal="pressed" from="CustomizationContainer/Goose Color/VBoxContainer/RandomColorButton" to="CustomizationContainer" method="_on_random_color_button_pressed"]
 [connection signal="value_changed" from="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints/PointInputBox" to="CustomizationContainer" method="_on_point_input_box_value_changed"]

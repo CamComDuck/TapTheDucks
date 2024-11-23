@@ -11,7 +11,7 @@ var _background : TileMapLayer = null
 
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 10
+var _round_max_ducks := 5
 var _round_current_ducks := 0
 var _ducks_finished := 0
 var _ducks_currently_frozen := false
