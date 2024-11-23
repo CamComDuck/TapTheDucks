@@ -13,7 +13,6 @@ extends Control
 @onready var texture_progress_bar := $FreezeTimerContainer/TextureProgressBar as TextureProgressBar
 
 func update_freezer_progress_value(value : float) -> void:
-	print(value)
 	if not freeze_timer_container.visible:
 		freeze_timer_container.show()
 	texture_progress_bar.value = value

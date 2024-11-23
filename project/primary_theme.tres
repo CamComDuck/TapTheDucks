@@ -1,6 +1,23 @@
-[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cehlnuq88iqv4"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cehlnuq88iqv4"]
 
 [ext_resource type="FontFile" uid="uid://d30c3u172f5un" path="res://Jersey10-Regular.ttf" id="1_egbdj"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_17jgx"]
+grow_begin = 15.0
+grow_end = 15.0
+thickness = 10
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5f6bg"]
+bg_color = Color(0.188235, 0.458824, 0.254902, 1)
+border_width_left = 10
+border_width_top = 10
+border_width_right = 10
+border_width_bottom = 10
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 30
+corner_radius_top_right = 30
+corner_radius_bottom_right = 30
+corner_radius_bottom_left = 30
 
 [resource]
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
@@ -9,8 +26,19 @@ Button/constants/outline_size = 2
 Button/font_sizes/font_size = 80
 Button/fonts/font = ExtResource("1_egbdj")
 HBoxContainer/constants/separation = 15
+HSeparator/constants/separation = 10
+HSeparator/styles/separator = SubResource("StyleBoxLine_17jgx")
 Label/colors/font_outline_color = Color(0, 0, 0, 1)
 Label/constants/outline_size = 2
 Label/font_sizes/font_size = 75
 Label/fonts/font = ExtResource("1_egbdj")
+MarginContainer/constants/margin_bottom = 20
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 20
+TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
+TabContainer/constants/outline_size = 2
+TabContainer/font_sizes/font_size = 30
+TabContainer/fonts/font = ExtResource("1_egbdj")
+TabContainer/styles/panel = SubResource("StyleBoxFlat_5f6bg")
 VBoxContainer/constants/separation = 5
