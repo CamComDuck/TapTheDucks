@@ -9,8 +9,10 @@ signal ducks_frozen
 func _ready() -> void:
 	time_until_despawn.start()
 
+
 func _on_time_until_despawn_timeout() -> void:
 	queue_free()
+
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is Goose:

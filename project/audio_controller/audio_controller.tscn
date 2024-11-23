@@ -25,65 +25,79 @@ script = ExtResource("1_4a3nd")
 unique_name_in_owner = true
 stream = ExtResource("2_fb05a")
 volume_db = 5.0
+bus = &"SoundEffects"
 
 [node name="FruitPickup" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("2_1rvua")
 volume_db = -3.0
+bus = &"SoundEffects"
 
 [node name="GooseMove" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("3_e5or8")
 volume_db = -5.0
+bus = &"SoundEffects"
 
 [node name="FruitEat" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("4_tgg8j")
+bus = &"SoundEffects"
 
 [node name="DuckEatUnfinished" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("5_w3dhj")
+bus = &"SoundEffects"
 
 [node name="Win" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("6_8jb3f")
+bus = &"SoundEffects"
 
 [node name="Lose" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("7_jn23n")
+bus = &"SoundEffects"
 
 [node name="LifeLost" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("8_j1eep")
 volume_db = 10.0
+bus = &"SoundEffects"
 
 [node name="MenuClick" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("9_0dfxf")
+bus = &"SoundEffects"
 
 [node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("10_yp060")
 autoplay = true
+bus = &"Music"
 parameters/looping = true
 
 [node name="MinigameCorrect" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("12_oh1ky")
 volume_db = 10.0
+bus = &"SoundEffects"
 
 [node name="MinigameMusic" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("13_kobq0")
 volume_db = -3.0
+bus = &"Music"
 parameters/looping = true
 
 [node name="MinigameWrong" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("14_tn0hw")
 volume_db = -5.0
+bus = &"SoundEffects"
 
 [node name="Freeze" type="AudioStreamPlayer" parent="."]
 unique_name_in_owner = true
 stream = ExtResource("15_dfirk")
 volume_db = 20.0
+bus = &"SoundEffects"

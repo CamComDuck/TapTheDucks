@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=4 uid="uid://b65g800w03rpy"]
+[gd_scene load_steps=14 format=4 uid="uid://b65g800w03rpy"]
 
 [ext_resource type="TileSet" uid="uid://ch7gon45j0wgo" path="res://level/tile_background.tres" id="1_7oxq5"]
 [ext_resource type="Script" path="res://title/title.gd" id="1_r7xhm"]
@@ -11,6 +11,25 @@
 [ext_resource type="Texture2D" uid="uid://chmktvkf4d0fm" path="res://game_overlay/Points.png" id="9_6xbvw"]
 [ext_resource type="Texture2D" uid="uid://cvkbvvy3tygxa" path="res://fruit/graphics/fruit_whole.png" id="9_mpvb2"]
 [ext_resource type="Texture2D" uid="uid://tmol3aehe6c" path="res://fruit/graphics/fruit_eaten.png" id="10_jydad"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rergm"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.336107, 0.64, 0.1472, 1)
+border_width_bottom = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rncmy"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.204815, 0.39, 0.0897, 1)
+border_width_bottom = 5
+border_color = Color(0.592157, 0.592157, 0.592157, 1)
+corner_detail = 1
 
 [node name="Title" type="Node2D"]
 script = ExtResource("1_r7xhm")
@@ -60,20 +79,26 @@ text = "Start"
 [node name="HelpButton" type="Button" parent="ButtonContainer"]
 layout_mode = 2
 theme = ExtResource("2_cgims")
-toggle_mode = true
 text = "Help"
 
 [node name="HelpContainer" type="TabContainer" parent="."]
-offset_left = 25.0
-offset_top = 112.0
-offset_right = 630.0
-offset_bottom = 625.0
+visible = false
+offset_left = 17.0
+offset_top = 56.0
+offset_right = 732.0
+offset_bottom = 633.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("2_cgims")
+theme_override_constants/icon_separation = 5
+theme_override_constants/icon_max_width = 24
+theme_override_styles/tab_focus = SubResource("StyleBoxFlat_rergm")
+theme_override_styles/tab_selected = SubResource("StyleBoxFlat_rergm")
+theme_override_styles/tab_hovered = SubResource("StyleBoxFlat_rergm")
+theme_override_styles/tab_unselected = SubResource("StyleBoxFlat_rncmy")
 tab_alignment = 1
 current_tab = 0
-clip_tabs = false
+all_tabs_in_front = true
 script = ExtResource("5_hwgsy")
 
 [node name="Keybinds" type="MarginContainer" parent="HelpContainer"]
@@ -276,6 +301,33 @@ theme_override_font_sizes/font_size = 50
 text = "Volume Control"
 horizontal_alignment = 1
 
+[node name="HBoxMaster" type="HBoxContainer" parent="HelpContainer/Volume/VBoxContainer"]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="HelpContainer/Volume/VBoxContainer/HBoxMaster"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "Master"
+
+[node name="Spacer" type="Control" parent="HelpContainer/Volume/VBoxContainer/HBoxMaster"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MasterSlider" type="HSlider" parent="HelpContainer/Volume/VBoxContainer/HBoxMaster"]
+custom_minimum_size = Vector2(200, 30)
+layout_mode = 2
+max_value = 1.0
+step = 0.05
+tick_count = 5
+ticks_on_borders = true
+
+[node name="MasterPercent" type="Label" parent="HelpContainer/Volume/VBoxContainer/HBoxMaster"]
+custom_minimum_size = Vector2(48, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "100%"
+horizontal_alignment = 1
+
 [node name="HBoxMusic" type="HBoxContainer" parent="HelpContainer/Volume/VBoxContainer"]
 layout_mode = 2
 
@@ -291,13 +343,17 @@ size_flags_horizontal = 3
 [node name="MusicSlider" type="HSlider" parent="HelpContainer/Volume/VBoxContainer/HBoxMusic"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
+max_value = 1.0
+step = 0.05
 tick_count = 5
 ticks_on_borders = true
 
 [node name="MusicPercent" type="Label" parent="HelpContainer/Volume/VBoxContainer/HBoxMusic"]
+custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "75%"
+text = "100%"
+horizontal_alignment = 1
 
 [node name="HBoxSounds" type="HBoxContainer" parent="HelpContainer/Volume/VBoxContainer"]
 layout_mode = 2
@@ -314,13 +370,17 @@ size_flags_horizontal = 3
 [node name="SoundsSlider" type="HSlider" parent="HelpContainer/Volume/VBoxContainer/HBoxSounds"]
 custom_minimum_size = Vector2(200, 30)
 layout_mode = 2
+max_value = 1.0
+step = 0.05
 tick_count = 5
 ticks_on_borders = true
 
 [node name="SoundsPercent" type="Label" parent="HelpContainer/Volume/VBoxContainer/HBoxSounds"]
+custom_minimum_size = Vector2(48, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "75%"
+horizontal_alignment = 1
 
 [node name="Win & Lose" type="MarginContainer" parent="HelpContainer"]
 visible = false
@@ -607,11 +667,24 @@ theme_override_font_sizes/font_size = 25
 text = "40"
 horizontal_alignment = 1
 
+[node name="Exit Menu" type="Label" parent="HelpContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 4
+
 [connection signal="pressed" from="ButtonContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="toggled" from="ButtonContainer/HelpButton" to="." method="_on_help_button_toggled"]
+[connection signal="pressed" from="ButtonContainer/HelpButton" to="." method="_on_help_button_pressed"]
 [connection signal="tab_changed" from="HelpContainer" to="." method="_on_help_menu_tab_changed"]
 [connection signal="pressed" from="HelpContainer/Keybinds/VBoxContainer/HBoxContainer/InputButtonMoveUp" to="HelpContainer" method="_on_input_button_move_up_pressed"]
 [connection signal="pressed" from="HelpContainer/Keybinds/VBoxContainer/HBoxContainer4/InputButtonMoveDown" to="HelpContainer" method="_on_input_button_move_down_pressed"]
 [connection signal="pressed" from="HelpContainer/Keybinds/VBoxContainer/HBoxContainer5/InputButtonInteractLeft" to="HelpContainer" method="_on_input_button_interact_left_pressed"]
 [connection signal="pressed" from="HelpContainer/Keybinds/VBoxContainer/HBoxContainer6/InputButtonInteractRight" to="HelpContainer" method="_on_input_button_interact_right_pressed"]
 [connection signal="pressed" from="HelpContainer/Keybinds/VBoxContainer/ResetButton" to="HelpContainer" method="_on_reset_button_pressed"]
+[connection signal="drag_ended" from="HelpContainer/Volume/VBoxContainer/HBoxMaster/MasterSlider" to="HelpContainer" method="_on_master_slider_drag_ended"]
+[connection signal="value_changed" from="HelpContainer/Volume/VBoxContainer/HBoxMaster/MasterSlider" to="HelpContainer" method="_on_master_slider_value_changed"]
+[connection signal="drag_ended" from="HelpContainer/Volume/VBoxContainer/HBoxMusic/MusicSlider" to="HelpContainer" method="_on_music_slider_drag_ended"]
+[connection signal="value_changed" from="HelpContainer/Volume/VBoxContainer/HBoxMusic/MusicSlider" to="HelpContainer" method="_on_music_slider_value_changed"]
+[connection signal="drag_ended" from="HelpContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="HelpContainer" method="_on_sounds_slider_drag_ended"]
+[connection signal="mouse_entered" from="HelpContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="HelpContainer" method="_on_sounds_slider_mouse_entered"]
+[connection signal="mouse_exited" from="HelpContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="HelpContainer" method="_on_sounds_slider_mouse_exited"]
+[connection signal="value_changed" from="HelpContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="HelpContainer" method="_on_sounds_slider_value_changed"]

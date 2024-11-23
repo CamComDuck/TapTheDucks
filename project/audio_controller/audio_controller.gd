@@ -2,11 +2,12 @@ extends Control
 
 var _change_volume_lower := false
 
-func _physics_process(delta: float) -> void:
-	if _change_volume_lower:
-		%BackgroundMusic.volume_db = move_toward(%BackgroundMusic.volume_db, -12, delta * 20)
-	else:
-		%BackgroundMusic.volume_db = move_toward(%BackgroundMusic.volume_db, 0, delta * 20)
+func update_music_volume(value: float) -> void:
+	print(value)
+
+func play_sound_testing_volume() -> void:
+	if not %FruitPickup.playing:
+		%FruitPickup.play()
 
 func play_sound_fruit_pickup() -> void:
 	%FruitPickup.play()
