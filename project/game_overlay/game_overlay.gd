@@ -55,23 +55,23 @@ func game_stop(stop_type : String) -> void:
 	game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
 	
 	if stop_type == "WIN":
-		game_stop_label.text = "You win!"
+		game_stop_label.text = tr("WIN_GAME")
 		win_particles.emitting = true
 		pause_label.hide()
 		play_again_button.show()
 		menu_button.show()
 		game_stop_container.show()
 	elif stop_type == "LOSE":
-		game_stop_label.text = "You lose!"
+		game_stop_label.text = tr("LOSE_GAME")
 		pause_label.hide()
 		play_again_button.show()
 		menu_button.show()
 		game_stop_container.show()
 	elif stop_type == "PAUSE":
-		game_stop_label.text = "Paused"
+		game_stop_label.text = tr("GAME_PAUSED_1")
 		var pause_event = InputMap.action_get_events("pause")
 		var pause_keybind = pause_event[0].as_text().trim_suffix(" (Physical)")
-		pause_label.text = "Press " + pause_keybind + " to unpause"
+		pause_label.text = tr("GAME_PAUSED_2") % [ pause_keybind ]
 		pause_label.show()
 		play_again_button.hide()
 		menu_button.hide()

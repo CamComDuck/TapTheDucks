@@ -80,7 +80,7 @@ visible = false
 offset_left = 17.0
 offset_top = 56.0
 offset_right = 709.0
-offset_bottom = 687.0
+offset_bottom = 765.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("2_cgims")
@@ -428,6 +428,11 @@ text = "FRENCH_LABEL"
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "KOREAN_LABEL"
+
+[node name="ChineseButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 40
+text = "CHINESE_LABEL"
 
 [node name="Exit Menu" type="Label" parent="SettingsContainer"]
 visible = false
@@ -875,6 +880,7 @@ metadata/_tab_index = 2
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/EnglishButton" to="SettingsContainer" method="_on_english_button_pressed"]
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/FrenchButton" to="SettingsContainer" method="_on_french_button_pressed"]
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/KoreanButton" to="SettingsContainer" method="_on_korean_button_pressed"]
+[connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/ChineseButton" to="SettingsContainer" method="_on_chinese_button_pressed"]
 [connection signal="tab_changed" from="CustomizationContainer" to="." method="_on_customization_container_tab_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer/RedSlider" to="CustomizationContainer" method="_on_red_slider_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer/GreenSlider" to="CustomizationContainer" method="_on_green_slider_value_changed"]

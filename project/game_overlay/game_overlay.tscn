@@ -51,7 +51,7 @@ offset_bottom = 402.0
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 150
-text = "You Lose!"
+text = "Win/Lose/Pause"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -66,14 +66,13 @@ horizontal_alignment = 1
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 100
-text = "Play Again"
+text = "END_GAME_1"
 
 [node name="MenuButton" type="Button" parent="GameStopContainer"]
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 100
-text = "Main Menu
-"
+text = "END_GAME_2"
 
 [node name="WinParticles" type="CPUParticles2D" parent="."]
 z_index = 99

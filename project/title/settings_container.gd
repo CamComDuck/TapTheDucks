@@ -92,7 +92,7 @@ func _on_input_button_pressed(action : String, button : Button) -> void:
 	if not _is_remapping:
 		_is_remapping = true
 		_action_to_remap = action
-		button.text = "Press key to bind..."
+		button.text = tr("KEYBINDS_WAIT")
 		
 
 func _on_input_button_move_up_pressed() -> void:
@@ -172,3 +172,8 @@ func _on_french_button_pressed() -> void:
 func _on_korean_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	TranslationServer.set_locale("ko")
+
+
+func _on_chinese_button_pressed() -> void:
+	AudioController.play_sound_menu_click()
+	TranslationServer.set_locale("zh")

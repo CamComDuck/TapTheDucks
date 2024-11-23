@@ -15,7 +15,6 @@ func _ready() -> void:
 	customization_container.position.x = (GameInfo.grid_square_length * 8) - (customization_container.size.x / 2)
 	customization_container.position.y = (GameInfo.grid_square_length * 8) - (customization_container.size.y / 2)
 
-
 	tab_hovered_stylebox = settings_container.get_theme_stylebox("tab_hovered")
 	tab_hovered_font_color = settings_container.get_theme_color("font_hovered_color")
 	tab_unselected_stylebox = settings_container.get_theme_stylebox("tab_unselected")
