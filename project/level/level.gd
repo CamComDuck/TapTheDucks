@@ -390,7 +390,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 		
-		if _current_points >= 100 and _ducks_finished == _round_max_ducks: # Win The Game
+		if _current_points >= GameInfo.points_to_win and _ducks_finished == _round_max_ducks: # Win The Game
 			_allow_input = false
 			game_overlay.game_stop("WIN")
 			GameInfo.system_paused = true

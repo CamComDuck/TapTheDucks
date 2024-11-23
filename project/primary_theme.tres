@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cehlnuq88iqv4"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://cehlnuq88iqv4"]
 
 [ext_resource type="FontFile" uid="uid://d30c3u172f5un" path="res://Jersey10-Regular.ttf" id="1_egbdj"]
 
@@ -19,6 +19,25 @@ corner_radius_top_right = 30
 corner_radius_bottom_right = 30
 corner_radius_bottom_left = 30
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rergm"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.336107, 0.64, 0.1472, 1)
+border_width_bottom = 5
+corner_detail = 1
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rncmy"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+content_margin_bottom = 5.0
+bg_color = Color(0.204815, 0.39, 0.0897, 1)
+border_width_bottom = 5
+border_color = Color(0.592157, 0.592157, 0.592157, 1)
+corner_detail = 1
+
 [resource]
 Button/colors/font_outline_color = Color(0, 0, 0, 1)
 Button/colors/font_pressed_color = Color(0.290196, 0.560784, 0.231373, 1)
@@ -37,8 +56,14 @@ MarginContainer/constants/margin_left = 20
 MarginContainer/constants/margin_right = 20
 MarginContainer/constants/margin_top = 20
 TabContainer/colors/font_outline_color = Color(0, 0, 0, 1)
+TabContainer/constants/icon_max_width = 24
+TabContainer/constants/icon_separation = 3
 TabContainer/constants/outline_size = 2
 TabContainer/font_sizes/font_size = 30
 TabContainer/fonts/font = ExtResource("1_egbdj")
 TabContainer/styles/panel = SubResource("StyleBoxFlat_5f6bg")
+TabContainer/styles/tab_focus = SubResource("StyleBoxFlat_rergm")
+TabContainer/styles/tab_hovered = SubResource("StyleBoxFlat_rergm")
+TabContainer/styles/tab_selected = SubResource("StyleBoxFlat_rergm")
+TabContainer/styles/tab_unselected = SubResource("StyleBoxFlat_rncmy")
 VBoxContainer/constants/separation = 5

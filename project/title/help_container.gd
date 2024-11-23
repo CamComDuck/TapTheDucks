@@ -4,18 +4,6 @@ var _is_remapping := false
 var _action_to_remap : String = "null"
 var _is_volume_being_changed := false
 var _volume_sliders : Array[HSlider]
-var _goose_red := 1.0
-var _goose_green := 1.0
-var _goose_blue := 1.0
-
-@onready var master_percent := %MasterPercent as Label
-@onready var music_percent := %MusicPercent as Label
-@onready var sounds_percent := %SoundsPercent as Label
-
-@onready var goose_texture := %GooseTexture as TextureRect
-@onready var red_slider := %RedSlider as HSlider
-@onready var green_slider := %GreenSlider as HSlider
-@onready var blue_slider := %BlueSlider as HSlider
 
 @onready var input_button_move_up := $Keybinds/VBoxContainer/HBoxContainer/InputButtonMoveUp as Button
 @onready var input_button_move_down := $Keybinds/VBoxContainer/HBoxContainer4/InputButtonMoveDown as Button
@@ -23,13 +11,10 @@ var _goose_blue := 1.0
 @onready var input_button_interact_right := $Keybinds/VBoxContainer/HBoxContainer6/InputButtonInteractRight as Button
 @onready var input_button_pause := $Keybinds/VBoxContainer/HBoxContainer7/InputButtonPause as Button
 
-@onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
-@onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
-@onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
-@onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
-
 @onready var volume_vbox := $Volume/VBoxContainer as VBoxContainer
-@onready var duck_grid_container := %GridContainer as GridContainer
+@onready var master_percent := %MasterPercent as Label
+@onready var music_percent := %MusicPercent as Label
+@onready var sounds_percent := %SoundsPercent as Label
 
 func _ready() -> void:
 	var volume_vbox_children = volume_vbox.get_children()
@@ -41,22 +26,8 @@ func _ready() -> void:
 					_volume_sliders.append(hbox_node)
 					hbox_node.value = db_to_linear(AudioServer.get_bus_volume_db(_volume_sliders.size() - 1))
 	
-	var duck_info_grid : Array[Node] = duck_grid_container.get_children()
-	var duck_types : Array[DuckTypes] = [duck_basic, duck_fast, duck_hungry, duck_angry]
-	
-	for node in duck_info_grid:
-		if node is TextureRect or node is Label:
-			for i in len(duck_types):
-				if node.name.begins_with(duck_types[i].name):
-					if node is TextureRect:
-						node.modulate = duck_types[i].color
-					elif node.name.ends_with("Points"):
-						node.text = str(duck_types[i].point_value)
-	
 	#set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
 	#set_tab_icon(1, POINTS)
-	set_tab_icon(2, preload("res://duck/graphics/default_1.png"))
-	set_tab_icon(3, preload("res://game_overlay/icon_goose.png"))
 	
 	_update_keybind_labels(true)
 	
@@ -186,23 +157,3 @@ func _on_sounds_slider_mouse_entered() -> void:
 
 func _on_sounds_slider_mouse_exited() -> void:
 	_is_volume_being_changed = false
-
-
-func _on_red_slider_value_changed(value: float) -> void:
-	_goose_red = value
-	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
-
-
-func _on_green_slider_value_changed(value: float) -> void:
-	_goose_green = value
-	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
-
-
-func _on_blue_slider_value_changed(value: float) -> void:
-	_goose_blue = value
-	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
-
-
-func _on_save_color_button_pressed() -> void:
-	GameInfo.goose_color = Color(_goose_red, _goose_green, _goose_blue)
-	AudioController.play_sound_menu_click()
