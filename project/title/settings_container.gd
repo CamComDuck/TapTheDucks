@@ -161,17 +161,14 @@ func _on_sounds_slider_mouse_exited() -> void:
 
 func _on_english_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	print("English!")
 	TranslationServer.set_locale("en")
-
+	
 
 func _on_french_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	print("French!")
 	TranslationServer.set_locale("fr")
 
 
 func _on_korean_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
-	print("Korean!")
-	TranslationServer.set_locale("es")
+	TranslationServer.set_locale("ko")

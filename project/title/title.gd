@@ -6,7 +6,7 @@ var tab_unselected_stylebox : StyleBoxFlat
 var tab_unselected_font_color : Color
 
 @onready var settings_container := %SettingsContainer as TabContainer
-@onready var customization_container: TabContainer = $CustomizationContainer
+@onready var customization_container := %CustomizationContainer as TabContainer
 
 func _ready() -> void:
 	settings_container.position.x = (GameInfo.grid_square_length * 8) - (settings_container.size.x / 2)

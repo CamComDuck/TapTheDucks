@@ -28,11 +28,10 @@ offset_right = 447.0
 offset_bottom = 709.5
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 200
-text = "Tap
-The
-Ducks"
+text = "TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
+autowrap_mode = 2
 
 [node name="Duck1" type="AnimatedSprite2D" parent="."]
 position = Vector2(599, 203)
@@ -59,21 +58,21 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 35
-text = "Start"
+text = "START_BUTTON"
 
 [node name="CustomizationButton" type="Button" parent="ButtonContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 35
-text = "Customization"
+text = "CUSTOMIZATION_BUTTON"
 
 [node name="SettingsButton" type="Button" parent="ButtonContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 35
-text = "Settings"
+text = "SETTINGS_BUTTON"
 
 [node name="SettingsContainer" type="TabContainer" parent="."]
 unique_name_in_owner = true
@@ -105,7 +104,7 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 50
-text = "Keybinds"
+text = "KEYBINDS_HEADER"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="SettingsContainer/Keybinds/VBoxContainer"]
@@ -115,7 +114,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
-text = "Move Up"
+text = "MOVE_UP_LABEL"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Keybinds/VBoxContainer/HBoxContainer"]
@@ -138,7 +137,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
-text = "Move Down"
+text = "MOVE_DOWN_LABEL"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Keybinds/VBoxContainer/HBoxContainer4"]
@@ -161,7 +160,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
-text = "Pause"
+text = "PAUSE_LABEL"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Keybinds/VBoxContainer/HBoxContainer7"]
@@ -188,7 +187,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
-text = "Interact Left"
+text = "INTERACT_LEFT_LABEL"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Keybinds/VBoxContainer/HBoxContainer5"]
@@ -211,7 +210,7 @@ layout_mode = 2
 layout_mode = 2
 mouse_filter = 1
 theme_override_font_sizes/font_size = 30
-text = "Interact Right"
+text = "INTERACT_RIGHT_LABEL"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Keybinds/VBoxContainer/HBoxContainer6"]
@@ -254,7 +253,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 30
-text = "PRESS to feed"
+text = "KEYBINDS_TUTORIAL_1"
 horizontal_alignment = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="SettingsContainer/Keybinds/VBoxContainer"]
@@ -286,7 +285,7 @@ size_flags_horizontal = 3
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 30
-text = "HOLD to swim & hit objects"
+text = "KEYBINDS_TUTORIAL_2"
 horizontal_alignment = 1
 
 [node name="HSeparator2" type="HSeparator" parent="SettingsContainer/Keybinds/VBoxContainer"]
@@ -296,7 +295,7 @@ theme = ExtResource("2_cgims")
 [node name="ResetButton" type="Button" parent="SettingsContainer/Keybinds/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Reset to Default"
+text = "KEYBINDS_RESET"
 
 [node name="Volume" type="MarginContainer" parent="SettingsContainer"]
 visible = false
@@ -310,7 +309,7 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 50
-text = "Volume"
+text = "VOLUME_HEADER"
 horizontal_alignment = 1
 
 [node name="HBoxMaster" type="HBoxContainer" parent="SettingsContainer/Volume/VBoxContainer"]
@@ -319,7 +318,7 @@ layout_mode = 2
 [node name="MasterLabel" type="Label" parent="SettingsContainer/Volume/VBoxContainer/HBoxMaster"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Master"
+text = "MASTER_LABEL"
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Volume/VBoxContainer/HBoxMaster"]
 layout_mode = 2
@@ -348,7 +347,7 @@ layout_mode = 2
 [node name="MusicLabel" type="Label" parent="SettingsContainer/Volume/VBoxContainer/HBoxMusic"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Music"
+text = "MUSIC_LABEL"
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Volume/VBoxContainer/HBoxMusic"]
 layout_mode = 2
@@ -377,7 +376,7 @@ layout_mode = 2
 [node name="SoundsLabel" type="Label" parent="SettingsContainer/Volume/VBoxContainer/HBoxSounds"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Sound Effects"
+text = "SOUND_EFFECTS_LABEL"
 
 [node name="Spacer" type="Control" parent="SettingsContainer/Volume/VBoxContainer/HBoxSounds"]
 layout_mode = 2
@@ -412,23 +411,23 @@ layout_mode = 2
 layout_mode = 2
 theme = ExtResource("2_cgims")
 theme_override_font_sizes/font_size = 50
-text = "Language"
+text = "LANGUAGE_HEADER"
 horizontal_alignment = 1
 
 [node name="EnglishButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "English"
+text = "ENGLISH_LABEL"
 
 [node name="FrenchButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "French"
+text = "FRENCH_LABEL"
 
 [node name="KoreanButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
-text = "Korean"
+text = "KOREAN_LABEL"
 
 [node name="Exit Menu" type="Label" parent="SettingsContainer"]
 visible = false
@@ -436,6 +435,7 @@ layout_mode = 2
 metadata/_tab_index = 3
 
 [node name="CustomizationContainer" type="TabContainer" parent="."]
+unique_name_in_owner = true
 visible = false
 offset_right = 700.0
 offset_bottom = 683.0
@@ -459,7 +459,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Choose Your Goose Color"
+text = "GOOSE_COLOR_LABEL"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer"]
@@ -529,12 +529,12 @@ value = 1.0
 [node name="SaveColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Save Color"
+text = "GOOSE_COLOR_SAVE"
 
 [node name="RandomColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Random Color"
+text = "GOOSE_COLOR_RANDOM"
 
 [node name="How To Play" type="MarginContainer" parent="CustomizationContainer"]
 visible = false
@@ -549,7 +549,7 @@ alignment = 1
 [node name="DucksHeading" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Duck Types"
+text = "DUCKS_HEADING"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
@@ -569,7 +569,7 @@ size_flags_horizontal = 3
 [node name="HeadingName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Name"
+text = "NAME_HEADING"
 horizontal_alignment = 1
 
 [node name="Spacer15" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -579,7 +579,7 @@ size_flags_horizontal = 3
 [node name="HeadingAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Advantage"
+text = "ADVANTAGE_HEADING"
 horizontal_alignment = 1
 
 [node name="Spacer14" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -589,7 +589,7 @@ size_flags_horizontal = 3
 [node name="HeadingPoints" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Points"
+text = "POINTS_HEADING"
 horizontal_alignment = 1
 
 [node name="BasicDuckTexture" type="TextureRect" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -604,7 +604,7 @@ size_flags_horizontal = 3
 [node name="BasicDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Basic Duck"
+text = "BASIC_DUCK_NAME"
 horizontal_alignment = 1
 
 [node name="Spacer11" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -614,7 +614,7 @@ size_flags_horizontal = 3
 [node name="BasicDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "None"
+text = "BASIC_DUCK_ADVANTAGE"
 horizontal_alignment = 1
 
 [node name="Spacer10" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -639,7 +639,7 @@ size_flags_horizontal = 3
 [node name="FastDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Fast Duck"
+text = "FAST_DUCK_NAME"
 horizontal_alignment = 1
 
 [node name="Spacer8" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -649,7 +649,7 @@ size_flags_horizontal = 3
 [node name="FastDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Speed"
+text = "FAST_DUCK_ADVANTAGE"
 horizontal_alignment = 1
 
 [node name="Spacer7" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -674,7 +674,7 @@ size_flags_horizontal = 3
 [node name="HungryDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Hungry Duck"
+text = "HUNGRY_DUCK_NAME"
 horizontal_alignment = 1
 
 [node name="Spacer4" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -684,7 +684,7 @@ size_flags_horizontal = 3
 [node name="HungryDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Hunger"
+text = "HUNGRY_DUCK_ADVANTAGE"
 horizontal_alignment = 1
 
 [node name="Spacer3" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -709,7 +709,7 @@ size_flags_horizontal = 3
 [node name="AngryDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Angry Duck"
+text = "ANGRY_DUCK_NAME"
 horizontal_alignment = 1
 
 [node name="Spacer6" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -719,7 +719,7 @@ size_flags_horizontal = 3
 [node name="AngryDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Speed & Hunger"
+text = "ANGRY_DUCK_ADVANTAGE"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -738,7 +738,7 @@ size_flags_vertical = 1
 focus_mode = 2
 mouse_filter = 0
 theme_override_font_sizes/font_size = 50
-text = "Win & Lose"
+text = "WIN_LOSE_HEADING"
 horizontal_alignment = 1
 
 [node name="HBoxPoints" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
@@ -757,7 +757,7 @@ size_flags_horizontal = 3
 [node name="PointsLabel" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Earn"
+text = "WIN_LOSE_LINE_1.0"
 horizontal_alignment = 2
 
 [node name="PointInputBox" type="SpinBox" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints"]
@@ -773,7 +773,7 @@ select_all_on_focus = true
 [node name="PointsLabel2" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Points to Win"
+text = "WIN_LOSE_LINE_1.5"
 
 [node name="HBoxReachYou" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
 layout_mode = 2
@@ -797,7 +797,7 @@ size_flags_horizontal = 3
 [node name="ReachYouLabel" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxReachYou"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Don't Let Them Reach You"
+text = "WIN_LOSE_LINE_2"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -817,7 +817,7 @@ size_flags_horizontal = 3
 [node name="ThrowLabel" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxThrow"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Don't Throw Too Many"
+text = "WIN_LOSE_LINE_3"
 horizontal_alignment = 1
 
 [node name="HBoxIce" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
@@ -843,7 +843,7 @@ size_flags_horizontal = 3
 [node name="IceLabel" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxIce"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "Grab an Ice Block to freeze all ducks"
+text = "WIN_LOSE_LINE_4"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
