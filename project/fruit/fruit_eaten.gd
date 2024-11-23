@@ -7,12 +7,21 @@ signal points_gained (points : int)
 
 var in_tree_left_lane : bool
 
+@onready var animation_player := $AnimationPlayer as AnimationPlayer
+
 func _physics_process(delta: float) -> void:
-	if not GameInfo.game_paused:
+	if not GameInfo.system_paused and not GameInfo.player_paused:
 		if in_tree_left_lane:
 			global_position.x -= 150 * delta
 		else:
 			global_position.x += 150 * delta
+
+
+func on_game_paused(is_paused : bool) -> void:
+	if is_paused:
+		animation_player.pause()
+	else:
+		animation_player.play()
 
 
 func _on_area_entered(area: Area2D) -> void:

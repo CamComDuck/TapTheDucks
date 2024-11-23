@@ -10,6 +10,10 @@ func _ready() -> void:
 	time_until_despawn.start()
 
 
+func on_game_paused(is_paused : bool) -> void:
+	time_until_despawn.paused = is_paused
+	
+
 func _on_time_until_despawn_timeout() -> void:
 	queue_free()
 

@@ -8,6 +8,7 @@ var _is_volume_being_changed := false
 @onready var input_button_move_down := $Keybinds/VBoxContainer/HBoxContainer4/InputButtonMoveDown as Button
 @onready var input_button_interact_left := $Keybinds/VBoxContainer/HBoxContainer5/InputButtonInteractLeft as Button
 @onready var input_button_interact_right := $Keybinds/VBoxContainer/HBoxContainer6/InputButtonInteractRight as Button
+@onready var input_button_pause := $Keybinds/VBoxContainer/HBoxContainer7/InputButtonPause as Button
 
 @onready var basic_duck_texture := $Ducks/VBoxContainer/GridContainer/BasicDuckTexture as TextureRect
 @onready var fast_duck_texture := $Ducks/VBoxContainer/GridContainer/FastDuckTexture as TextureRect
@@ -102,6 +103,13 @@ func _update_keybind_labels(is_reset : bool) -> void:
 				input_button_interact_right.text = events[0].as_text().trim_suffix(" (Physical)")
 			else:
 				input_button_interact_right.text = ""
+				
+		elif action == "pause":
+			var events = InputMap.action_get_events(action)
+			if not events.is_empty():
+				input_button_pause.text = events[0].as_text().trim_suffix(" (Physical)")
+			else:
+				input_button_interact_right.text = ""
 			
 
 func _on_input_button_pressed(action : String, button : Button) -> void:
@@ -125,6 +133,10 @@ func _on_input_button_interact_left_pressed() -> void:
 
 func _on_input_button_interact_right_pressed() -> void:
 	_on_input_button_pressed("interact_right", input_button_interact_right)
+
+
+func _on_input_button_pause_pressed() -> void:
+	_on_input_button_pressed("pause", input_button_pause)
 
 
 func _on_reset_button_pressed() -> void:

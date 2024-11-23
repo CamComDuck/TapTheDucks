@@ -98,8 +98,30 @@ func _physics_process(_delta: float) -> void:
 	if _ducks_currently_frozen:
 		var frozen_time_left_percent := (duck_freeze.time_left / duck_freeze.wait_time) * 100
 		game_overlay.update_freezer_progress_value(frozen_time_left_percent)
-		
-	if not _allow_input:
+	
+	if Input.is_action_just_pressed("pause"):
+		if not GameInfo.player_paused and not GameInfo.system_paused:
+			AudioController.play_sound_menu_click()
+			_allow_input = false
+			GameInfo.player_paused = true
+			duck_spawn_timer.paused = true
+			duck_freeze.paused = true
+			game_overlay.game_stop("PAUSE")
+			for child in get_children():
+				if child.has_method("on_player_paused"):
+					child.on_player_paused(true)
+		elif GameInfo.player_paused and not GameInfo.system_paused:
+			AudioController.play_sound_menu_click()
+			_allow_input = true
+			GameInfo.player_paused = false
+			duck_spawn_timer.paused = false
+			duck_freeze.paused = false
+			game_overlay.game_stop("UNPAUSE")
+			for child in get_children():
+				if child.has_method("on_game_paused"):
+					child.on_game_paused(false)
+	
+	elif not _allow_input:
 		pass
 		
 	elif Input.is_action_just_pressed("move_down"):
@@ -212,7 +234,7 @@ func _restart_duck_spawn_timer() -> void:
 	
 
 func _on_life_lost(particle_position : Vector2) -> void:
-	if not GameInfo.game_paused:
+	if not GameInfo.system_paused and not GameInfo.player_paused:
 		GameInfo.lives -= 1
 		game_overlay.update_lives_label()
 		AudioController.play_sound_life_lost()
@@ -224,12 +246,15 @@ func _on_life_lost(particle_position : Vector2) -> void:
 		new_particles.emitting = true
 		
 		
-		if GameInfo.lives == 0:
+		if GameInfo.lives == 0: # Lose the Game
 			AudioController.play_sound_lose()
 			_allow_input = false
-			game_overlay.game_end(false)
+			game_overlay.game_stop("LOSE")
 			duck_spawn_timer.stop()
-			GameInfo.game_paused = true
+			GameInfo.system_paused = true
+			for child in get_children():
+				if child.has_method("on_game_paused"):
+					child.on_game_paused(true)
 
 
 func _on_points_gained(points : int) -> void:
@@ -365,11 +390,14 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 		
-		if _current_points >= 2000 and _ducks_finished == _round_max_ducks:
+		if _current_points >= 100 and _ducks_finished == _round_max_ducks: # Win The Game
 			_allow_input = false
-			game_overlay.game_end(true)
-			GameInfo.game_paused = true
+			game_overlay.game_stop("WIN")
+			GameInfo.system_paused = true
 			AudioController.play_sound_win()
+			for child in get_children():
+				if child.has_method("on_game_paused"):
+					child.on_game_paused(true)
 			
 		elif _ducks_finished == _round_max_ducks:
 			_current_round += 1
@@ -377,7 +405,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 			
 			if _current_round % 2 == 1:
 				_allow_input = false
-				GameInfo.game_paused = true
+				GameInfo.system_paused = true
 				var new_minigame := minigame.instantiate() as Minigame
 				get_parent().add_child.call_deferred(new_minigame)
 				
@@ -385,7 +413,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 				var life_earned : bool = await new_minigame.life_earned
 				
 				_allow_input = true
-				GameInfo.game_paused = false
+				GameInfo.system_paused = false
 				_on_points_gained(points_earned)
 				if life_earned:
 					GameInfo.lives += 1

@@ -9,6 +9,7 @@ signal ice_spawned (ice_position : Vector2)
 var _fruits_eaten := 0
 var _duck_type : DuckTypes = null
 var _tween : Tween = null
+var _can_move := true
 
 var in_tree_left_lane : bool
 var lane_number : int
@@ -30,10 +31,13 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	if GameInfo.game_paused:
+	if GameInfo.system_paused:
 		move_timer.stop()
 		velocity.x = 0
 		base_duck_sprite.stop()
+	
+	elif not _can_move:
+		pass
 	
 	elif in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (GameInfo.grid_square_length * 14.5)):
@@ -90,6 +94,25 @@ func toggle_frozen(is_frozen : bool) -> void:
 		base_duck_sprite.play()
 
 
+func on_game_paused(is_paused : bool) -> void:
+	_can_move = not is_paused
+	
+	if is_paused:
+		base_duck_sprite.pause()
+		if _tween != null:
+			_tween.pause()
+	else:
+		base_duck_sprite.play()
+		if _tween != null:
+			if _tween.is_valid():
+				_tween.play()
+		
+	if _fruits_eaten < _duck_type.max_fruits:
+		move_timer.paused = is_paused
+	else:
+		velocity.x = 0
+	
+
 func _on_move_timer_timeout() -> void:
 	var new_position : Vector2
 	
@@ -109,7 +132,7 @@ func _on_move_timer_timeout() -> void:
 
 
 func _on_base_duck_sprite_animation_finished() -> void:
-	if base_duck_sprite.animation == "eating" and not GameInfo.game_paused:
+	if base_duck_sprite.animation == "eating" and not GameInfo.system_paused:
 		base_duck_sprite.play("default")
 		
 		var fruit_position := Vector2(global_position.x, global_position.y + 7)

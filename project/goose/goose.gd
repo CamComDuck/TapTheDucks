@@ -15,3 +15,10 @@ func play_animation(animation : String) -> void:
 
 func flip_h(face_left : bool) -> void:
 	sprite_2d.flip_h = face_left
+
+
+func on_game_paused(is_paused : bool) -> void:
+	if is_paused:
+		sprite_2d.pause()
+	else:
+		sprite_2d.play()

@@ -39,7 +39,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_6vak0")
 
-[node name="GameEndContainer" type="VBoxContainer" parent="."]
+[node name="GameStopContainer" type="VBoxContainer" parent="."]
 visible = false
 z_index = 100
 z_as_relative = false
@@ -47,7 +47,7 @@ layout_mode = 0
 offset_right = 490.0
 offset_bottom = 402.0
 
-[node name="GameEndLabel" type="Label" parent="GameEndContainer"]
+[node name="GameStopLabel" type="Label" parent="GameStopContainer"]
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 150
@@ -55,13 +55,20 @@ text = "You Lose!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="PlayAgainButton" type="Button" parent="GameEndContainer"]
+[node name="PauseLabel" type="Label" parent="GameStopContainer"]
+layout_mode = 2
+theme = ExtResource("1_wh8a7")
+theme_override_font_sizes/font_size = 30
+text = "Press ? to unpause"
+horizontal_alignment = 1
+
+[node name="PlayAgainButton" type="Button" parent="GameStopContainer"]
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 100
 text = "Play Again"
 
-[node name="MenuButton" type="Button" parent="GameEndContainer"]
+[node name="MenuButton" type="Button" parent="GameStopContainer"]
 layout_mode = 2
 theme = ExtResource("1_wh8a7")
 theme_override_font_sizes/font_size = 100
@@ -180,5 +187,5 @@ fill_mode = 4
 texture_under = ExtResource("8_efgtv")
 texture_progress = ExtResource("9_gouch")
 
-[connection signal="pressed" from="GameEndContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
-[connection signal="pressed" from="GameEndContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="GameStopContainer/PlayAgainButton" to="." method="_on_play_again_button_pressed"]
+[connection signal="pressed" from="GameStopContainer/MenuButton" to="." method="_on_menu_button_pressed"]
