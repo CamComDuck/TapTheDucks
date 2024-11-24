@@ -53,21 +53,24 @@ func update_round_label(round_num : int) -> void:
 	
 
 func game_stop(stop_type : String) -> void:
-	game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
-	game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
-	
 	if stop_type == "WIN":
 		game_stop_label.text = tr("WIN_GAME")
 		win_particles.emitting = true
 		pause_label.hide()
 		play_again_button.show()
 		menu_button.show()
+		game_stop_container.size.x -= 300
+		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
+		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
 		game_stop_container.show()
 	elif stop_type == "LOSE":
 		game_stop_label.text = tr("LOSE_GAME")
 		pause_label.hide()
 		play_again_button.show()
 		menu_button.show()
+		game_stop_container.size.x -= 300
+		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
+		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
 		game_stop_container.show()
 	elif stop_type == "PAUSE":
 		game_stop_label.text = tr("GAME_PAUSED_1")
@@ -77,6 +80,9 @@ func game_stop(stop_type : String) -> void:
 		pause_label.show()
 		play_again_button.hide()
 		menu_button.hide()
+		game_stop_container.size.x -= 300
+		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
+		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
 		game_stop_container.show()
 	elif stop_type == "UNPAUSE":
 		game_stop_container.hide()
@@ -94,3 +100,15 @@ func _on_menu_button_pressed() -> void:
 	GameInfo.lives = 3
 	GameInfo.system_paused = false
 	get_tree().change_scene_to_packed(preload("res://title/title.tscn"))
+
+
+func _on_round_label_resized() -> void:
+	while round_label.size.x != 160:
+		round_label.add_theme_font_size_override("font_size", round_label.get_theme_font_size("font_size") - 1)
+		
+
+func _on_points_label_resized() -> void:
+	if points_label != null:
+		while points_label.size.x != 400:
+			points_label.add_theme_font_size_override("font_size", points_label.get_theme_font_size("font_size") - 1)
+		

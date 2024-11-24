@@ -93,7 +93,7 @@ func _ready() -> void:
 		
 		
 func _physics_process(_delta: float) -> void:
-	var _goose_speed := 150
+	var _goose_speed := 200
 	
 	if _ducks_currently_frozen:
 		var frozen_time_left_percent := (duck_freeze.time_left / duck_freeze.wait_time) * 100
@@ -197,9 +197,9 @@ func _spawn_duck() -> void:
 	var random_type_roll := randi_range(1, 100)
 	_current_ducks_swimming.append(new_duck)
 	
-	var _percent_chance_basic_duck := 40
-	var _percent_chance_fast_duck := 30
-	var _percent_chance_hungry_duck := 20
+	var _percent_chance_basic_duck := 70 - (_current_round)
+	var _percent_chance_fast_duck := 15 - (_current_round)
+	var _percent_chance_hungry_duck := 10 + (_current_round)
 	
 	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
@@ -292,6 +292,7 @@ func _on_whole_fruit_spawned() -> void:
 func _on_ice_spawned(ice_position : Vector2) -> void:
 	var new_ice := ice.instantiate() as Ice
 	new_ice.connect("ducks_frozen", _on_ducks_frozen)
+	new_ice.connect("points_gained", _on_points_gained)
 	add_child.call_deferred(new_ice)
 	new_ice.global_position = ice_position
 

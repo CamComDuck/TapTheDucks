@@ -22,14 +22,11 @@ func _ready() -> void:
 	if not in_tree_left_lane:
 		base_duck_sprite.flip_h = not base_duck_sprite.flip_h
 	
-	if _duck_type.is_fast_type:
-		move_timer.wait_time = randf_range(1, 2)
-	else:
-		move_timer.wait_time = randf_range(2.1, 3)
-	move_timer.start()
+	_restart_move_timer()
 
 
 func _physics_process(delta: float) -> void:
+	var move_speed := 18500
 	
 	if GameInfo.system_paused:
 		move_timer.stop()
@@ -41,14 +38,14 @@ func _physics_process(delta: float) -> void:
 	
 	elif in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x < (GameInfo.grid_square_length * 14.5)):
-			velocity.x = 15000 * delta
+			velocity.x = move_speed * delta
 			move_and_slide()
 		elif base_duck_sprite.animation == "eating" and position.x >= (GameInfo.grid_square_length * 14.5):
 			position.x = minf(position.x, GameInfo.grid_square_length * 14.5)
 			
 	elif not in_tree_left_lane:
 		if _fruits_eaten == _duck_type.max_fruits or (base_duck_sprite.animation == "eating" and position.x > (GameInfo.grid_square_length * 1.5)):
-			velocity.x = -15000 * delta
+			velocity.x = -1 * move_speed * delta
 			move_and_slide()
 		elif base_duck_sprite.animation == "eating" and position.x <= (GameInfo.grid_square_length * 1.5):
 			position.x = maxf(position.x, GameInfo.grid_square_length * 1.5)
@@ -66,7 +63,7 @@ func eat_fruit() -> bool: # Returns whether Fruit is sucessfully Eaten
 			_tween.kill()
 		
 		var ice_chance := randf_range(1, 10)
-		if ice_chance < 10:
+		if ice_chance < 1.5:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		
@@ -112,6 +109,12 @@ func on_game_paused(is_paused : bool) -> void:
 	else:
 		velocity.x = 0
 	
+func _restart_move_timer() -> void:
+	if _duck_type.is_fast_type:
+		move_timer.wait_time = randf_range(0.7, 0.9)
+	else:
+		move_timer.wait_time = randf_range(0.9, 1.1)
+	move_timer.start()
 
 func _on_move_timer_timeout() -> void:
 	var new_position : Vector2
@@ -124,11 +127,7 @@ func _on_move_timer_timeout() -> void:
 	_tween = get_tree().create_tween()
 	_tween.tween_property(self, "global_position",new_position, 0.6).set_ease(Tween.EASE_OUT)
 	
-	if _duck_type.is_fast_type:
-		move_timer.wait_time = randf_range(1, 2)
-	else:
-		move_timer.wait_time = randf_range(2.1, 3)
-	move_timer.start()
+	_restart_move_timer()
 
 
 func _on_base_duck_sprite_animation_finished() -> void:

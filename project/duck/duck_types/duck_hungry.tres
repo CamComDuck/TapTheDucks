@@ -8,4 +8,4 @@ name = "HungryDuck"
 max_fruits = 2
 is_fast_type = false
 color = Color(0.580392, 0.619608, 0.247059, 1)
-point_value = 50
+point_value = 100

@@ -131,7 +131,7 @@ shape = SubResource("RectangleShape2D_s1div")
 debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
 
 [node name="DuckFreeze" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 8.0
 
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
 [connection signal="body_entered" from="LaneEndGooseSide1" to="." method="_on_lane_end_goose_side_body_entered"]

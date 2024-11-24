@@ -226,7 +226,7 @@ func _on_goose_animation_finished() -> void:
 		if _is_extra_life_round:
 			_life_found = true
 		
-		_points_eared = 100
+		_points_eared = 3000
 	else:
 		await _on_reveal_spot(_selected_spot, false, false)
 		AudioController.pause_sound_minigame_music()

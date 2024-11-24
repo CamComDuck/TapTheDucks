@@ -29,7 +29,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -79,5 +79,5 @@ shape = SubResource("RectangleShape2D_m08fr")
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
 autoplay = "default"
-frame = 4
-frame_progress = 0.297189
+frame = 3
+frame_progress = 0.122939
