@@ -7,5 +7,5 @@ script = ExtResource("1_dk5a8")
 name = "FastDuck"
 max_fruits = 1
 is_fast_type = true
-color = Color(1, 0.47451, 0, 1)
+color = Color(0.807843, 0.533333, 0.466667, 1)
 point_value = 40

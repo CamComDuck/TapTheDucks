@@ -20,6 +20,10 @@ func _ready() -> void:
 	set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
 	set_tab_icon(1, preload("res://duck/graphics/default_1.png"))
 	
+	set_tab_title(0, tr("GOOSE_COLOR_HEADING"))
+	set_tab_title(1, tr("HOW_TO_PLAY_HEADING"))
+	set_tab_title(2, tr("EXIT_MENU_HEADER"))
+	
 	_goose_red = GameInfo.goose_color.r
 	red_slider.value = _goose_red
 	_goose_green = GameInfo.goose_color.g
@@ -29,7 +33,7 @@ func _ready() -> void:
 	goose_texture.modulate = Color(_goose_red, _goose_green, _goose_blue)
 	GameInfo.goose_color = Color(_goose_red, _goose_green, _goose_blue)
 	
-	frozen_duck_texture.modulate = Color(Color.AQUA)
+	frozen_duck_texture.modulate = Color("7ab1ae")
 	var duck_info_grid : Array[Node] = duck_grid_container.get_children()
 	var duck_types : Array[DuckTypes] = [duck_basic, duck_fast, duck_hungry, duck_angry]
 	

@@ -7,6 +7,7 @@ LANGUAGE_HEADER,Language,언어,,語言
 ENGLISH_LABEL,English,,,英文
 FRENCH_LABEL,French,,,法文
 KOREAN_LABEL,Korean,,,韓文
+CHINESE_LABEL,Chinese,,,
 VOLUME_HEADER,Volume,음량,,音量
 MASTER_LABEL,Master,,,
 MUSIC_LABEL,Music,배경음악,,音樂

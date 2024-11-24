@@ -242,7 +242,7 @@ func _on_life_lost(particle_position : Vector2) -> void:
 		var new_particles := firework_particles.instantiate() as Fireworks
 		add_child.call_deferred(new_particles)
 		new_particles.global_position = particle_position
-		new_particles.color = Color(Color.RED)
+		new_particles.color = Color("792426")
 		new_particles.emitting = true
 		
 		
@@ -307,7 +307,7 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 	var new_particles := firework_particles.instantiate() as Fireworks
 	add_child.call_deferred(new_particles)
 	new_particles.global_position = particle_position
-	new_particles.color = Color(Color.DEEP_SKY_BLUE)
+	new_particles.color = Color("7ab1ae")
 	new_particles.emitting = true
 	
 

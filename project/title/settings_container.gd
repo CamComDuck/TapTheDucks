@@ -29,6 +29,12 @@ func _ready() -> void:
 	#set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
 	#set_tab_icon(1, POINTS)
 	
+	set_tab_title(0, tr("KEYBINDS_HEADER"))
+	set_tab_title(1, tr("VOLUME_HEADER"))
+	set_tab_title(2, tr("LANGUAGE_HEADER"))
+	set_tab_title(3, tr("EXIT_MENU_HEADER"))
+	
+	
 	_update_keybind_labels(true)
 	
 	

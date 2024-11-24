@@ -7,5 +7,5 @@ script = ExtResource("1_y3j3w")
 name = "AngryDuck"
 max_fruits = 2
 is_fast_type = true
-color = Color(1, 0, 0, 1)
+color = Color(0.627451, 0.262745, 0.223529, 1)
 point_value = 60

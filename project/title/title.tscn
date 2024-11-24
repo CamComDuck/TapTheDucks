@@ -442,8 +442,8 @@ metadata/_tab_index = 3
 [node name="CustomizationContainer" type="TabContainer" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_right = 700.0
-offset_bottom = 683.0
+offset_right = 763.0
+offset_bottom = 715.0
 theme = ExtResource("2_cgims")
 tab_alignment = 1
 current_tab = 0

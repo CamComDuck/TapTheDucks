@@ -1,19 +1,21 @@
 class_name GameOverlay
 extends Control
 
-@onready var points_label := $PointsLabel as Label
-@onready var game_stop_container := $GameStopContainer as VBoxContainer
-@onready var game_stop_label := $GameStopContainer/GameStopLabel as Label
-@onready var win_particles := $WinParticles as CPUParticles2D
-@onready var lives_container := $LivesContainer as HBoxContainer
+@onready var game_stop_container := %GameStopContainer as VBoxContainer
+@onready var game_stop_label := %GameStopLabel as Label
+@onready var pause_label := %PauseLabel as Label
+@onready var play_again_button := %PlayAgainButton as Button
+@onready var menu_button := %MenuButton as Button
+@onready var win_particles := %WinParticles as CPUParticles2D
+@onready var lives_container := %LivesContainer as HBoxContainer
+@onready var points_texture := %PointsTexture as TextureRect
+@onready var points_label := %PointsLabel as Label
+@onready var round_label := %RoundLabel as Label
+@onready var round_progress_slider := %RoundProgressSlider as HSlider
+@onready var freeze_timer_container := %FreezeTimerContainer as VBoxContainer
+@onready var texture_progress_bar := %TextureProgressBar as TextureProgressBar
 @onready var life := load("res://game_overlay/life.tscn") as PackedScene
-@onready var round_label := $RoundLabel as Label
-@onready var round_progress_slider := $RoundProgressSlider as HSlider
-@onready var freeze_timer_container := $FreezeTimerContainer as VBoxContainer
-@onready var texture_progress_bar := $FreezeTimerContainer/TextureProgressBar as TextureProgressBar
-@onready var pause_label := $GameStopContainer/PauseLabel as Label
-@onready var play_again_button := $GameStopContainer/PlayAgainButton as Button
-@onready var menu_button := $GameStopContainer/MenuButton as Button
+
 
 func update_freezer_progress_value(value : float) -> void:
 	if not freeze_timer_container.visible:
