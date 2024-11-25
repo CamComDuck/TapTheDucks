@@ -1,3 +1,4 @@
+@icon("res://game_overlay/icon_sound.png")
 extends Control
 
 var _change_volume_lower := false

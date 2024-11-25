@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://3f2ol0bm2jjt"]
+[gd_scene load_steps=16 format=3 uid="uid://3f2ol0bm2jjt"]
 
 [ext_resource type="Script" path="res://goose/goose.gd" id="1_50gqq"]
 [ext_resource type="Texture2D" uid="uid://76lirwchqqjj" path="res://goose/graphics/default_1.png" id="2_jjl3d"]
@@ -11,6 +11,8 @@
 [ext_resource type="Texture2D" uid="uid://b7bpfjn8baxrx" path="res://goose/graphics/pick_fruit_1.png" id="7_35gdw"]
 [ext_resource type="Texture2D" uid="uid://dhryidu7hbld7" path="res://goose/graphics/pick_fruit_2.png" id="8_cbn4r"]
 [ext_resource type="Texture2D" uid="uid://bobfjp3gefrci" path="res://goose/graphics/pick_fruit_3.png" id="9_2hbag"]
+[ext_resource type="Texture2D" uid="uid://pwgw005qejgn" path="res://goose/graphics/swim_1.png" id="12_q07ht"]
+[ext_resource type="Texture2D" uid="uid://ond1r0fwytwb" path="res://goose/graphics/swim_2.png" id="13_0je5o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m08fr"]
 size = Vector2(52, 96)
@@ -101,6 +103,20 @@ animations = [{
 "loop": false,
 "name": &"move_up",
 "speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_q07ht")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_0je5o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_q07ht")
+}],
+"loop": true,
+"name": &"swim",
+"speed": 5.0
 }]
 
 [node name="Goose" type="CharacterBody2D"]
@@ -115,7 +131,7 @@ shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
-animation = &"fruit_pick"
+animation = &"swim"
 autoplay = "default"
-frame = 4
-frame_progress = 1.0
+frame = 2
+frame_progress = 0.0639699

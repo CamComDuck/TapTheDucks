@@ -19,6 +19,7 @@ var _goose_blue : float
 func _ready() -> void:
 	set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
 	set_tab_icon(1, preload("res://duck/graphics/default_1.png"))
+	set_tab_icon(2, preload("res://game_overlay/icon_exit.png"))
 	
 	set_tab_title(0, tr("GOOSE_COLOR_HEADING"))
 	set_tab_title(1, tr("HOW_TO_PLAY_HEADING"))

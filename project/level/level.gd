@@ -11,7 +11,7 @@ var _background : TileMapLayer = null
 
 var _current_points := 0
 var _current_round := 1
-var _round_max_ducks := 5
+var _round_max_ducks := 4
 var _round_current_ducks := 0
 var _ducks_finished := 0
 var _ducks_currently_frozen := false
@@ -133,6 +133,8 @@ func _physics_process(_delta: float) -> void:
 	elif _lane_tree_is_left[_goose_current_lane]:
 		
 		if Input.is_action_pressed("interact_right") and goose.position.x < GameInfo.grid_square_length * 14.5:
+			if goose.current_animation != "swim":
+				goose.play_animation("swim")
 			goose.velocity.x = _goose_speed
 			goose.move_and_slide()
 			
@@ -145,6 +147,8 @@ func _physics_process(_delta: float) -> void:
 	elif not _lane_tree_is_left[_goose_current_lane]:
 		
 		if Input.is_action_pressed("interact_left") and goose.position.x > GameInfo.grid_square_length * 1.5:
+			if goose.current_animation != "swim":
+				goose.play_animation("swim")
 			goose.velocity.x = _goose_speed * -1
 			goose.move_and_slide()
 			
@@ -196,6 +200,7 @@ func _handle_goose_return_to_lane() -> void:
 	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, tween_time)
 	await tween.finished
 	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	goose.play_animation("default")
 	_allow_input = true
 	
 		
@@ -382,6 +387,7 @@ func _on_round_start() -> void:
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
+	_round_max_ducks = randi_range(_round_max_ducks, _current_round * 4)
 	game_overlay.new_round_progress_bar(_round_max_ducks)
 	_restart_duck_spawn_timer()
 

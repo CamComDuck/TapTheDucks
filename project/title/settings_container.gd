@@ -26,8 +26,10 @@ func _ready() -> void:
 					_volume_sliders.append(hbox_node)
 					hbox_node.value = db_to_linear(AudioServer.get_bus_volume_db(_volume_sliders.size() - 1))
 	
-	#set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
-	#set_tab_icon(1, POINTS)
+	set_tab_icon(0, preload("res://game_overlay/icon_keybinds.png"))
+	set_tab_icon(1, preload("res://game_overlay/icon_sound.png"))
+	set_tab_icon(2, preload("res://game_overlay/icon_language.png"))
+	set_tab_icon(3, preload("res://game_overlay/icon_exit.png"))
 	
 	set_tab_title(0, tr("KEYBINDS_HEADER"))
 	set_tab_title(1, tr("VOLUME_HEADER"))

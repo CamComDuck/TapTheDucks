@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dsh51lrq1oi81"
-path="res://.godot/imported/tile_island.png-033d826c218cf2869ae051df99f2445e.ctex"
+uid="uid://cbdp642gd8cln"
+path="res://.godot/imported/icon_language.png-32e57a159ccec53a34b951b84debd174.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/graphics/tile_island.png"
-dest_files=["res://.godot/imported/tile_island.png-033d826c218cf2869ae051df99f2445e.ctex"]
+source_file="res://game_overlay/icon_language.png"
+dest_files=["res://.godot/imported/icon_language.png-32e57a159ccec53a34b951b84debd174.ctex"]
 
 [params]
 

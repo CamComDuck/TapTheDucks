@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://56s1vk0qlcyq"
-path="res://.godot/imported/tile_lane.png-a0633edaaa7aae5fcc62ec68253ea69a.ctex"
+uid="uid://d0a4qmwp7cdcs"
+path="res://.godot/imported/icon_keybinds.png-c2f54d1e129a89a588065afe5198af5a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://level/graphics/tile_lane.png"
-dest_files=["res://.godot/imported/tile_lane.png-a0633edaaa7aae5fcc62ec68253ea69a.ctex"]
+source_file="res://game_overlay/icon_keybinds.png"
+dest_files=["res://.godot/imported/icon_keybinds.png-c2f54d1e129a89a588065afe5198af5a.ctex"]
 
 [params]
 
