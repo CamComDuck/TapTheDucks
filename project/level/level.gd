@@ -121,7 +121,7 @@ func _physics_process(_delta: float) -> void:
 				if child.has_method("on_game_paused"):
 					child.on_game_paused(false)
 	
-	elif not _allow_input:
+	elif not _allow_input or GameInfo.player_paused or GameInfo.system_paused:
 		pass
 		
 	elif Input.is_action_just_pressed("move_down"):
@@ -160,8 +160,10 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 	
 	if is_down:
 		_goose_current_lane += 1
+		goose.play_animation("move_down")
 	else:
 		_goose_current_lane -= 1
+		goose.play_animation("move_up")
 		
 	if _goose_current_lane == 4:
 		_goose_current_lane = 0
@@ -169,15 +171,18 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 		_goose_current_lane = 3
 		
 	AudioController.play_sound_goose_move()
+	
 	var tween_fade_out : Tween = create_tween()
-	tween_fade_out.tween_property(goose, "modulate", Color(1, 1, 1, 0), 0.08).set_ease(Tween.EASE_OUT)
+	tween_fade_out.tween_property(goose, "modulate", Color(1, 1, 1, 0), 0.08)
+	
 	await tween_fade_out.finished
 	
 	goose.global_position = _goose_positions[_goose_current_lane].global_position
 	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
 	
 	var tween_fade_in : Tween = create_tween()
-	tween_fade_in.tween_property(goose, "modulate", Color(1, 1, 1, 1), 0.08).set_ease(Tween.EASE_IN)
+	tween_fade_in.tween_property(goose, "modulate", Color(1, 1, 1, 1), 0.08)
+	
 	await tween_fade_in.finished
 	
 	_allow_input = true
@@ -185,9 +190,12 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 	
 func _handle_goose_return_to_lane() -> void:
 	_allow_input = false
+	goose.flip_h(_lane_tree_is_left[_goose_current_lane])
 	var tween : Tween = create_tween()
-	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, 0.1).set_ease(Tween.EASE_OUT)
+	var tween_time := absf(goose.global_position.x - _goose_positions[_goose_current_lane].global_position.x) * .002
+	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, tween_time)
 	await tween.finished
+	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
 	_allow_input = true
 	
 		
@@ -197,9 +205,11 @@ func _spawn_duck() -> void:
 	var random_type_roll := randi_range(1, 100)
 	_current_ducks_swimming.append(new_duck)
 	
-	var _percent_chance_basic_duck := 70 - (_current_round)
-	var _percent_chance_fast_duck := 15 - (_current_round)
-	var _percent_chance_hungry_duck := 10 + (_current_round)
+	var round_multiplier := 0.25
+	var max_duck_percents : Array[int] = [50, 30, 15]
+	var _percent_chance_basic_duck := maxf(max_duck_percents[0] - (_current_round * round_multiplier), max_duck_percents[2]) 
+	var _percent_chance_fast_duck := maxf(max_duck_percents[1] - (_current_round * round_multiplier), max_duck_percents[1])
+	var _percent_chance_hungry_duck := minf(max_duck_percents[2] + (_current_round * round_multiplier), max_duck_percents[0])
 	
 	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
@@ -273,8 +283,10 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> vo
 	
 func _on_whole_fruit_spawned() -> void:
 	_allow_input = false
+	goose.flip_h(_lane_tree_is_left[_goose_current_lane])
 	goose.play_animation("fruit_pick")
 	await goose.animation_finished
+	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
 
 	var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 	new_fruit_whole.connect("life_lost", _on_life_lost)

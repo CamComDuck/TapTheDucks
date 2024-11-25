@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cffc8lqfnpq2f"
-path="res://.godot/imported/Player_2.png-d9628939f1f123d53e508a824a29a330.ctex"
+uid="uid://bobfjp3gefrci"
+path="res://.godot/imported/pick_fruit_3.png-8b2719c1c72799728ea77bc0f41b693e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://goose/graphics/Player_2.png"
-dest_files=["res://.godot/imported/Player_2.png-d9628939f1f123d53e508a824a29a330.ctex"]
+source_file="res://goose/graphics/pick_fruit_3.png"
+dest_files=["res://.godot/imported/pick_fruit_3.png-8b2719c1c72799728ea77bc0f41b693e.ctex"]
 
 [params]
 

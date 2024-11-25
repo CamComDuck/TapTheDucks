@@ -1,13 +1,19 @@
-[gd_scene load_steps=8 format=3 uid="uid://3f2ol0bm2jjt"]
+[gd_scene load_steps=14 format=3 uid="uid://3f2ol0bm2jjt"]
 
 [ext_resource type="Script" path="res://goose/goose.gd" id="1_50gqq"]
 [ext_resource type="Texture2D" uid="uid://76lirwchqqjj" path="res://goose/graphics/default_1.png" id="2_jjl3d"]
 [ext_resource type="Texture2D" uid="uid://bfqhwa0r0cw3g" path="res://goose/graphics/default_2.png" id="3_8qodp"]
-[ext_resource type="Texture2D" uid="uid://cffc8lqfnpq2f" path="res://goose/graphics/Player_2.png" id="3_qo6vv"]
 [ext_resource type="Texture2D" uid="uid://b3quhmooxum6k" path="res://goose/graphics/default_3.png" id="4_urdbf"]
+[ext_resource type="Texture2D" uid="uid://cdxqrhf32v6w8" path="res://goose/graphics/bend_up_1.png" id="5_6og4v"]
+[ext_resource type="Texture2D" uid="uid://c8irwihchwmhv" path="res://goose/graphics/bend_up_2.png" id="6_15p4f"]
+[ext_resource type="Texture2D" uid="uid://bjyeactq22rpi" path="res://goose/graphics/bend_down_1.png" id="6_yuld5"]
+[ext_resource type="Texture2D" uid="uid://bcjuhwt44exnr" path="res://goose/graphics/bend_down_2.png" id="7_3n7bc"]
+[ext_resource type="Texture2D" uid="uid://b7bpfjn8baxrx" path="res://goose/graphics/pick_fruit_1.png" id="7_35gdw"]
+[ext_resource type="Texture2D" uid="uid://dhryidu7hbld7" path="res://goose/graphics/pick_fruit_2.png" id="8_cbn4r"]
+[ext_resource type="Texture2D" uid="uid://bobfjp3gefrci" path="res://goose/graphics/pick_fruit_3.png" id="9_2hbag"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m08fr"]
-size = Vector2(48, 96)
+size = Vector2(52, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c63i7"]
 animations = [{
@@ -33,16 +39,19 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("5_6og4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("6_15p4f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("7_35gdw")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("8_cbn4r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_2hbag")
 }],
 "loop": false,
 "name": &"fruit_pick",
@@ -50,20 +59,48 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("5_6og4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("6_15p4f")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("5_6og4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_qo6vv")
+"texture": ExtResource("2_jjl3d")
 }],
 "loop": false,
 "name": &"minigame_pick",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_yuld5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3n7bc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_yuld5")
+}],
+"loop": false,
+"name": &"move_down",
+"speed": 12.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_6og4v")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_15p4f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_6og4v")
+}],
+"loop": false,
+"name": &"move_up",
+"speed": 12.0
 }]
 
 [node name="Goose" type="CharacterBody2D"]
@@ -78,6 +115,7 @@ shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
+animation = &"fruit_pick"
 autoplay = "default"
-frame = 3
-frame_progress = 0.122939
+frame = 4
+frame_progress = 1.0

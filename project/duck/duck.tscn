@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://ctbxnb1ndly8u" path="res://duck/graphics/eating_4.png" id="8_rju1y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtmh2"]
-size = Vector2(48, 48)
+size = Vector2(40, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_22ymi"]
 animations = [{
