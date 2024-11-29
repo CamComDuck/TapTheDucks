@@ -41,6 +41,11 @@ var _points_eared : int
 @onready var finding_fruit_extra_life := load("res://fruit/graphics/fruit_whole.png") as Texture2D
 
 func _ready() -> void:
+	goose.hide()
+	modulate = Color(1, 1, 1, 0)
+	var tween_fade_in : Tween = create_tween()
+	tween_fade_in.tween_property(self, "modulate", Color(1, 1, 1, 1), 0.3)
+	await tween_fade_in.finished
 	AudioController.pause_sound_background_music()
 	AudioController.pause_sound_minigame_music()
 	
@@ -51,7 +56,6 @@ func _ready() -> void:
 	_goose_positions.append(goose_position_5)
 	_goose_positions.append(goose_position_6)
 	goose.global_position = _goose_positions[_goose_current_spot_index].global_position
-	goose.hide()
 	
 	_hiding_spot_positions.append(hiding_spot_1)
 	_hiding_spot_positions.append(hiding_spot_2)
@@ -240,4 +244,7 @@ func _on_goose_animation_finished() -> void:
 	
 	
 	AudioController.pause_sound_background_music()
+	var tween_fade_out : Tween = create_tween()
+	tween_fade_out.tween_property(self, "modulate", Color(1, 1, 1, 0), 0.3)
+	await tween_fade_out.finished
 	queue_free()

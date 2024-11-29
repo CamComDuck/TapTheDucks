@@ -259,7 +259,7 @@ func _fade_destroy_objects() -> void:
 	for child in get_children():
 		if child is FruitEaten or child is FruitWhole or child is Ice:
 			tween_fade_out = create_tween().set_parallel()
-			tween_fade_out.tween_property(child, "modulate", Color(1, 1, 1, 0), 0.5)
+			tween_fade_out.tween_property(child, "modulate", Color(1, 1, 1, 0), 0.3)
 			faded_objects.append(child)
 	
 	if not faded_objects.is_empty():
