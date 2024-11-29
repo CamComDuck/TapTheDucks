@@ -2,16 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b61yy21hnsnqj"
-path="res://.godot/imported/swim_3.png-135eab0f44932a28bf82a2d60b89b4af.ctex"
+uid="uid://bnjw3kjyx1gbb"
+path="res://.godot/imported/not_guard.svg-b2d127d6ec93eb4ce2d86c4aadb7bbfe.ctex"
 metadata={
+"has_editor_variant": true,
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://goose/graphics/swim_3.png"
-dest_files=["res://.godot/imported/swim_3.png-135eab0f44932a28bf82a2d60b89b4af.ctex"]
+source_file="res://addons/godot_state_charts/not_guard.svg"
+dest_files=["res://.godot/imported/not_guard.svg-b2d127d6ec93eb4ce2d86c4aadb7bbfe.ctex"]
 
 [params]
 
@@ -32,3 +33,6 @@ process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
 detect_3d/compress_to=1
+svg/scale=0.5
+editor/scale_with_editor_scale=true
+editor/convert_colors_with_editor_theme=false

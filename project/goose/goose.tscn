@@ -131,7 +131,4 @@ shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
-animation = &"swim"
 autoplay = "default"
-frame = 2
-frame_progress = 0.0639699

@@ -34,7 +34,8 @@ func _on_body_entered(body: Node2D) -> void:
 		var bodies : Array[Node2D] = get_overlapping_bodies()
 		
 		if body == bodies[0]:
-			var is_eaten : bool = bodies[0].eat_fruit()
-			if is_eaten:
+			var duck := bodies[0] as Duck
+			if duck.can_eat:
 				AudioController.play_sound_fruit_eat()
 				queue_free()
+			duck.state_chart.send_event("eat_fruit")

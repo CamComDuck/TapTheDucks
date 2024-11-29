@@ -26,9 +26,14 @@ window/size/viewport_width=768
 window/size/viewport_height=768
 window/stretch/mode="canvas_items"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg")
+
 [file_customization]
 
 folder_colors={
+"res://addons/": "red",
 "res://audio_controller/": "purple",
 "res://duck/": "green",
 "res://duck/duck_types/": "red",

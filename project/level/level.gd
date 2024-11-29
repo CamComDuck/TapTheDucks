@@ -108,8 +108,8 @@ func _physics_process(_delta: float) -> void:
 			duck_freeze.paused = true
 			game_overlay.game_stop("PAUSE")
 			for child in get_children():
-				if child.has_method("on_player_paused"):
-					child.on_player_paused(true)
+				if child.has_method("on_game_paused"):
+					child.on_game_paused(true)
 		elif GameInfo.player_paused and not GameInfo.system_paused:
 			AudioController.play_sound_menu_click()
 			_allow_input = true
