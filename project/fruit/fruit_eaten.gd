@@ -10,7 +10,7 @@ var in_tree_left_lane : bool
 @onready var animation_player := $AnimationPlayer as AnimationPlayer
 
 func _physics_process(delta: float) -> void:
-	var move_speed := 200
+	var move_speed := 125
 	if not GameInfo.system_paused and not GameInfo.player_paused:
 		if in_tree_left_lane:
 			global_position.x -= move_speed * delta

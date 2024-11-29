@@ -37,6 +37,9 @@
  - Korean translations written by
  - French translations written by
  - Chinese translations written by
+
+ ### Addons
+  - [Godot State Charts](https://github.com/derkork/godot-statecharts?tab=readme-ov-file), licensed under [MIT License](https://github.com/derkork/godot-statecharts?tab=MIT-1-ov-file)
  
 ## Report
 

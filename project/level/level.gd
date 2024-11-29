@@ -248,6 +248,31 @@ func _restart_duck_spawn_timer() -> void:
 	duck_spawn_timer.start()
 	
 
+func _fade_destroy_objects() -> void:
+	GameInfo.system_paused = true
+	for child in get_children():
+		if child.has_method("on_game_paused"):
+			child.on_game_paused(true)
+	
+	var tween_fade_out : Tween
+	var faded_objects : Array[Node2D]
+	for child in get_children():
+		if child is FruitEaten or child is FruitWhole or child is Ice:
+			tween_fade_out = create_tween().set_parallel()
+			tween_fade_out.tween_property(child, "modulate", Color(1, 1, 1, 0), 0.5)
+			faded_objects.append(child)
+	
+	if not faded_objects.is_empty():
+		await tween_fade_out.finished
+		for object in faded_objects:
+			object.queue_free()
+			
+	GameInfo.system_paused = false
+	for child in get_children():
+		if child.has_method("on_game_paused"):
+			child.on_game_paused(false)
+
+
 func _on_life_lost(particle_position : Vector2) -> void:
 	if not GameInfo.system_paused and not GameInfo.player_paused:
 		GameInfo.lives -= 1
@@ -330,6 +355,8 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 	
 
 func _on_round_start() -> void:
+	await _fade_destroy_objects()
+	
 	var current_map_type : MapTypes
 	if _background != null:
 		_background.queue_free()
@@ -375,10 +402,6 @@ func _on_round_start() -> void:
 			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
 	
 		_lane_endings_goose_side[i].global_position = _goose_positions[i].global_position
-		
-	for i in get_children():
-		if i is FruitEaten or i is FruitWhole or i is Ice:
-			i.queue_free()
 	
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
@@ -387,7 +410,7 @@ func _on_round_start() -> void:
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
-	_round_max_ducks = randi_range(_round_max_ducks, _current_round * 4)
+	_round_max_ducks = randi_range(_round_max_ducks, _current_round * 2)
 	game_overlay.new_round_progress_bar(_round_max_ducks)
 	_restart_duck_spawn_timer()
 
@@ -423,6 +446,7 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 			AudioController.play_sound_round_complete()
 			
 			if _current_round % 2 == 1:
+				await _fade_destroy_objects()
 				_allow_input = false
 				GameInfo.system_paused = true
 				var new_minigame := minigame.instantiate() as Minigame

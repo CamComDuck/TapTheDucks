@@ -27,7 +27,6 @@ func _ready() -> void:
 func load_type(new_duck_type : DuckTypes) -> void:
 	_duck_type = new_duck_type
 	
-	
 
 func toggle_frozen(is_frozen : bool) -> void:
 	if is_frozen:
@@ -36,7 +35,6 @@ func toggle_frozen(is_frozen : bool) -> void:
 	else:
 		state_chart.send_event("unfreeze")
 		
-
 
 func on_game_paused(is_paused : bool) -> void:
 	if is_paused:
@@ -97,7 +95,7 @@ func _on_hungry_event_received(event: StringName) -> void:
 		_fruits_eaten += 1
 		
 		var ice_chance := randf_range(1, 10)
-		if ice_chance < 10:
+		if ice_chance < 10.5:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		
@@ -155,7 +153,6 @@ func _on_frozen_event_received(event: StringName) -> void:
 		if _fruits_eaten == _duck_type.max_fruits:
 			points_gained.emit(_duck_type.point_value)
 		state_chart.send_event("eating")
-
 
 ## Paused State ##
 

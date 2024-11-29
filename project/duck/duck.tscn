@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://dty1uqxcrrd5x"]
+[gd_scene load_steps=16 format=3 uid="uid://dty1uqxcrrd5x"]
 
 [ext_resource type="Script" path="res://duck/duck.gd" id="1_edn5t"]
 [ext_resource type="Texture2D" uid="uid://01emhn7igrg4" path="res://duck/graphics/eating_1.png" id="5_jddv2"]
@@ -12,7 +12,6 @@
 [ext_resource type="Script" path="res://addons/godot_state_charts/compound_state.gd" id="10_oasqd"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/atomic_state.gd" id="11_ro5fg"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/transition.gd" id="12_skic5"]
-[ext_resource type="PackedScene" uid="uid://bcwkugn6v3oy7" path="res://addons/godot_state_charts/utilities/state_chart_debugger.tscn" id="13_cmjht"]
 [ext_resource type="Script" path="res://addons/godot_state_charts/history_state.gd" id="13_o7dy8"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gtmh2"]
@@ -71,7 +70,6 @@ shape = SubResource("RectangleShape2D_gtmh2")
 [node name="BaseDuckSprite" type="AnimatedSprite2D" parent="."]
 unique_name_in_owner = true
 sprite_frames = SubResource("SpriteFrames_22ymi")
-animation = &"eating"
 autoplay = "default"
 flip_h = true
 
@@ -157,14 +155,6 @@ script = ExtResource("12_skic5")
 to = NodePath("../../Playing/PausedReturn")
 event = &"unpaused"
 delay_in_seconds = "0.0"
-
-[node name="StateChartDebugger" parent="." instance=ExtResource("13_cmjht")]
-offset_left = -107.0
-offset_top = -257.0
-offset_right = 108.0
-offset_bottom = -29.0
-initial_node_to_watch = NodePath("../StateChart")
-maximum_lines = 3
 
 [connection signal="animation_finished" from="BaseDuckSprite" to="." method="_on_base_duck_sprite_animation_finished"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_move_timer_timeout"]
