@@ -133,7 +133,7 @@ func _on_eating_state_physics_processing(delta: float) -> void:
 ## Frozen State ##
 
 func _on_frozen_state_entered() -> void:
-	base_duck_sprite.modulate = Color("7ab1ae")
+	base_duck_sprite.modulate = GameInfo.frozen_duck_color
 	if _fruits_eaten < _duck_type.max_fruits:
 		can_eat = true
 	base_duck_sprite.pause()

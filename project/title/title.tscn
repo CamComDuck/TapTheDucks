@@ -673,6 +673,7 @@ text = "WIN_LOSE_LINE_1.0"
 horizontal_alignment = 2
 
 [node name="PointInputBox" type="SpinBox" parent="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints"]
+unique_name_in_owner = true
 layout_mode = 2
 min_value = 1000.0
 max_value = 100000.0

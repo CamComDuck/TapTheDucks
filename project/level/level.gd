@@ -15,6 +15,7 @@ var _round_max_ducks := 4
 var _round_current_ducks := 0
 var _ducks_finished := 0
 var _ducks_currently_frozen := false
+var _goose_swim_tween : Tween
 
 var _lane_tree_is_left : Array[bool] = [true, true, true, true]
 
@@ -107,6 +108,8 @@ func _physics_process(_delta: float) -> void:
 			duck_spawn_timer.paused = true
 			duck_freeze.paused = true
 			game_overlay.game_stop("PAUSE")
+			if _goose_swim_tween != null:
+				_goose_swim_tween.pause()
 			for child in get_children():
 				if child.has_method("on_game_paused"):
 					child.on_game_paused(true)
@@ -117,6 +120,11 @@ func _physics_process(_delta: float) -> void:
 			duck_spawn_timer.paused = false
 			duck_freeze.paused = false
 			game_overlay.game_stop("UNPAUSE")
+			if _goose_swim_tween != null:
+				if _goose_swim_tween.is_valid():
+					_goose_swim_tween.play()
+			elif goose.global_position.x != goose_position_1.global_position.x:
+				_handle_goose_return_to_lane()
 			for child in get_children():
 				if child.has_method("on_game_paused"):
 					child.on_game_paused(false)
@@ -195,15 +203,15 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 func _handle_goose_return_to_lane() -> void:
 	_allow_input = false
 	goose.flip_h(_lane_tree_is_left[_goose_current_lane])
-	var tween : Tween = create_tween()
+	_goose_swim_tween = create_tween()
 	var tween_time := absf(goose.global_position.x - _goose_positions[_goose_current_lane].global_position.x) * .002
-	tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, tween_time)
-	await tween.finished
+	_goose_swim_tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, tween_time)
+	await _goose_swim_tween.finished
 	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
 	goose.play_animation("default")
 	_allow_input = true
 	
-		
+	
 func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
@@ -350,7 +358,7 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 	var new_particles := firework_particles.instantiate() as Fireworks
 	add_child.call_deferred(new_particles)
 	new_particles.global_position = particle_position
-	new_particles.color = Color("7ab1ae")
+	new_particles.color = GameInfo.frozen_duck_color
 	new_particles.emitting = true
 	
 

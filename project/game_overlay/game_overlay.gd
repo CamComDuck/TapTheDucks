@@ -30,7 +30,10 @@ func update_round_progress_value(value : int) -> void:
 	
 
 func new_round_progress_bar(max_ducks : int) -> void:
-	round_progress_slider.tick_count = max_ducks + 1
+	if max_ducks > 19:
+		round_progress_slider.tick_count = 5
+	else:
+		round_progress_slider.tick_count = max_ducks + 1
 	round_progress_slider.max_value = max_ducks
 	round_progress_slider.value = 0
 

@@ -75,6 +75,7 @@ func _ready() -> void:
 		_is_extra_life_round = false
 		finding_fruit.set_texture(finding_fruit_normal)
 	
+	instruction_label.text = tr("MINIGAME_LINE_1")
 	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), GameInfo.grid_square_length * 2.0)
 	await create_tween().tween_interval(0.7).finished
 	instruction_label.show()
@@ -87,7 +88,7 @@ func _ready() -> void:
 	
 	await _show_wrong_shuffled_spots()
 	
-	instruction_label.text = "Now Mix!"
+	instruction_label.text = tr("MINIGAME_LINE_2")
 	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), instruction_label.global_position.y)
 	instruction_label.show()
 	await create_tween().tween_interval(1.5).finished
@@ -120,7 +121,7 @@ func _ready() -> void:
 	
 	finding_fruit.global_position = _correct_spot.global_position
 	goose.show()
-	instruction_label.text = "Pick Your Duck"
+	instruction_label.text = tr("MINIGAME_LINE_3")
 	instruction_label.global_position = Vector2(GameInfo.grid_square_length * 8.0 - (instruction_label.size.x / 2.0), instruction_label.global_position.y)
 	instruction_label.show()
 	_allow_input = true
