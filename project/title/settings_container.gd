@@ -31,15 +31,17 @@ func _ready() -> void:
 	set_tab_icon(2, preload("res://game_overlay/icon_language.png"))
 	set_tab_icon(3, preload("res://game_overlay/icon_exit.png"))
 	
+	_update_menu_labels()
+	_update_keybind_labels(true)
+
+
+func _update_menu_labels() -> void:
 	set_tab_title(0, tr("KEYBINDS_HEADER"))
 	set_tab_title(1, tr("VOLUME_HEADER"))
 	set_tab_title(2, tr("LANGUAGE_HEADER"))
 	set_tab_title(3, tr("EXIT_MENU_HEADER"))
 	
-	
-	_update_keybind_labels(true)
-	
-	
+
 func _input(event : InputEvent) -> void:
 	if _is_remapping:
 		if event is InputEventKey or (event is InputEventMouseButton and event.pressed):
@@ -170,18 +172,16 @@ func _on_sounds_slider_mouse_exited() -> void:
 func _on_english_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	TranslationServer.set_locale("en")
-	
-
-func _on_french_button_pressed() -> void:
-	AudioController.play_sound_menu_click()
-	TranslationServer.set_locale("fr")
+	_update_menu_labels()
 
 
 func _on_korean_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	TranslationServer.set_locale("ko")
+	_update_menu_labels()
 
 
 func _on_chinese_button_pressed() -> void:
 	AudioController.play_sound_menu_click()
 	TranslationServer.set_locale("zh")
+	_update_menu_labels()

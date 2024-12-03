@@ -1,57 +1,56 @@
-key,en,ko,fr,zh
-TITLE,Tap The Ducks,,,標題
-START_BUTTON,Start,시작,,開始
-CUSTOMIZATION_BUTTON,Customization,,,設定
-EXIT_MENU_HEADER,Exit Menu,,,關閉
-LANGUAGE_HEADER,Language,언어,,語言
-ENGLISH_LABEL,English,,,英文
-FRENCH_LABEL,French,,,法文
-KOREAN_LABEL,Korean,,,韓文
-CHINESE_LABEL,Chinese,,,
-VOLUME_HEADER,Volume,음량,,音量
-MASTER_LABEL,Master,,,
-MUSIC_LABEL,Music,배경음악,,音樂
-SOUND_EFFECTS_LABEL,Sound Effects,효과음,,聲響
-MOVE_UP_LABEL,Move Up,,,上
-MOVE_DOWN_LABEL,Move Down,,,下
-INTERACT_LEFT_LABEL,Interact Left,,,左
-INTERACT_RIGHT_LABEL,Interact Right,,,右
-PAUSE_LABEL,Pause,,,暫停
-KEYBINDS_TUTORIAL_1,PRESS to feed,,,
-KEYBINDS_TUTORIAL_2,HOLD to swim & grab objects,,,
-GOOSE_COLOR_HEADING,Goose Color,,,
-GOOSE_COLOR_LABEL,Choose Your Goose Color,,,
-GOOSE_COLOR_SAVE,Save Color,,,
-GOOSE_COLOR_RANDOM,Random Color,,,
-HOW_TO_PLAY_HEADING,How To Play,,,
-DUCKS_HEADING,Duck Types,,,
-NAME_HEADING,Name,,,
-ADVANTAGE_HEADING,Advantage,,,
-POINTS_HEADING,Points,,,
-BASIC_DUCK_NAME,Basic Duck,,,
-BASIC_DUCK_ADVANTAGE,None,,,
-FAST_DUCK_NAME,Fast Duck,,,
-FAST_DUCK_ADVANTAGE,Speed,,,
-HUNGRY_DUCK_NAME,Hungry Duck,,,
-HUNGRY_DUCK_ADVANTAGE,Hunger,,,
-ANGRY_DUCK_NAME,Angry Duck,,,
-ANGRY_DUCK_ADVANTAGE,Speed & Hunger,,,
-WIN_LOSE_HEADING,Win & Lose,,,
-WIN_LOSE_LINE_1.0,Earn,,,
-WIN_LOSE_LINE_1.5,Points to Win,,,
-WIN_LOSE_LINE_2,Don't Let Them Reach You,도달하게 하지마,,
-WIN_LOSE_LINE_3,Don't Throw Too Many,너무 많이 던지지마,,
-WIN_LOSE_LINE_4,Grab an Ice Block to freeze all ducks,,,
-WIN_GAME,You Win!,위너!,,
-LOSE_GAME,You Lose!,,,
-MINIGAME_LINE_1,Watch Carefully,집중이 필요해,,
-MINIGAME_LINE_2,Now Mix,,,
-MINIGAME_LINE_3,Pick Your Duck,,,
-END_GAME_1,Play Again,,,
-END_GAME_2,Main Menu,,,
-SETTINGS_BUTTON,Settings,,,
-KEYBINDS_HEADER,Keybinds,,,
-KEYBINDS_RESET,Reset to Default,,,
-KEYBINDS_WAIT,Waiting for input...,,,
-GAME_PAUSED_1,Paused,,,
-GAME_PAUSED_2,Press %s to unpause,,,
+key,en,ko,zh
+TITLE,Tap The Ducks,오리 톡톡,標題
+START_BUTTON,Start,시작,開始
+CUSTOMIZATION_BUTTON,Customization,꾸미기,設定
+EXIT_MENU_HEADER,Exit Menu,나가기,關閉
+LANGUAGE_HEADER,Language,언어,語言
+ENGLISH_LABEL,English,영어,英文
+KOREAN_LABEL,Korean,한국어,韓文
+CHINESE_LABEL,Chinese,중국,中文
+VOLUME_HEADER,Volume,음량,音量
+MASTER_LABEL,Master,마스터 볼륨,音量
+MUSIC_LABEL,Music,배경음악,音樂
+SOUND_EFFECTS_LABEL,Sound Effects,효과음,聲響
+MOVE_UP_LABEL,Move Up,전진,上
+MOVE_DOWN_LABEL,Move Down,후진,下
+INTERACT_LEFT_LABEL,Interact Left,왼쪽,左
+INTERACT_RIGHT_LABEL,Interact Right,오른쪽쪽,右
+PAUSE_LABEL,Pause,정지,暫停
+KEYBINDS_TUTORIAL_1,PRESS to feed,먹이 주기 ,左鍵 投食
+KEYBINDS_TUTORIAL_2,HOLD to swim & grab objects,수영 혹은 물건 집는 버튼을 누르고 있기,握右鍵來撿道具
+GOOSE_COLOR_HEADING,Goose Color,거위의 색,顏色
+GOOSE_COLOR_LABEL,Choose Your Goose Color,거위의 색을 골라,鵝顏色
+GOOSE_COLOR_SAVE,Save Color,색상 저장하기 ,儲存
+GOOSE_COLOR_RANDOM,Random Color,무작위 색상,隨機顏色
+HOW_TO_PLAY_HEADING,How To Play,플레이 방법,說明
+DUCKS_HEADING,Duck Types,오리의 종류,種類
+NAME,Name,이름,名字
+ADVANTAGE,Advantage,모험,優勢
+POINTS,Points,점수 or 스코어 ,分數
+NAME1,Basic Duck,기본 오리 ,一般
+ADVANTAGE1,None,없음,無
+NAME2,Fast Duck,빠른 오리,快鴨
+ADVANTAGE2,Speed,속도,快 + 餓
+NAME3,Hungry Duck,배고픈 오리,餓鴨
+ADVANTAGE3,Hunger,배고픔,餓
+NAME4,Angry Duck,화난 오리,憤怒
+ADVANTAGE4,Speed & Hunger,속도 & 배고픔,快 + 餓
+WIN_LOSE_HEADING,Win & Lose,승리 & 패배,贏/ 輸
+WIN_LOSE_LINE_1.0,Earn,승리 목표,賺取分數
+WIN_LOSE_LINE_1.5,Points to Win,얻기,目標分數
+WIN_LOSE_LINE_2,Don't Let Them Reach You,도달하게 하지마,別讓它們接近
+WIN_LOSE_LINE_3,Don't Throw Too Many,너무 많이 던지지마,別丟太多
+WIN_LOSE_LINE_4,Grab an Ice Block to freeze all ducks,얼음 블럭을 눌러서 오리를 멈추게 해,冰塊 - 凍結所有鴨
+WIN_GAME,You Win!,위너!,贏了
+LOSE_GAME,You Lose!,다시하기,輸了
+MINIGAME_LINE_1,Watch Carefully,집중 시간,留心觀看
+MINIGAME_LINE_2,Now Mix,이제 섞어,混合
+MINIGAME_LINE_3,Pick Your Duck,오리를 골라,選一只鴨
+END_GAME_1,Play Again,다시하기,新一局
+END_GAME_2,Main Menu,메인 메뉴,主題版面
+SETTINGS_BUTTON,Settings,설정,設定
+KEYBINDS_HEADER,Keybinds,키보드,按鍵
+KEYBINDS_RESET,Reset to Default,기본 설정,重設
+KEYBINDS_WAIT,Waiting for input...,입력을 기다려,等待
+GAME_PAUSED_1,Paused,정지,暫停
+GAME_PAUSED_2,Press %s to unpause,%s 버튼을 눌러 플레이,按%s 繼續

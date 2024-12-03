@@ -21,10 +21,6 @@ func _ready() -> void:
 	set_tab_icon(1, preload("res://duck/graphics/default_1.png"))
 	set_tab_icon(2, preload("res://game_overlay/icon_exit.png"))
 	
-	set_tab_title(0, tr("GOOSE_COLOR_HEADING"))
-	set_tab_title(1, tr("HOW_TO_PLAY_HEADING"))
-	set_tab_title(2, tr("EXIT_MENU_HEADER"))
-	
 	_goose_red = GameInfo.goose_color.r
 	red_slider.value = _goose_red
 	_goose_green = GameInfo.goose_color.g
@@ -46,6 +42,13 @@ func _ready() -> void:
 						node.modulate = duck_types[i].color
 					elif node.name.ends_with("Points"):
 						node.text = str(duck_types[i].point_value)
+
+
+func update_menu_labels() -> void:
+	set_tab_title(0, tr("GOOSE_COLOR_HEADING"))
+	set_tab_title(1, tr("HOW_TO_PLAY_HEADING"))
+	set_tab_title(2, tr("EXIT_MENU_HEADER"))
+	
 
 func _on_red_slider_value_changed(value: float) -> void:
 	_goose_red = value

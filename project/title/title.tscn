@@ -27,7 +27,8 @@ offset_top = 58.5
 offset_right = 447.0
 offset_bottom = 709.5
 theme = ExtResource("2_cgims")
-theme_override_font_sizes/font_size = 200
+theme_override_constants/line_spacing = -10
+theme_override_font_sizes/font_size = 180
 text = "TITLE"
 horizontal_alignment = 1
 vertical_alignment = 1
@@ -79,7 +80,7 @@ unique_name_in_owner = true
 visible = false
 offset_left = 17.0
 offset_top = 56.0
-offset_right = 709.0
+offset_right = 732.0
 offset_bottom = 765.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -87,6 +88,7 @@ theme = ExtResource("2_cgims")
 tab_alignment = 1
 current_tab = 0
 all_tabs_in_front = true
+use_hidden_tabs_for_min_size = true
 script = ExtResource("5_hwgsy")
 
 [node name="Keybinds" type="MarginContainer" parent="SettingsContainer"]
@@ -419,11 +421,6 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 40
 text = "ENGLISH_LABEL"
 
-[node name="FrenchButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 40
-text = "FRENCH_LABEL"
-
 [node name="KoreanButton" type="Button" parent="SettingsContainer/Language/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 40
@@ -442,110 +439,20 @@ metadata/_tab_index = 3
 [node name="CustomizationContainer" type="TabContainer" parent="."]
 unique_name_in_owner = true
 visible = false
-offset_right = 763.0
+offset_right = 715.0
 offset_bottom = 715.0
 theme = ExtResource("2_cgims")
 tab_alignment = 1
 current_tab = 0
 clip_tabs = false
 all_tabs_in_front = true
+use_hidden_tabs_for_min_size = true
 script = ExtResource("10_gyrw4")
 
-[node name="Goose Color" type="MarginContainer" parent="CustomizationContainer"]
+[node name="How To Play" type="MarginContainer" parent="CustomizationContainer"]
 layout_mode = 2
-size_flags_vertical = 4
-mouse_filter = 2
 theme = ExtResource("2_cgims")
 metadata/_tab_index = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CustomizationContainer/Goose Color"]
-layout_mode = 2
-
-[node name="Label" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GOOSE_COLOR_LABEL"
-horizontal_alignment = 1
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer"]
-layout_mode = 2
-
-[node name="GooseTexture" type="TextureRect" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("12_682iq")
-stretch_mode = 5
-
-[node name="Spacer17" type="Control" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="ColorsContainer" type="VBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
-layout_mode = 2
-
-[node name="RedContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
-layout_mode = 2
-
-[node name="RedLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer"]
-layout_mode = 2
-text = "R"
-
-[node name="RedSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 70)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="GreenContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
-layout_mode = 2
-
-[node name="GreenLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer"]
-layout_mode = 2
-text = "G"
-horizontal_alignment = 1
-
-[node name="GreenSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 70)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="BlueContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
-layout_mode = 2
-
-[node name="BlueLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer"]
-layout_mode = 2
-text = "B"
-horizontal_alignment = 1
-
-[node name="BlueSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 70)
-layout_mode = 2
-max_value = 1.0
-step = 0.01
-value = 1.0
-
-[node name="SaveColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GOOSE_COLOR_SAVE"
-
-[node name="RandomColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "GOOSE_COLOR_RANDOM"
-
-[node name="How To Play" type="MarginContainer" parent="CustomizationContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("2_cgims")
-metadata/_tab_index = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CustomizationContainer/How To Play"]
 layout_mode = 2
@@ -574,7 +481,7 @@ size_flags_horizontal = 3
 [node name="HeadingName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "NAME_HEADING"
+text = "NAME"
 horizontal_alignment = 1
 
 [node name="Spacer15" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -584,7 +491,7 @@ size_flags_horizontal = 3
 [node name="HeadingAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "ADVANTAGE_HEADING"
+text = "ADVANTAGE"
 horizontal_alignment = 1
 
 [node name="Spacer14" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -594,7 +501,7 @@ size_flags_horizontal = 3
 [node name="HeadingPoints" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "POINTS_HEADING"
+text = "POINTS"
 horizontal_alignment = 1
 
 [node name="BasicDuckTexture" type="TextureRect" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -609,7 +516,7 @@ size_flags_horizontal = 3
 [node name="BasicDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "BASIC_DUCK_NAME"
+text = "NAME1"
 horizontal_alignment = 1
 
 [node name="Spacer11" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -619,7 +526,7 @@ size_flags_horizontal = 3
 [node name="BasicDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "BASIC_DUCK_ADVANTAGE"
+text = "ADVANTAGE1"
 horizontal_alignment = 1
 
 [node name="Spacer10" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -644,7 +551,7 @@ size_flags_horizontal = 3
 [node name="FastDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "FAST_DUCK_NAME"
+text = "NAME2"
 horizontal_alignment = 1
 
 [node name="Spacer8" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -654,7 +561,7 @@ size_flags_horizontal = 3
 [node name="FastDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "FAST_DUCK_ADVANTAGE"
+text = "ADVANTAGE2"
 horizontal_alignment = 1
 
 [node name="Spacer7" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -679,7 +586,7 @@ size_flags_horizontal = 3
 [node name="HungryDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "HUNGRY_DUCK_NAME"
+text = "NAME3"
 horizontal_alignment = 1
 
 [node name="Spacer4" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -689,7 +596,7 @@ size_flags_horizontal = 3
 [node name="HungryDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "HUNGRY_DUCK_ADVANTAGE"
+text = "ADVANTAGE3"
 horizontal_alignment = 1
 
 [node name="Spacer3" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -714,7 +621,7 @@ size_flags_horizontal = 3
 [node name="AngryDuckName" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "ANGRY_DUCK_NAME"
+text = "NAME4"
 horizontal_alignment = 1
 
 [node name="Spacer6" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -724,7 +631,7 @@ size_flags_horizontal = 3
 [node name="AngryDuckAdvantage" type="Label" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 30
-text = "ANGRY_DUCK_ADVANTAGE"
+text = "ADVANTAGE4"
 horizontal_alignment = 1
 
 [node name="Spacer" type="Control" parent="CustomizationContainer/How To Play/VBoxContainer/GridContainer"]
@@ -854,6 +761,97 @@ horizontal_alignment = 1
 [node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/How To Play/VBoxContainer"]
 layout_mode = 2
 
+[node name="Goose Color" type="MarginContainer" parent="CustomizationContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 4
+mouse_filter = 2
+theme = ExtResource("2_cgims")
+metadata/_tab_index = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CustomizationContainer/Goose Color"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "GOOSE_COLOR_LABEL"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer"]
+layout_mode = 2
+
+[node name="GooseTexture" type="TextureRect" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+texture = ExtResource("12_682iq")
+stretch_mode = 5
+
+[node name="Spacer17" type="Control" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ColorsContainer" type="VBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="RedContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="RedLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer"]
+layout_mode = 2
+text = "R"
+
+[node name="RedSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="GreenContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="GreenLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer"]
+layout_mode = 2
+text = "G"
+horizontal_alignment = 1
+
+[node name="GreenSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="BlueContainer" type="HBoxContainer" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer"]
+layout_mode = 2
+
+[node name="BlueLabel" type="Label" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer"]
+layout_mode = 2
+text = "B"
+horizontal_alignment = 1
+
+[node name="BlueSlider" type="HSlider" parent="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(300, 70)
+layout_mode = 2
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="SaveColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "GOOSE_COLOR_SAVE"
+
+[node name="RandomColorButton" type="Button" parent="CustomizationContainer/Goose Color/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "GOOSE_COLOR_RANDOM"
+
 [node name="Exit Menu" type="Label" parent="CustomizationContainer"]
 visible = false
 layout_mode = 2
@@ -878,13 +876,12 @@ metadata/_tab_index = 2
 [connection signal="mouse_exited" from="SettingsContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="SettingsContainer" method="_on_sounds_slider_mouse_exited"]
 [connection signal="value_changed" from="SettingsContainer/Volume/VBoxContainer/HBoxSounds/SoundsSlider" to="SettingsContainer" method="_on_sounds_slider_value_changed"]
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/EnglishButton" to="SettingsContainer" method="_on_english_button_pressed"]
-[connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/FrenchButton" to="SettingsContainer" method="_on_french_button_pressed"]
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/KoreanButton" to="SettingsContainer" method="_on_korean_button_pressed"]
 [connection signal="pressed" from="SettingsContainer/Language/VBoxContainer/ChineseButton" to="SettingsContainer" method="_on_chinese_button_pressed"]
 [connection signal="tab_changed" from="CustomizationContainer" to="." method="_on_customization_container_tab_changed"]
+[connection signal="value_changed" from="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints/PointInputBox" to="CustomizationContainer" method="_on_point_input_box_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/RedContainer/RedSlider" to="CustomizationContainer" method="_on_red_slider_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/GreenContainer/GreenSlider" to="CustomizationContainer" method="_on_green_slider_value_changed"]
 [connection signal="value_changed" from="CustomizationContainer/Goose Color/VBoxContainer/HBoxContainer/ColorsContainer/BlueContainer/BlueSlider" to="CustomizationContainer" method="_on_blue_slider_value_changed"]
 [connection signal="pressed" from="CustomizationContainer/Goose Color/VBoxContainer/SaveColorButton" to="CustomizationContainer" method="_on_save_color_button_pressed"]
 [connection signal="pressed" from="CustomizationContainer/Goose Color/VBoxContainer/RandomColorButton" to="CustomizationContainer" method="_on_random_color_button_pressed"]
-[connection signal="value_changed" from="CustomizationContainer/How To Play/VBoxContainer/HBoxPoints/PointInputBox" to="CustomizationContainer" method="_on_point_input_box_value_changed"]
