@@ -34,9 +34,8 @@
  - Backup font is from [Google Fonts](https://fonts.google.com/noto/specimen/Noto+Serif+KR?preview.text=Start%20%EC%8B%9C%EC%9E%91%20%E9%96%8B%E5%A7%8B&lang=ko_Kore), licensed under [SIL Open Font License](https://openfontlicense.org/open-font-license-official-text/)
 
  ### Translations
- - Korean translations written by
- - French translations written by
- - Chinese translations written by
+ - Korean translations written by DongJun (Remi) Yi
+ - Chinese translations written by Ken (ExecutionerKen)
 
  ### Addons
   - [Godot State Charts](https://github.com/derkork/godot-statecharts?tab=readme-ov-file), licensed under [MIT License](https://github.com/derkork/godot-statecharts?tab=MIT-1-ov-file)

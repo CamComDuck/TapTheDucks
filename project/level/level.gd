@@ -1,12 +1,12 @@
 @icon("res://level/graphics/tree.png")
 extends Node2D
 
-var _goose_positions : Array[Marker2D] = []
-var _duck_positions : Array[Marker2D] = []
-var _lane_endings_goose_side : Array[Area2D] = []
-var _lane_endings_duck_side : Array[Area2D] = []
-var _current_ducks_swimming : Array[Duck] = []
-var _goose_current_lane : int
+var _goose_position_markers : Array[Marker2D] = []
+var _duck_position_markers : Array[Marker2D] = []
+var _lane_endings_goose_side_areas : Array[Area2D] = []
+var _lane_endings_duck_side_areas : Array[Area2D] = []
+var _on_screen_ducks : Array[Duck] = []
+var _goose_lane_index : int
 var _background : TileMapLayer = null
 
 var _current_points := 0
@@ -14,41 +14,27 @@ var _current_round := 1
 var _round_max_ducks := 4
 var _round_current_ducks := 0
 var _ducks_finished := 0
-var _ducks_currently_frozen := false
+var _are_ducks_frozen := false
 var _goose_swim_tween : Tween
 
-var _lane_tree_is_left : Array[bool] = [true, true, true, true]
+var _is_tree_on_left_lane : Array[bool] = [true, true, true, true]
 
 var _allow_input := true
 
 @onready var game_overlay := $GameOverlay as GameOverlay
 @onready var duck_spawn_timer := $DuckSpawnTimer as Timer
-
-@onready var goose_position_1 := $GoosePosition1 as Marker2D
-@onready var goose_position_2 := $GoosePosition2 as Marker2D
-@onready var goose_position_3 := $GoosePosition3 as Marker2D
-@onready var goose_position_4 := $GoosePosition4 as Marker2D
 @onready var goose := $Goose as Goose
 
-@onready var duck_position_1 := $DuckPosition1 as Marker2D
-@onready var duck_position_2 := $DuckPosition2 as Marker2D
-@onready var duck_position_3 := $DuckPosition3 as Marker2D
-@onready var duck_position_4 := $DuckPosition4 as Marker2D
+@onready var goose_positions := %GoosePositions as Node2D
+@onready var duck_positions := %DuckPositions as Node2D
+@onready var lane_end_goose_sides := %LaneEndGooseSides as Node2D
+@onready var lane_end_duck_sides := %LaneEndDuckSides as Node2D
 
 @onready var duck : = load("res://duck/duck.tscn") as PackedScene
 @onready var duck_basic := load("res://duck/duck_types/duck_basic.tres") as DuckTypes
 @onready var duck_fast := load("res://duck/duck_types/duck_fast.tres") as DuckTypes
 @onready var duck_hungry := load("res://duck/duck_types/duck_hungry.tres") as DuckTypes
 @onready var duck_angry := load("res://duck/duck_types/duck_angry.tres") as DuckTypes
-
-@onready var lane_end_goose_side_1 := $LaneEndGooseSide1 as LaneEndGooseSide
-@onready var lane_end_goose_side_2 := $LaneEndGooseSide2 as LaneEndGooseSide
-@onready var lane_end_goose_side_3 := $LaneEndGooseSide3 as LaneEndGooseSide
-@onready var lane_end_goose_side_4 := $LaneEndGooseSide4 as LaneEndGooseSide
-@onready var lane_end_duck_side_1 := $LaneEndDuckSide1 as LaneEndDuckSide
-@onready var lane_end_duck_side_2 := $LaneEndDuckSide2 as LaneEndDuckSide
-@onready var lane_end_duck_side_3 := $LaneEndDuckSide3 as LaneEndDuckSide
-@onready var lane_end_duck_side_4 := $LaneEndDuckSide4 as LaneEndDuckSide
 
 @onready var fruit_whole := load("res://fruit/fruit_whole.tscn") as PackedScene
 @onready var eaten_fruit := load("res://fruit/fruit_eaten.tscn") as PackedScene
@@ -70,25 +56,18 @@ var _allow_input := true
 @onready var firework_particles := load("res://level/firework_particles.tscn") as PackedScene
 
 func _ready() -> void:
-	_goose_positions.append(goose_position_1)
-	_goose_positions.append(goose_position_2)
-	_goose_positions.append(goose_position_3)
-	_goose_positions.append(goose_position_4)
 	
-	_duck_positions.append(duck_position_1)
-	_duck_positions.append(duck_position_2)
-	_duck_positions.append(duck_position_3)
-	_duck_positions.append(duck_position_4)
+	for child in goose_positions.get_children():
+		_goose_position_markers.append(child)
 	
-	_lane_endings_goose_side.append(lane_end_goose_side_1)
-	_lane_endings_goose_side.append(lane_end_goose_side_2)
-	_lane_endings_goose_side.append(lane_end_goose_side_3)
-	_lane_endings_goose_side.append(lane_end_goose_side_4)
+	for child in duck_positions.get_children():
+		_duck_position_markers.append(child)
+		
+	for child in lane_end_goose_sides.get_children():
+		_lane_endings_goose_side_areas.append(child)
 	
-	_lane_endings_duck_side.append(lane_end_duck_side_1)
-	_lane_endings_duck_side.append(lane_end_duck_side_2)
-	_lane_endings_duck_side.append(lane_end_duck_side_3)
-	_lane_endings_duck_side.append(lane_end_duck_side_4)
+	for child in lane_end_duck_sides.get_children():
+		_lane_endings_duck_side_areas.append(child)
 	
 	_on_round_start()
 		
@@ -96,7 +75,7 @@ func _ready() -> void:
 func _physics_process(_delta: float) -> void:
 	var _goose_speed := 200
 	
-	if _ducks_currently_frozen:
+	if _are_ducks_frozen:
 		var frozen_time_left_percent := (duck_freeze.time_left / duck_freeze.wait_time) * 100
 		game_overlay.update_freezer_progress_value(frozen_time_left_percent)
 	
@@ -107,7 +86,7 @@ func _physics_process(_delta: float) -> void:
 			GameInfo.player_paused = true
 			duck_spawn_timer.paused = true
 			duck_freeze.paused = true
-			game_overlay.game_stop("PAUSE")
+			game_overlay.toggle_pause_menu(true)
 			if _goose_swim_tween != null:
 				_goose_swim_tween.pause()
 			for child in get_children():
@@ -119,11 +98,11 @@ func _physics_process(_delta: float) -> void:
 			GameInfo.player_paused = false
 			duck_spawn_timer.paused = false
 			duck_freeze.paused = false
-			game_overlay.game_stop("UNPAUSE")
+			game_overlay.toggle_pause_menu(false)
 			if _goose_swim_tween != null:
 				if _goose_swim_tween.is_valid():
 					_goose_swim_tween.play()
-			elif goose.global_position.x != goose_position_1.global_position.x:
+			elif goose.global_position.x != _goose_position_markers[0].global_position.x:
 				_handle_goose_return_to_lane()
 			for child in get_children():
 				if child.has_method("on_game_paused"):
@@ -138,7 +117,7 @@ func _physics_process(_delta: float) -> void:
 	elif Input.is_action_just_pressed("move_up"):
 		_handle_goose_vertical_movement(false)
 		
-	elif _lane_tree_is_left[_goose_current_lane]:
+	elif _is_tree_on_left_lane[_goose_lane_index]:
 		
 		if Input.is_action_pressed("interact_right") and goose.position.x < GameInfo.grid_square_length * 14.5:
 			if goose.current_animation != "swim":
@@ -152,7 +131,7 @@ func _physics_process(_delta: float) -> void:
 		elif Input.is_action_just_pressed("interact_left"):
 			_on_whole_fruit_spawned()
 		
-	elif not _lane_tree_is_left[_goose_current_lane]:
+	elif not _is_tree_on_left_lane[_goose_lane_index]:
 		
 		if Input.is_action_pressed("interact_left") and goose.position.x > GameInfo.grid_square_length * 1.5:
 			if goose.current_animation != "swim":
@@ -171,16 +150,16 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 	_allow_input = false
 	
 	if is_down:
-		_goose_current_lane += 1
+		_goose_lane_index += 1
 		goose.play_animation("move_down")
 	else:
-		_goose_current_lane -= 1
+		_goose_lane_index -= 1
 		goose.play_animation("move_up")
 		
-	if _goose_current_lane == 4:
-		_goose_current_lane = 0
-	elif _goose_current_lane == -1:
-		_goose_current_lane = 3
+	if _goose_lane_index == 4:
+		_goose_lane_index = 0
+	elif _goose_lane_index == -1:
+		_goose_lane_index = 3
 		
 	AudioController.play_sound_goose_move()
 	
@@ -189,8 +168,8 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 	
 	await tween_fade_out.finished
 	
-	goose.global_position = _goose_positions[_goose_current_lane].global_position
-	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	goose.global_position = _goose_position_markers[_goose_lane_index].global_position
+	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 	
 	var tween_fade_in : Tween = create_tween()
 	tween_fade_in.tween_property(goose, "modulate", Color(1, 1, 1, 1), 0.08)
@@ -202,12 +181,12 @@ func _handle_goose_vertical_movement(is_down : bool) -> void:
 	
 func _handle_goose_return_to_lane() -> void:
 	_allow_input = false
-	goose.flip_h(_lane_tree_is_left[_goose_current_lane])
+	goose.flip_h(_is_tree_on_left_lane[_goose_lane_index])
 	_goose_swim_tween = create_tween()
-	var tween_time := absf(goose.global_position.x - _goose_positions[_goose_current_lane].global_position.x) * .002
-	_goose_swim_tween.tween_property(goose, "global_position",_goose_positions[_goose_current_lane].global_position, tween_time)
+	var tween_time := absf(goose.global_position.x - _goose_position_markers[_goose_lane_index].global_position.x) * .002
+	_goose_swim_tween.tween_property(goose, "global_position",_goose_position_markers[_goose_lane_index].global_position, tween_time)
 	await _goose_swim_tween.finished
-	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 	goose.play_animation("default")
 	_allow_input = true
 	
@@ -216,7 +195,7 @@ func _spawn_duck() -> void:
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
-	_current_ducks_swimming.append(new_duck)
+	_on_screen_ducks.append(new_duck)
 	
 	var round_multiplier := 0.25
 	var max_duck_percents : Array[int] = [50, 30, 15]
@@ -243,10 +222,10 @@ func _spawn_duck() -> void:
 	new_duck.connect("points_gained", _on_points_gained)
 	new_duck.connect("eaten_fruit_spawned", _on_eaten_fruit_spawned)
 	new_duck.connect("ice_spawned", _on_ice_spawned)
-	new_duck.in_tree_left_lane = _lane_tree_is_left[new_duck_lane]
+	new_duck.in_tree_left_lane = _is_tree_on_left_lane[new_duck_lane]
 	new_duck.lane_number = new_duck_lane
 	add_child.call_deferred(new_duck)
-	new_duck.global_position = _duck_positions[new_duck_lane].global_position
+	new_duck.global_position = _duck_position_markers[new_duck_lane].global_position
 
 
 func _restart_duck_spawn_timer() -> void:
@@ -297,7 +276,7 @@ func _on_life_lost(particle_position : Vector2) -> void:
 		if GameInfo.lives == 0: # Lose the Game
 			AudioController.play_sound_lose()
 			_allow_input = false
-			game_overlay.game_stop("LOSE")
+			game_overlay.game_stop(false)
 			duck_spawn_timer.stop()
 			GameInfo.system_paused = true
 			for child in get_children():
@@ -314,28 +293,28 @@ func _on_eaten_fruit_spawned(fruit_position : Vector2, current_lane : int) -> vo
 	var new_eaten_fruit := eaten_fruit.instantiate() as FruitEaten
 	new_eaten_fruit.connect("life_lost", _on_life_lost)
 	new_eaten_fruit.connect("points_gained", _on_points_gained)
-	new_eaten_fruit.in_tree_left_lane = _lane_tree_is_left[current_lane]
+	new_eaten_fruit.in_tree_left_lane = _is_tree_on_left_lane[current_lane]
 	add_child.call_deferred(new_eaten_fruit)
 	new_eaten_fruit.global_position = fruit_position
 	
 	
 func _on_whole_fruit_spawned() -> void:
 	_allow_input = false
-	goose.flip_h(_lane_tree_is_left[_goose_current_lane])
+	goose.flip_h(_is_tree_on_left_lane[_goose_lane_index])
 	goose.play_animation("fruit_pick")
 	await goose.animation_finished
-	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 
 	var new_fruit_whole := fruit_whole.instantiate() as FruitWhole
 	new_fruit_whole.connect("life_lost", _on_life_lost)
-	new_fruit_whole.in_tree_left_lane = _lane_tree_is_left[_goose_current_lane]
+	new_fruit_whole.in_tree_left_lane = _is_tree_on_left_lane[_goose_lane_index]
 	add_child.call_deferred(new_fruit_whole)
 	
-	if _lane_tree_is_left[_goose_current_lane]:
-		new_fruit_whole.global_position.x = _goose_positions[_goose_current_lane].global_position.x + GameInfo.grid_square_length
+	if _is_tree_on_left_lane[_goose_lane_index]:
+		new_fruit_whole.global_position.x = _goose_position_markers[_goose_lane_index].global_position.x + GameInfo.grid_square_length
 	else:
-		new_fruit_whole.global_position.x = _goose_positions[_goose_current_lane].global_position.x - GameInfo.grid_square_length
-	new_fruit_whole.global_position.y = _goose_positions[_goose_current_lane].global_position.y + (GameInfo.grid_square_length / 2.0)
+		new_fruit_whole.global_position.x = _goose_position_markers[_goose_lane_index].global_position.x - GameInfo.grid_square_length
+	new_fruit_whole.global_position.y = _goose_position_markers[_goose_lane_index].global_position.y + (GameInfo.grid_square_length / 2.0)
 	
 	_allow_input = true
 
@@ -348,12 +327,12 @@ func _on_ice_spawned(ice_position : Vector2) -> void:
 
 
 func _on_ducks_frozen(particle_position : Vector2) -> void:
-	for i in _current_ducks_swimming:
+	for i in _on_screen_ducks:
 		i.toggle_frozen(true)
 	duck_freeze.start()
 	AudioController.toggle_music_volume(true)
 	AudioController.play_sound_freeze()
-	_ducks_currently_frozen = true
+	_are_ducks_frozen = true
 	
 	var new_particles := firework_particles.instantiate() as Fireworks
 	add_child.call_deferred(new_particles)
@@ -395,26 +374,26 @@ func _on_round_start() -> void:
 	var safe_length : int = 4
 	
 	for i in 4:
-		_lane_tree_is_left[i] = current_map_type.lane_is_left_tree[i]
+		_is_tree_on_left_lane[i] = current_map_type.lane_is_left_tree[i]
 		
-		if _lane_tree_is_left[i]:
-			_goose_positions[i].global_position = Vector2(goose_x_left, y_lanes[i])
-			_duck_positions[i].global_position = Vector2(duck_x_right, y_lanes[i] + _duck_y_addition)
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x + GameInfo.grid_square_length + safe_length
-			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
+		if _is_tree_on_left_lane[i]:
+			_goose_position_markers[i].global_position = Vector2(goose_x_left, y_lanes[i])
+			_duck_position_markers[i].global_position = Vector2(duck_x_right, y_lanes[i] + _duck_y_addition)
+			_lane_endings_duck_side_areas[i].global_position.x = _duck_position_markers[i].global_position.x + GameInfo.grid_square_length + safe_length
+			_lane_endings_duck_side_areas[i].global_position.y = _duck_position_markers[i].global_position.y
 		
 		else:
-			_goose_positions[i].global_position = Vector2(goose_x_right, y_lanes[i])
-			_duck_positions[i].global_position = Vector2(duck_x_left, y_lanes[i] + _duck_y_addition)
-			_lane_endings_duck_side[i].global_position.x = _duck_positions[i].global_position.x - GameInfo.grid_square_length - safe_length
-			_lane_endings_duck_side[i].global_position.y = _duck_positions[i].global_position.y
+			_goose_position_markers[i].global_position = Vector2(goose_x_right, y_lanes[i])
+			_duck_position_markers[i].global_position = Vector2(duck_x_left, y_lanes[i] + _duck_y_addition)
+			_lane_endings_duck_side_areas[i].global_position.x = _duck_position_markers[i].global_position.x - GameInfo.grid_square_length - safe_length
+			_lane_endings_duck_side_areas[i].global_position.y = _duck_position_markers[i].global_position.y
 	
-		_lane_endings_goose_side[i].global_position = _goose_positions[i].global_position
+		_lane_endings_goose_side_areas[i].global_position = _goose_position_markers[i].global_position
 	
 	add_child.call_deferred(_background)
 	game_overlay.update_round_label(_current_round)
-	goose.global_position = _goose_positions[_goose_current_lane].global_position
-	goose.flip_h(not _lane_tree_is_left[_goose_current_lane])
+	goose.global_position = _goose_position_markers[_goose_lane_index].global_position
+	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
@@ -428,7 +407,7 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		_on_life_lost(body.global_position)
 		game_overlay.update_lives_label()
-		_current_ducks_swimming.erase(body)
+		_on_screen_ducks.erase(body)
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 
@@ -436,13 +415,13 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
-		_current_ducks_swimming.erase(body)
+		_on_screen_ducks.erase(body)
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 		
 		if _current_points >= GameInfo.points_to_win and _ducks_finished == _round_max_ducks: # Win The Game
 			_allow_input = false
-			game_overlay.game_stop("WIN")
+			game_overlay.game_stop(true)
 			GameInfo.system_paused = true
 			AudioController.play_sound_win()
 			for child in get_children():
@@ -483,7 +462,7 @@ func _on_duck_spawn_timer_timeout() -> void:
 
 
 func _on_duck_freeze_timeout() -> void:
-	for i in _current_ducks_swimming:
+	for i in _on_screen_ducks:
 		i.toggle_frozen(false)
 	AudioController.toggle_music_volume(false)
-	_ducks_currently_frozen = false
+	_are_ducks_frozen = false

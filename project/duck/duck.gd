@@ -46,9 +46,9 @@ func on_game_paused(is_paused : bool) -> void:
 	
 func _restart_move_timer() -> void:
 	if _duck_type.is_fast_type:
-		move_timer.wait_time = randf_range(0.7, 0.9)
+		move_timer.wait_time = randf_range(0.8, 1.0)
 	else:
-		move_timer.wait_time = randf_range(0.9, 1.1)
+		move_timer.wait_time = randf_range(1.0, 1.2)
 	move_timer.start()
 
 

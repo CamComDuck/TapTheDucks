@@ -18,13 +18,11 @@ func _ready() -> void:
 	tab_unselected_font_color = settings_container.get_theme_color("font_unselected_color")
 
 func _center_settings_container() -> void:
-	#settings_container.size.x -= 15
 	settings_container.position.x = (GameInfo.grid_square_length * 8) - (settings_container.size.x / 2)
 	settings_container.position.y = (GameInfo.grid_square_length * 8) - (settings_container.size.y / 2)
 
 
 func _center_customization_container() -> void:
-	#customization_container.size.x -= 15
 	customization_container.position.x = (GameInfo.grid_square_length * 8) - (customization_container.size.x / 2)
 	customization_container.position.y = (GameInfo.grid_square_length * 8) - (customization_container.size.y / 2)
 

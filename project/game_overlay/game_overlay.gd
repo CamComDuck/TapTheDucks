@@ -55,27 +55,8 @@ func update_round_label(round_num : int) -> void:
 	round_label.text = str(round_num)
 	
 
-func game_stop(stop_type : String) -> void:
-	if stop_type == "WIN":
-		game_stop_label.text = tr("WIN_GAME")
-		win_particles.emitting = true
-		pause_label.hide()
-		play_again_button.show()
-		menu_button.show()
-		game_stop_container.size.x -= 300
-		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
-		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
-		game_stop_container.show()
-	elif stop_type == "LOSE":
-		game_stop_label.text = tr("LOSE_GAME")
-		pause_label.hide()
-		play_again_button.show()
-		menu_button.show()
-		game_stop_container.size.x -= 300
-		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
-		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
-		game_stop_container.show()
-	elif stop_type == "PAUSE":
+func toggle_pause_menu(toggled_on : bool) -> void:
+	if toggled_on:
 		game_stop_label.text = tr("GAME_PAUSED_1")
 		var pause_event = InputMap.action_get_events("pause")
 		var pause_keybind = pause_event[0].as_text().trim_suffix(" (Physical)")
@@ -87,8 +68,25 @@ func game_stop(stop_type : String) -> void:
 		game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
 		game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
 		game_stop_container.show()
-	elif stop_type == "UNPAUSE":
+	else:
 		game_stop_container.hide()
+
+
+func game_stop(is_win : bool) -> void:
+	pause_label.hide()
+	play_again_button.show()
+	menu_button.show()
+	
+	if is_win:
+		game_stop_label.text = tr("WIN_GAME")
+		win_particles.emitting = true
+	else:
+		game_stop_label.text = tr("LOSE_GAME")
+
+	game_stop_container.size.x -= 300
+	game_stop_container.position.x = (GameInfo.grid_square_length * 8) - (game_stop_container.size.x / 2)
+	game_stop_container.position.y = (GameInfo.grid_square_length * 8) - (game_stop_container.size.y / 2)
+	game_stop_container.show()
 
 
 func _on_play_again_button_pressed() -> void:

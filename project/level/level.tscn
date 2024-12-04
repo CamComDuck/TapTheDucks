@@ -16,130 +16,142 @@ script = ExtResource("1_b81hx")
 
 [node name="DuckSpawnTimer" type="Timer" parent="."]
 
-[node name="GameOverlay" parent="." instance=ExtResource("7_8tnxi")]
-
-[node name="GoosePosition1" type="Marker2D" parent="."]
-position = Vector2(168, 144)
-gizmo_extents = 50.0
-
-[node name="GoosePosition2" type="Marker2D" parent="."]
-position = Vector2(168, 288)
-gizmo_extents = 50.0
-
-[node name="GoosePosition3" type="Marker2D" parent="."]
-position = Vector2(168, 432)
-gizmo_extents = 50.0
-
-[node name="GoosePosition4" type="Marker2D" parent="."]
-position = Vector2(168, 576)
-gizmo_extents = 50.0
-
-[node name="DuckPosition1" type="Marker2D" parent="."]
-position = Vector2(696, 161)
-gizmo_extents = 50.0
-
-[node name="DuckPosition2" type="Marker2D" parent="."]
-position = Vector2(696, 305)
-gizmo_extents = 50.0
-
-[node name="DuckPosition3" type="Marker2D" parent="."]
-position = Vector2(696, 450)
-gizmo_extents = 50.0
-
-[node name="DuckPosition4" type="Marker2D" parent="."]
-position = Vector2(696, 597)
-gizmo_extents = 50.0
-
-[node name="LaneEndGooseSide1" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 13
-input_pickable = false
-script = ExtResource("4_7t5fk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSide1"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.265377, 0.502659, 1, 0.42)
-
-[node name="LaneEndGooseSide2" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 13
-input_pickable = false
-script = ExtResource("4_7t5fk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSide2"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.265377, 0.502659, 1, 0.42)
-
-[node name="LaneEndGooseSide3" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 13
-input_pickable = false
-script = ExtResource("4_7t5fk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSide3"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.265377, 0.502659, 1, 0.42)
-
-[node name="LaneEndGooseSide4" type="Area2D" parent="."]
-collision_layer = 16
-collision_mask = 13
-input_pickable = false
-script = ExtResource("4_7t5fk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSide4"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.265377, 0.502659, 1, 0.42)
-
-[node name="LaneEndDuckSide1" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 15
-input_pickable = false
-script = ExtResource("5_dw3ud")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSide1"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
-
-[node name="LaneEndDuckSide2" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 15
-input_pickable = false
-script = ExtResource("5_dw3ud")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSide2"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
-
-[node name="LaneEndDuckSide3" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 15
-input_pickable = false
-script = ExtResource("5_dw3ud")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSide3"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
-
-[node name="LaneEndDuckSide4" type="Area2D" parent="."]
-collision_layer = 32
-collision_mask = 15
-input_pickable = false
-script = ExtResource("5_dw3ud")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSide4"]
-shape = SubResource("RectangleShape2D_s1div")
-debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
-
 [node name="DuckFreeze" type="Timer" parent="."]
 wait_time = 8.0
 
+[node name="GameOverlay" parent="." instance=ExtResource("7_8tnxi")]
+
+[node name="GoosePositions" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="GoosePosition1" type="Marker2D" parent="GoosePositions"]
+position = Vector2(168, 144)
+gizmo_extents = 50.0
+
+[node name="GoosePosition2" type="Marker2D" parent="GoosePositions"]
+position = Vector2(168, 288)
+gizmo_extents = 50.0
+
+[node name="GoosePosition3" type="Marker2D" parent="GoosePositions"]
+position = Vector2(168, 432)
+gizmo_extents = 50.0
+
+[node name="GoosePosition4" type="Marker2D" parent="GoosePositions"]
+position = Vector2(168, 576)
+gizmo_extents = 50.0
+
+[node name="DuckPositions" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="DuckPosition1" type="Marker2D" parent="DuckPositions"]
+position = Vector2(696, 161)
+gizmo_extents = 50.0
+
+[node name="DuckPosition2" type="Marker2D" parent="DuckPositions"]
+position = Vector2(696, 305)
+gizmo_extents = 50.0
+
+[node name="DuckPosition3" type="Marker2D" parent="DuckPositions"]
+position = Vector2(696, 450)
+gizmo_extents = 50.0
+
+[node name="DuckPosition4" type="Marker2D" parent="DuckPositions"]
+position = Vector2(696, 597)
+gizmo_extents = 50.0
+
+[node name="LaneEndGooseSides" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LaneEndGooseSide1" type="Area2D" parent="LaneEndGooseSides"]
+collision_layer = 16
+collision_mask = 13
+input_pickable = false
+script = ExtResource("4_7t5fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSides/LaneEndGooseSide1"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.265377, 0.502659, 1, 0.42)
+
+[node name="LaneEndGooseSide2" type="Area2D" parent="LaneEndGooseSides"]
+collision_layer = 16
+collision_mask = 13
+input_pickable = false
+script = ExtResource("4_7t5fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSides/LaneEndGooseSide2"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.265377, 0.502659, 1, 0.42)
+
+[node name="LaneEndGooseSide3" type="Area2D" parent="LaneEndGooseSides"]
+collision_layer = 16
+collision_mask = 13
+input_pickable = false
+script = ExtResource("4_7t5fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSides/LaneEndGooseSide3"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.265377, 0.502659, 1, 0.42)
+
+[node name="LaneEndGooseSide4" type="Area2D" parent="LaneEndGooseSides"]
+collision_layer = 16
+collision_mask = 13
+input_pickable = false
+script = ExtResource("4_7t5fk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndGooseSides/LaneEndGooseSide4"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.265377, 0.502659, 1, 0.42)
+
+[node name="LaneEndDuckSides" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="LaneEndDuckSide1" type="Area2D" parent="LaneEndDuckSides"]
+collision_layer = 32
+collision_mask = 15
+input_pickable = false
+script = ExtResource("5_dw3ud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSides/LaneEndDuckSide1"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
+
+[node name="LaneEndDuckSide2" type="Area2D" parent="LaneEndDuckSides"]
+collision_layer = 32
+collision_mask = 15
+input_pickable = false
+script = ExtResource("5_dw3ud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSides/LaneEndDuckSide2"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
+
+[node name="LaneEndDuckSide3" type="Area2D" parent="LaneEndDuckSides"]
+collision_layer = 32
+collision_mask = 15
+input_pickable = false
+script = ExtResource("5_dw3ud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSides/LaneEndDuckSide3"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
+
+[node name="LaneEndDuckSide4" type="Area2D" parent="LaneEndDuckSides"]
+collision_layer = 32
+collision_mask = 15
+input_pickable = false
+script = ExtResource("5_dw3ud")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSides/LaneEndDuckSide4"]
+shape = SubResource("RectangleShape2D_s1div")
+debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
+
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
-[connection signal="body_entered" from="LaneEndGooseSide1" to="." method="_on_lane_end_goose_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide2" to="." method="_on_lane_end_goose_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide3" to="." method="_on_lane_end_goose_side_body_entered"]
-[connection signal="body_entered" from="LaneEndGooseSide4" to="." method="_on_lane_end_goose_side_body_entered"]
-[connection signal="body_entered" from="LaneEndDuckSide1" to="." method="_on_lane_end_duck_side_body_entered"]
-[connection signal="body_entered" from="LaneEndDuckSide2" to="." method="_on_lane_end_duck_side_body_entered"]
-[connection signal="body_entered" from="LaneEndDuckSide3" to="." method="_on_lane_end_duck_side_body_entered"]
-[connection signal="body_entered" from="LaneEndDuckSide4" to="." method="_on_lane_end_duck_side_body_entered"]
 [connection signal="timeout" from="DuckFreeze" to="." method="_on_duck_freeze_timeout"]
+[connection signal="body_entered" from="LaneEndGooseSides/LaneEndGooseSide1" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSides/LaneEndGooseSide2" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSides/LaneEndGooseSide3" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndGooseSides/LaneEndGooseSide4" to="." method="_on_lane_end_goose_side_body_entered"]
+[connection signal="body_entered" from="LaneEndDuckSides/LaneEndDuckSide1" to="." method="_on_lane_end_duck_side_body_entered"]
+[connection signal="body_entered" from="LaneEndDuckSides/LaneEndDuckSide2" to="." method="_on_lane_end_duck_side_body_entered"]
+[connection signal="body_entered" from="LaneEndDuckSides/LaneEndDuckSide3" to="." method="_on_lane_end_duck_side_body_entered"]
+[connection signal="body_entered" from="LaneEndDuckSides/LaneEndDuckSide4" to="." method="_on_lane_end_duck_side_body_entered"]
