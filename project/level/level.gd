@@ -5,7 +5,8 @@ var _goose_position_markers : Array[Marker2D] = []
 var _duck_position_markers : Array[Marker2D] = []
 var _lane_endings_goose_side_areas : Array[Area2D] = []
 var _lane_endings_duck_side_areas : Array[Area2D] = []
-var _on_screen_ducks : Array[Duck] = []
+var _on_screen_ducks_in_lanes : Array[Array] = []
+var _count_ducks_in_lanes : Array[int] = [0, 0, 0, 0]
 var _goose_lane_index : int
 var _background : TileMapLayer = null
 
@@ -59,6 +60,8 @@ func _ready() -> void:
 	
 	for child in goose_positions.get_children():
 		_goose_position_markers.append(child)
+		var new_lane : Array[Duck] = []
+		_on_screen_ducks_in_lanes.append(new_lane)
 	
 	for child in duck_positions.get_children():
 		_duck_position_markers.append(child)
@@ -68,6 +71,7 @@ func _ready() -> void:
 	
 	for child in lane_end_duck_sides.get_children():
 		_lane_endings_duck_side_areas.append(child)
+	
 	
 	_on_round_start()
 		
@@ -193,10 +197,19 @@ func _handle_goose_return_to_lane() -> void:
 	
 func _spawn_duck() -> void:
 	_round_current_ducks += 1
-	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
-	_on_screen_ducks.append(new_duck)
+	
+	var lowest_ducks_count : int = min(_count_ducks_in_lanes[0], _count_ducks_in_lanes[1], _count_ducks_in_lanes[2], _count_ducks_in_lanes[3])
+	var lowest_lanes : Array[int]
+	
+	for i in _count_ducks_in_lanes.size():
+		if _count_ducks_in_lanes[i] == lowest_ducks_count:
+			lowest_lanes.append(i)
+	
+	var new_duck_lane : int = lowest_lanes.pick_random()
+	_on_screen_ducks_in_lanes[new_duck_lane].append(new_duck)
+	_count_ducks_in_lanes[new_duck_lane] += 1
 	
 	var round_multiplier := 0.25
 	var max_duck_percents : Array[int] = [50, 30, 15]
@@ -328,8 +341,9 @@ func _on_ice_spawned(ice_position : Vector2) -> void:
 
 
 func _on_ducks_frozen(particle_position : Vector2) -> void:
-	for i in _on_screen_ducks:
-		i.toggle_frozen(true)
+	for lane in _on_screen_ducks_in_lanes:
+		for current_duck in lane:
+			current_duck.toggle_frozen(true)
 	duck_freeze.start()
 	AudioController.toggle_music_volume(true)
 	AudioController.play_sound_freeze()
@@ -396,6 +410,9 @@ func _on_round_start() -> void:
 	goose.global_position = _goose_position_markers[_goose_lane_index].global_position
 	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 	
+	_are_ducks_frozen = false
+	duck_freeze.stop()
+	
 	_round_current_ducks = 0
 	_ducks_finished = 0
 	_round_max_ducks = randi_range(_round_max_ducks, _round_num * 2)
@@ -412,7 +429,8 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 		_ducks_finished += 1
 		_on_life_lost(body.global_position)
 		game_overlay.update_lives_label()
-		_on_screen_ducks.erase(body)
+		_on_screen_ducks_in_lanes[body.lane_number].erase(body)
+		_count_ducks_in_lanes[body.lane_number] -= 1
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 
@@ -420,7 +438,8 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 	if body is Duck:
 		_ducks_finished += 1
-		_on_screen_ducks.erase(body)
+		_on_screen_ducks_in_lanes[body.lane_number].erase(body)
+		_count_ducks_in_lanes[body.lane_number] -= 1
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
 		
@@ -466,7 +485,8 @@ func _on_duck_spawn_timer_timeout() -> void:
 
 
 func _on_duck_freeze_timeout() -> void:
-	for i in _on_screen_ducks:
-		i.toggle_frozen(false)
+	for lane in _on_screen_ducks_in_lanes:
+		for current_duck in lane:
+			current_duck.toggle_frozen(false)
 	AudioController.toggle_music_volume(false)
 	_are_ducks_frozen = false
