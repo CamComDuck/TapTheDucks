@@ -95,7 +95,7 @@ func _on_hungry_event_received(event: StringName) -> void:
 		_fruits_eaten += 1
 		
 		var ice_chance := randf_range(1, 10)
-		if ice_chance < 10.5:
+		if ice_chance < 1.5:
 			var ice_position := Vector2(global_position.x, global_position.y + 7)
 			ice_spawned.emit(ice_position)
 		

@@ -44,9 +44,6 @@ animations = [{
 "texture": ExtResource("5_6og4v")
 }, {
 "duration": 1.0,
-"texture": ExtResource("6_15p4f")
-}, {
-"duration": 1.0,
 "texture": ExtResource("7_35gdw")
 }, {
 "duration": 1.0,
@@ -131,4 +128,5 @@ shape = SubResource("RectangleShape2D_m08fr")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_c63i7")
+animation = &"fruit_pick"
 autoplay = "default"

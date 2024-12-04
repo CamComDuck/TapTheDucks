@@ -38,7 +38,7 @@ func _ready() -> void:
 	AudioController.pause_sound_background_music()
 	AudioController.pause_sound_minigame_music()
 	
-	for child in hiding_spots.get_children():
+	for child in goose_positions.get_children():
 		_goose_position_markers.append(child)
 		
 	goose.global_position = _goose_position_markers[_goose_spot_index].global_position

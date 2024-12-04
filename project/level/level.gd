@@ -10,7 +10,7 @@ var _goose_lane_index : int
 var _background : TileMapLayer = null
 
 var _current_points := 0
-var _current_round := 1
+var _round_num := 1
 var _round_max_ducks := 4
 var _round_current_ducks := 0
 var _ducks_finished := 0
@@ -192,6 +192,7 @@ func _handle_goose_return_to_lane() -> void:
 	
 	
 func _spawn_duck() -> void:
+	_round_current_ducks += 1
 	var new_duck_lane := randi_range(0, 3)
 	var new_duck := duck.instantiate() as Duck
 	var random_type_roll := randi_range(1, 100)
@@ -199,9 +200,9 @@ func _spawn_duck() -> void:
 	
 	var round_multiplier := 0.25
 	var max_duck_percents : Array[int] = [50, 30, 15]
-	var _percent_chance_basic_duck := maxf(max_duck_percents[0] - (_current_round * round_multiplier), max_duck_percents[2]) 
-	var _percent_chance_fast_duck := maxf(max_duck_percents[1] - (_current_round * round_multiplier), max_duck_percents[1])
-	var _percent_chance_hungry_duck := minf(max_duck_percents[2] + (_current_round * round_multiplier), max_duck_percents[0])
+	var _percent_chance_basic_duck := maxf(max_duck_percents[0] - (_round_num * round_multiplier), max_duck_percents[2]) 
+	var _percent_chance_fast_duck := maxf(max_duck_percents[1] - (_round_num * round_multiplier), max_duck_percents[1])
+	var _percent_chance_hungry_duck := minf(max_duck_percents[2] + (_round_num * round_multiplier), max_duck_percents[0])
 	
 	if random_type_roll <= _percent_chance_basic_duck:
 		# Spawn Basic Duck
@@ -229,8 +230,8 @@ func _spawn_duck() -> void:
 
 
 func _restart_duck_spawn_timer() -> void:
-	var _duck_spawn_min_sec := 2
-	var _duck_spawn_max_sec := 4
+	var _duck_spawn_min_sec := maxf(( (-.0045*(_round_num * _round_num) + 2)), 0.4)
+	var _duck_spawn_max_sec := maxf(( (-.09*(_round_num * _round_num) + 4)), 0.8)
 	duck_spawn_timer.wait_time = randf_range(_duck_spawn_min_sec, _duck_spawn_max_sec)
 	duck_spawn_timer.start()
 	
@@ -348,19 +349,19 @@ func _on_round_start() -> void:
 	if _background != null:
 		_background.queue_free()
 		
-	if _current_round % 8 == 1 or _current_round % 8 == 2:
+	if _round_num % 8 == 1 or _round_num % 8 == 2:
 		current_map_type = map_1
 		_background = map_1_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 8 == 3 or _current_round % 8 == 4:
+	elif _round_num % 8 == 3 or _round_num % 8 == 4:
 		current_map_type = map_2
 		_background = map_2_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 8 == 5 or _current_round % 8 == 6:
+	elif _round_num % 8 == 5 or _round_num % 8 == 6:
 		current_map_type = map_3
 		_background = map_3_background.instantiate() as TileMapLayer
 		
-	elif _current_round % 8 == 7 or _current_round % 8 == 0:
+	elif _round_num % 8 == 7 or _round_num % 8 == 0:
 		current_map_type = map_4
 		_background = map_4_background.instantiate() as TileMapLayer
 	
@@ -391,14 +392,18 @@ func _on_round_start() -> void:
 		_lane_endings_goose_side_areas[i].global_position = _goose_position_markers[i].global_position
 	
 	add_child.call_deferred(_background)
-	game_overlay.update_round_label(_current_round)
+	game_overlay.update_round_label(_round_num)
 	goose.global_position = _goose_position_markers[_goose_lane_index].global_position
 	goose.flip_h(not _is_tree_on_left_lane[_goose_lane_index])
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
-	_round_max_ducks = randi_range(_round_max_ducks, _current_round * 2)
+	_round_max_ducks = randi_range(_round_max_ducks, _round_num * 2)
 	game_overlay.new_round_progress_bar(_round_max_ducks)
+	
+	var starting_duck_count : int = mini(ceili(randf_range(_round_max_ducks * 0.15, _round_max_ducks * 0.25)), 5)
+	for i in starting_duck_count:
+		_spawn_duck()
 	_restart_duck_spawn_timer()
 
 
@@ -429,10 +434,10 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 					child.on_game_paused(true)
 			
 		elif _ducks_finished == _round_max_ducks:
-			_current_round += 1
+			_round_num += 1
 			AudioController.play_sound_round_complete()
 			
-			if _current_round % 2 == 1:
+			if _round_num % 2 == 1:
 				await _fade_destroy_objects()
 				_allow_input = false
 				GameInfo.system_paused = true
@@ -454,7 +459,6 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 
 func _on_duck_spawn_timer_timeout() -> void:
 	_spawn_duck()
-	_round_current_ducks += 1
 	if _round_current_ducks < _round_max_ducks:
 		_restart_duck_spawn_timer()
 	else:
