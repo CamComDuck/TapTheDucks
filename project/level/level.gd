@@ -51,8 +51,10 @@ var _allow_input := true
 @onready var map_3_background := load("res://level/map_types/backgrounds/bg_map_3.tscn") as PackedScene
 @onready var map_4 := load("res://level/map_types/resources/map_4.tres") as MapTypes
 @onready var map_4_background := load("res://level/map_types/backgrounds/bg_map_4.tscn") as PackedScene
+@onready var bg_map_1 := $BgMap1 as TileMapLayer
 
 @onready var minigame := load("res://minigame/minigame.tscn") as PackedScene
+@onready var tutorial := $Tutorial as Node2D
 
 @onready var firework_particles := load("res://level/firework_particles.tscn") as PackedScene
 
@@ -72,8 +74,17 @@ func _ready() -> void:
 	for child in lane_end_duck_sides.get_children():
 		_lane_endings_duck_side_areas.append(child)
 	
+	goose.hide()
+	game_overlay.hide()
+	_allow_input = false
 	
+	await tutorial.tutorial_finished
+	
+	goose.show()
+	game_overlay.show()
+	_allow_input = true
 	_on_round_start()
+	bg_map_1.queue_free()
 		
 		
 func _physics_process(_delta: float) -> void:

@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cn0j1vav3mt3r"]
+[gd_scene load_steps=9 format=3 uid="uid://cn0j1vav3mt3r"]
 
 [ext_resource type="Script" path="res://level/level.gd" id="1_b81hx"]
 [ext_resource type="PackedScene" uid="uid://3f2ol0bm2jjt" path="res://goose/goose.tscn" id="2_8qaat"]
 [ext_resource type="Script" path="res://level/lane_end_goose_side.gd" id="4_7t5fk"]
+[ext_resource type="PackedScene" uid="uid://cfjone5o4d7il" path="res://tutorial/tutorial.tscn" id="4_qgleb"]
 [ext_resource type="Script" path="res://level/lane_end_duck_side.gd" id="5_dw3ud"]
 [ext_resource type="PackedScene" uid="uid://bvl71gsqryfai" path="res://game_overlay/game_overlay.tscn" id="7_8tnxi"]
+[ext_resource type="PackedScene" uid="uid://d1srr3oe0uke0" path="res://level/map_types/backgrounds/bg_map_1.tscn" id="7_ugl43"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_s1div"]
 size = Vector2(44, 72)
@@ -18,6 +20,8 @@ script = ExtResource("1_b81hx")
 
 [node name="DuckFreeze" type="Timer" parent="."]
 wait_time = 8.0
+
+[node name="Tutorial" parent="." instance=ExtResource("4_qgleb")]
 
 [node name="GameOverlay" parent="." instance=ExtResource("7_8tnxi")]
 
@@ -144,6 +148,8 @@ script = ExtResource("5_dw3ud")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="LaneEndDuckSides/LaneEndDuckSide4"]
 shape = SubResource("RectangleShape2D_s1div")
 debug_color = Color(0.570291, 0.555966, 5.77569e-07, 0.42)
+
+[node name="BgMap1" parent="." instance=ExtResource("7_ugl43")]
 
 [connection signal="timeout" from="DuckSpawnTimer" to="." method="_on_duck_spawn_timer_timeout"]
 [connection signal="timeout" from="DuckFreeze" to="." method="_on_duck_freeze_timeout"]
