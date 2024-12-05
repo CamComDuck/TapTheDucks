@@ -3,6 +3,7 @@
  - Camden Hovell's CS315 project for the Final Project
  - 2D arcade game
  - Based on the arcade game "Tapper" made in 1984, but with the theme changed to Ducks and Fruit
+ - Play on [Itch.io](https://cam-com.itch.io/tap-the-ducks)
 
 ## Third-Party Assets
 
