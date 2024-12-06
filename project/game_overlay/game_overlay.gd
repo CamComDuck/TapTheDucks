@@ -39,7 +39,7 @@ func new_round_progress_bar(max_ducks : int) -> void:
 
 
 func update_lives_label() -> void:
-	if lives_container.get_child_count() < GameInfo.lives and not GameInfo.game_paused:
+	if lives_container.get_child_count() < GameInfo.lives:
 		var new_life := life.instantiate() as TextureRect
 		lives_container.add_child.call_deferred(new_life)
 

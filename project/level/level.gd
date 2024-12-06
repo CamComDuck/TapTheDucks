@@ -368,6 +368,22 @@ func _on_ducks_frozen(particle_position : Vector2) -> void:
 	
 
 func _on_round_start() -> void:
+	if _round_num % 2 == 1:
+		await _fade_destroy_objects()
+		_allow_input = false
+		GameInfo.system_paused = true
+		var new_minigame := minigame.instantiate() as Minigame
+		get_parent().add_child.call_deferred(new_minigame)
+		
+		var points_earned : int = await new_minigame.points_earned
+		var life_earned : bool = await new_minigame.life_earned
+		
+		_allow_input = true
+		GameInfo.system_paused = false
+		_on_points_gained(points_earned)
+		if life_earned:
+			GameInfo.lives += 1
+			game_overlay.update_lives_label()
 	await _fade_destroy_objects()
 	
 	var current_map_type : MapTypes
@@ -426,7 +442,7 @@ func _on_round_start() -> void:
 	
 	_round_current_ducks = 0
 	_ducks_finished = 0
-	_round_max_ducks = randi_range(_round_max_ducks, _round_num * 2)
+	_round_max_ducks = maxi(randi_range(_round_max_ducks, _round_num * 2), 4)
 	game_overlay.new_round_progress_bar(_round_max_ducks)
 	
 	var starting_duck_count : int = mini(ceili(randf_range(_round_max_ducks * 0.15, _round_max_ducks * 0.25)), 5)
@@ -444,6 +460,11 @@ func _on_lane_end_goose_side_body_entered(body: Node2D) -> void:
 		_count_ducks_in_lanes[body.lane_number] -= 1
 		body.queue_free()
 		game_overlay.update_round_progress_value(_ducks_finished)
+		
+		if _ducks_finished == _round_max_ducks:
+			_round_num += 1
+			AudioController.play_sound_round_complete()
+			_on_round_start()
 
 
 func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
@@ -466,24 +487,6 @@ func _on_lane_end_duck_side_body_entered(body: Node2D) -> void:
 		elif _ducks_finished == _round_max_ducks:
 			_round_num += 1
 			AudioController.play_sound_round_complete()
-			
-			if _round_num % 2 == 1:
-				await _fade_destroy_objects()
-				_allow_input = false
-				GameInfo.system_paused = true
-				var new_minigame := minigame.instantiate() as Minigame
-				get_parent().add_child.call_deferred(new_minigame)
-				
-				var points_earned : int = await new_minigame.points_earned
-				var life_earned : bool = await new_minigame.life_earned
-				
-				_allow_input = true
-				GameInfo.system_paused = false
-				_on_points_gained(points_earned)
-				if life_earned:
-					GameInfo.lives += 1
-					game_overlay.update_lives_label()
-				
 			_on_round_start()
 
 

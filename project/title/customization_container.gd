@@ -19,8 +19,8 @@ var _goose_blue : float
 @onready var point_input_box := %PointInputBox as SpinBox
 
 func _ready() -> void:
-	set_tab_icon(0, preload("res://game_overlay/icon_goose.png"))
-	set_tab_icon(1, preload("res://duck/graphics/default_1.png"))
+	set_tab_icon(0, preload("res://duck/graphics/default_1.png"))
+	set_tab_icon(1, preload("res://game_overlay/icon_goose.png"))
 	set_tab_icon(2, preload("res://game_overlay/icon_exit.png"))
 	
 	_goose_red = GameInfo.goose_color.r
@@ -49,8 +49,8 @@ func _ready() -> void:
 
 
 func update_menu_labels() -> void:
-	set_tab_title(0, tr("GOOSE_COLOR_HEADING"))
-	set_tab_title(1, tr("HOW_TO_PLAY_HEADING"))
+	set_tab_title(0, tr("HOW_TO_PLAY_HEADING"))
+	set_tab_title(1, tr("GOOSE_COLOR_HEADING"))
 	set_tab_title(2, tr("EXIT_MENU_HEADER"))
 	
 
